@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import { Box, Button as GrommetButton, Grommet, Link as GrommetLink } from 'grommet';
+
 
 const Therapists = () => {
     
@@ -45,12 +47,13 @@ const Therapists = () => {
           <h5 className="card-title">
             {therapist.attributes.first_name} {therapist.attributes.last_name}
           </h5>
-          <Link
+          <GrommetLink
+            color="primary"
             to={`/therapists/${therapist.id}`}
             className="btn custom-button"
           >
             View profile
-          </Link>
+          </GrommetLink>
         </div>
       </div>
     </div>
