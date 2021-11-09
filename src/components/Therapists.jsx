@@ -17,7 +17,9 @@ const Therapists = () => {
         }
         throw new Error("Network response was not ok.");
       })
-      .then((response) => setTherapists(response.data))
+      .then((response) => {
+        console.log(response.data)
+        setTherapists(response.data)})
       .catch((error) => {
         console.log(error);
         history.push("/");
