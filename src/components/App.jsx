@@ -9,7 +9,9 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import EditUserType from "../components/EditUserType";
 import EditIssues from "./EditIssues";
+import Footer from "./Footer";
 import CreateReview from "../components/CreateReview";
+import NavBar from "./NavBar";
 
 
 const App = () => {
@@ -68,6 +70,7 @@ const App = () => {
 
   return (
     <div>
+      <NavBar />
       <Router>
         <Switch>
           <Route path="/" exact component={Home} />
@@ -78,8 +81,9 @@ const App = () => {
           <Route path="/users/:id/create" exact component={EditUserType} />
           <Route path="/users/:id/edit-issues" exact component={EditIssues} />
           <Route path="/therapists/:id/review" exact component={CreateReview} />
-        </Switch> 
+        </Switch>
       </Router>
+      <Footer></Footer>
     </div>
   );
 };

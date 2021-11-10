@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button as GrommetButton, Grommet, Link as GrommetLink } from 'grommet';
-
+import { SearchInput, Pane, Button, Heading, Text, majorScale } from "evergreen-ui";
 
 const Therapists = () => {
-    
   const [therapists, setTherapists] = useState([]);
   const history = useHistory();
 
@@ -20,8 +18,9 @@ const Therapists = () => {
         throw new Error("Network response was not ok.");
       })
       .then((response) => {
-        console.log(response.data)
-        setTherapists(response.data)})
+        console.log(response.data);
+        setTherapists(response.data);
+      })
       .catch((error) => {
         console.log(error);
         history.push("/");
@@ -47,13 +46,13 @@ const Therapists = () => {
           <h5 className="card-title">
             {therapist.attributes.first_name} {therapist.attributes.last_name}
           </h5>
-          <GrommetLink
+          <Link
             color="primary"
             to={`/therapists/${therapist.id}`}
             className="btn custom-button"
           >
             View profile
-          </GrommetLink>
+          </Link>
         </div>
       </div>
     </div>
@@ -69,40 +68,56 @@ const Therapists = () => {
 
   return (
     <>
-      <section className="jumbotron jumbotron-fluid text-center">
-        <div className="container py-5">
-          <h1 className="display-4">Find a Therapist</h1>
-          <p className="lead text-muted">
-            Take that first step and book with these professional therapists who
-            are available now.
-          </p>
-        </div>
-      </section>
-      <section className="jumbotron jumbotron-fluid text-center">
-        <div className="container py-5">
-        <div className="form-group">
-          <input 
-            type="search" 
-            className="form-control"
-            placeholder="Search for a therapist"></input>
-          </div>
-        </div>
-      </section>
-      <div className="py-5">
-        <main className="container">
-          <div className="text-right mb-3">
-            {/* <Link to="/therapists" className="btn custom-button">
+      <Pane
+        display="block"
+        text-align="center"
+        alignItems="center"
+        textAlign="center"
+        marginY={majorScale(4)}>
+        <Heading
+          size={900}
+          is="h1"
+          textAlign="center"
+          marginY={majorScale(1)}>Find a Therapist</Heading>
+        <Text
+          size={600}
+          textAlign="center">
+          Take that first step and book with these professional therapists who
+          are available now.
+        </Text>
+      </Pane>
+      <Pane
+        display="block"
+        text-align="center"
+        alignItems="center"
+      >
+        <SearchInput
+          placeholder="Filter traits..."
+          width="100%"
+          height={48}
+        />
+      </Pane>
+      <Pane
+        display="block"
+        text-align="center"
+        alignItems="center"
+      >
+        <div className="py-5">
+          <main className="container">
+            <div className="text-right mb-3">
+              {/* <Link to="/therapists" className="btn custom-button">
                                 Create New Recipe
                             </Link> */}
-          </div>
-          <div className="row">
-            {therapists.length > 0 ? allTherapists : noTherapists}
-          </div>
-          <Link to="/" className="btn btn-link">
-            Home
-          </Link>
-        </main>
-      </div>
+            </div>
+            <div className="row">
+              {therapists.length > 0 ? allTherapists : noTherapists}
+            </div>
+            <Link to="/" className="btn btn-link">
+              Home
+            </Link>
+          </main>
+        </div>
+      </Pane>
     </>
   );
 };
