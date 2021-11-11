@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import { TextInputField, Pane, Button, Card, Heading, Text, majorScale } from "evergreen-ui";
+
 
 const Register = () => {
   // SET and GET Register form variables
@@ -25,8 +27,8 @@ const Register = () => {
     e.preventDefault();
     dispatch(signUserUp(userObj));
   };
-  
-  const databaseObj = useSelector(state => state.userReducer.user) 
+
+  const databaseObj = useSelector(state => state.userReducer.user)
 
   const redirectCreateProfile = (obj) => {
     if (Object.keys(databaseObj).length === 0) {
@@ -53,62 +55,76 @@ const Register = () => {
   };
 
   return (
-    <div className="">
-      <section className="jumbotron jumbotron-fluid text-center">
-        <div className="container py-5">
-          <h1 className="display-4">Create an account</h1>
-          <p className="lead text-muted">
-            Login to make an appoint book with these professional therapists who
-            are available now.
-          </p>
-        </div>
-      </section>
-      <section className="jumbotron jumbotron-fluid">
-        <div className="container py-8">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="register_email">Email address</label>
-              <input
+    <Pane
+      display="flex"
+      flexDirection="column"
+      className="vbox">
+      <Pane
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        marginY={majorScale(4)}>
+
+        <Pane
+          max-width="480px"
+          display="block"
+          textAlign="center">
+          <Pane>
+            <Heading
+              size={900}
+              is="h1"
+              textAlign="center"
+              marginY={majorScale(1)}>Create an account</Heading>
+            <Text
+              size={600}
+              textAlign="center">
+              Take that first step and book with these professional therapists who
+              are available now.
+            </Text>
+          </Pane>
+          <Pane
+            display="block"
+            alignItems="center"
+            justifyContent="center"
+            textAlign="left"
+            marginY={majorScale(3)}
+          >
+            <form onSubmit={handleSubmit}>
+              <TextInputField
                 type="email"
+                label="Email address"
                 className="form-control"
                 id="register_email"
                 aria-describedby="register_email"
+                // description="This is a description."
                 placeholder="Enter email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
-              <small id="emailHelp" className="form-text text-muted">
-                We'll never share your email with anyone else.
-              </small>
-            </div>
-            <div className="form-group">
-              <label htmlFor="exampleInputPassword1">Password</label>
-              <input
+              <TextInputField
                 type="password"
+                label="Password"
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
                 onChange={(e) => setPWord(e.target.value)}
                 value={pword}
               />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Create account
-            </button>
-          </form>
-          {/* <button type="" className="btn btn-primary" onClick={googleOAuth}>
+              <Button
+                type="submit"
+                appearance="primary" >
+                Create account
+              </Button>
+            </form>
+            {/* <button type="" className="btn btn-primary" onClick={googleOAuth}>
             Sign in with Google
           </button> */}
-        </div>
-      </section>
-    </div>
+          </Pane>
+        </Pane >
+      </Pane>
+    </Pane >
   );
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     signUserUp: (userInfo) => dispatch(signUserUp(userInfo)),
-//   };
-// };
 
 export default Register;

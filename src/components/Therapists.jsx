@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { SearchInput, Pane, Button, Heading, Text, majorScale } from "evergreen-ui";
+import { SearchInput, Pane, Button, Card, Heading, Text, majorScale } from "evergreen-ui";
 
 const Therapists = () => {
   const [therapists, setTherapists] = useState([]);
@@ -35,27 +35,40 @@ const Therapists = () => {
   console.log(therapists);
 
   const allTherapists = therapists.map((therapist, index) => (
-    <div key={index} className="col-md-6 col-lg-4">
-      <div className="card mb-4">
+    <Link
+      to={`/therapists/${therapist.id}`}
+    >
+      <Card
+        display="flex"
+        flexDirection="column"
+        className="vbox"
+        key={index}
+        minWidth={250}
+        flex={1}
+        name={therapist.attributes.first_name}
+        description="Regular user"
+        elevation={0}
+        alignContent="space-between"
+        margin="0.3rem"
+        flex={1} elevation={1} padding="0.5rem"
+      >
         <img
           src={therapist.attributes.avatar_url}
           className="card-img-top"
           alt={`${therapist.attributes.first_name} image`}
         />
-        <div className="card-body">
-          <h5 className="card-title">
-            {therapist.attributes.first_name} {therapist.attributes.last_name}
-          </h5>
-          <Link
-            color="primary"
-            to={`/therapists/${therapist.id}`}
-            className="btn custom-button"
-          >
-            View profile
-          </Link>
-        </div>
-      </div>
-    </div>
+        <Heading
+          is="h2"
+          size={700}>
+          {therapist.attributes.first_name} {therapist.attributes.last_name}</Heading>
+
+        <Text size={400}>{therapist.attributes.short_summary}</Text>
+
+
+
+
+      </Card >
+    </Link>
   ));
 
   const noTherapists = (
@@ -67,7 +80,10 @@ const Therapists = () => {
   );
 
   return (
-    <>
+    <><Pane
+      display="flex"
+      flexDirection="column"
+      className="vbox">
       <Pane
         display="block"
         text-align="center"
@@ -98,26 +114,23 @@ const Therapists = () => {
         />
       </Pane>
       <Pane
-        display="block"
         text-align="center"
         alignItems="center"
+        display="flex"
+        flexDirection="row"
+        flexWrap="wrap"
+        className="hbox"
+        flex={1}
       >
-        <div className="py-5">
-          <main className="container">
-            <div className="text-right mb-3">
-              {/* <Link to="/therapists" className="btn custom-button">
-                                Create New Recipe
-                            </Link> */}
-            </div>
-            <div className="row">
-              {therapists.length > 0 ? allTherapists : noTherapists}
-            </div>
-            <Link to="/" className="btn btn-link">
-              Home
-            </Link>
-          </main>
-        </div>
+
+        {therapists.length > 0 ? allTherapists : noTherapists}
+
+        <Link to="/" className="btn btn-link">
+          Home
+        </Link>
+
       </Pane>
+    </Pane>
     </>
   );
 };

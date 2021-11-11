@@ -13,7 +13,7 @@ export const logUserOut = () => (
 export const fetchUser = userInfo => dispatch => {
   console.log('accessing fetchUser correctly')
 
-  fetch(`http://localhost:3000/api/v1/auth`, {
+  fetch(`http://127.0.0.1:3001/api/v1/auth`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export const fetchUser = userInfo => dispatch => {
 export const signUserUp = userInfo => dispatch => {
   console.log('accessing userAction correctly')
 
-  fetch(`http://localhost:3000/api/v1/users`, {
+  fetch(`http://127.0.0.1:3001/api/v1/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export const signUserUp = userInfo => dispatch => {
 }
 
 export const autoLogin = () => dispatch => {
-  fetch(`http://localhost:3000/api/v1/auth`, {
+  fetch(`http://127.0.0.1:3001/api/v1/auth`, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',

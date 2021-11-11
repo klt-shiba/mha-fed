@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import { Pane, Button, Card, Heading, Text, majorScale } from "evergreen-ui";
+
 
 const Therapist = () => {
   const [therapist, setTherapist] = useState("");
@@ -12,7 +14,7 @@ const Therapist = () => {
   const history = useHistory();
 
   const fetchTherapist = () => {
-    const url = `/api/v1/therapists/${id}`;
+    const url = `http://127.0.0.1:3001/api/v1/therapists/${id}`;
     fetch(url)
       .then((response) => {
         if (response.ok) {
@@ -33,36 +35,12 @@ const Therapist = () => {
       });
   };
 
-  // const fetchReviews = () => {
-  //   const url = `/api/v1/therapists/${id}/reviews`;
-  //   fetch(url)
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       }
-  //       throw new Error("Network response was not ok.");
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       setReviews(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       // history.push("/");
-  //     });
-  // };
 
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetchTherapist();
   }, []);
-
-  // useEffect(() => {
-  //   fetchReviews();
-  // }, []);
-
-  // const reviewsObject = Object.keys(reviews).length === 0;
 
   const ShowReviews = () => {
     console.log("working");
@@ -78,7 +56,7 @@ const Therapist = () => {
           {reviews.map((review) => {
             console.log(review);
 
-            return( <div>
+            return (<div>
               <h6 className="mb-2">{review.rating} / 5</h6>
               <p>"{review.comment}"</p>
             </div>
@@ -103,7 +81,7 @@ const Therapist = () => {
           {issues.map((issue) => {
             console.log(issue);
 
-            return( <li>
+            return (<li>
               <h6 className="mb-2">{issue.name}</h6>
             </li>
             )
@@ -128,48 +106,47 @@ const Therapist = () => {
   };
 
   return (
-    <div className="">
-      r
-      <div className="hero position-relative d-flex align-items-center justify-content-center">
+    <Pane
+      display="flex"
+      flexDirection="column"
+      className="vbox">
+      <Pane
+        width="100%">
         <img
           src={therapist.avatar_url}
           alt={`${therapist.first_name} image`}
           className="img-fluid position-absolute"
         />
-        <div className="overlay bg-dark position-absolute" />
-        <h1 className="display-4 position-relative text-white">
+      </Pane>
+      <Pane>
+        <Heading is="h1" size={900}>
           {therapist.first_name} {therapist.last_name}
-        </h1>
-      </div>
-      <div className="container py-5">
-        <div className="row">
-          <div className="col-sm-12 col-lg-3">
-            <ul className="list-group">
-              <h5 className="mb-2">What I can help with</h5>
-              {ShowIssues()}
-            </ul>
-          </div>
-          <div className="col-sm-12 col-lg-7">
-            <h5 className="mb-2">About me</h5>
-            <p>{therapist.long_summary}</p>
-            <h5 className="mb-2">My reviews</h5>
-            <div>{ShowReviews()}</div>
-          </div>
-          <div className="col-sm-12 col-lg-2">
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={handleClick}
-            >
-              Review Therapist
-            </button>
-          </div>
-        </div>
-        <Link to="/therapists" className="btn btn-link">
-          Back to Therapists
-        </Link>
-      </div>
-    </div>
+        </Heading>
+      </Pane>
+      <Pane>
+        <Heading is="h2" size={600}>
+          What I can help with
+        </Heading>
+        <Pane>{ShowIssues()}</Pane>
+      </Pane>
+      <Pane>
+        <Heading is="h2" size={600}>
+          My reviews
+        </Heading>
+        <Pane>{ShowReviews()}</Pane>
+        <Pane>
+          <Button
+            appearance="primary"
+            onClick={handleClick}
+          >
+            Review Therapist
+          </Button></Pane>
+      </Pane>
+
+      <Link to="/therapists" className="btn btn-link">
+        Back to Therapists
+      </Link>
+    </Pane >
   );
 };
 
