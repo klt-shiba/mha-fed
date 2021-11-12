@@ -7,7 +7,7 @@ export const createTherapist = (userInfo) => (dispatch) => {
   console.log(token)
   console.log("accessing setTherapist correctly");
 
-  fetch(`http://127.0.0.1:3000/api/v1/therapists`, {
+  fetch(`http://127.0.0.1:3001/api/v1/therapists`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
