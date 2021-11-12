@@ -3,8 +3,14 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { storeNames } from "../reducers/tempUserActions";
 import { createTherapist } from "../reducers/therapistActions";
+import Rating from '@mui/material/Rating';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { styled } from '@mui/material/styles';
+import { Textarea, Pane, Button, Label, Heading, Text, majorScale } from "evergreen-ui";
 
 const CreateReview = () => {
+
   const [rating, setRating] = useState(" ");
   const [comment, setComment] = useState("");
   const token = localStorage.getItem("token");
@@ -12,6 +18,15 @@ const CreateReview = () => {
   const { id } = useParams();
 
   const history = useHistory();
+
+  const StyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+      color: '#ff6d75',
+    },
+    '& .MuiRating-iconHover': {
+      color: '#ff3d47',
+    },
+  });
 
   console.log(databaseObj);
 
@@ -45,69 +60,109 @@ const CreateReview = () => {
   };
 
   return (
-    <div>
-      <section className="jumbotron jumbotron-fluid text-center">
-        <div className="container py-5">
+    <Pane
+      display="flex"
+      flexDirection="column"
+      className="vbox">
+      <Pane
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        marginY={majorScale(4)}>
+
+        <Pane
+          max-width="480px"
+          display="block"
+          textAlign="center">
+
           {token ? (
-            <div>
-              <h1 className="display-4">Write a review</h1>{" "}
-              <p className="lead text-muted">
+            <Pane>
+              <Heading
+                size={900}
+                is="h1"
+                textAlign="center"
+                marginY={majorScale(1)}>Write a review</Heading>
+              <Text
+                size={600}
+                textAlign="center">
                 Add a review so others know whether "name" is right for them.
-              </p>
-            </div>
+              </Text>
+            </Pane>
+
           ) : (
-            <div>
-              <h1 className="display-4">Hey! I dont know you!</h1>{" "}
-              <p className="lead text-muted">Login to write a review</p>
-            </div>
+            <Pane>
+              <Heading
+                size={900}
+                is="h1"
+                textAlign="center"
+                marginY={majorScale(1)}>Hey! I dont know you!</Heading>
+              <Text
+                size={600}
+                textAlign="center">
+                Login to write a review
+              </Text>
+            </Pane>
           )}
-        </div>
-      </section>
-      <section className="jumbotron jumbotron-fluid ">
-        <div className="container py-8">
-          {token ? (
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="therapist_rating">
-                  How would you rate your Therapist?
-                </label>
-                <select
-                  className="form-control"
-                  id="therapist_rating"
-                  onChange={(e) => setRating(e.target.value)}
-                  value={rating}
+          <Pane
+            display="block"
+            alignItems="center"
+            justifyContent="center"
+            textAlign="left"
+            marginY={majorScale(3)}
+          >
+            {token ? (
+              <form onSubmit={handleSubmit}>
+                <Pane
+                  textAlign="center"
+                  marginY={majorScale(2)}
                 >
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
+                  <Heading
+                    size={600}
+                    is="h2"
+                    textAlign="center"
+                    marginY={majorScale(1)}>How would you rate your therapist?</Heading>
+                  <StyledRating
+                    label="How would you rate your Therapist?"
+                    name="customized-color"
+                    id="therapist_rating_input"
+                    defaultValue={2}
+                    getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
+                    precision={1}
+                    icon={<FavoriteIcon fontSize="inherit" />}
+                    emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                    size="large" />
+                </Pane>
+                <Pane
+                  marginY={majorScale(2)}>
+                  <Label htmlFor="therapist_comment" marginBottom={4} display="block">
+                    Add a comment
+                  </Label>
+                  <Textarea
+                    className="form-control"
+                    id="therapist_comment"
+                    label="Add a comment"
+                    rows="3"
+                    onChange={(e) => setComment(e.target.value)}
+                    value={comment}
+                  />
+                </Pane>
+                <Button type="submit" className="btn btn-primary">
+                  Add Review
+                </Button>
+              </form>
+            ) : (
+              <div className="text-center">
+                <button type="login" className="btn btn-primary" link="/login">
+                  Login
+                </button>
               </div>
-              <div className="form-group">
-                <label htmlFor="therapist_comment">Add a comment</label>
-                <textarea
-                  className="form-control"
-                  id="therapist_comment"
-                  rows="3"
-                  onChange={(e) => setComment(e.target.value)}
-                  value={comment}
-                ></textarea>
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Review
-              </button>
-            </form>
-          ) : (
-            <div className="text-center">
-              <button type="login" className="btn btn-primary" link="/login">
-                Login
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
-    </div>
+            )}
+          </Pane>
+        </Pane>
+      </Pane>
+    </Pane >
   );
 };
 

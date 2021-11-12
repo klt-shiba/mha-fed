@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { fetchUser } from "../reducers/userActions";
 import { useDispatch } from "react-redux";
+import { TextInputField, Pane, Button, Card, Heading, Text, majorScale } from "evergreen-ui";
 
 
 // Login component
@@ -32,55 +33,74 @@ const Login = () => {
   };
 
   return (
-    <div className="">
-      <section className="jumbotron jumbotron-fluid text-center">
-        <div className="container py-5">
-          <h1 className="display-4">Login</h1>
-          <p className="lead text-muted">
-            Login to make an appoint book with these professional therapists who
-            are available now.
-          </p>
-        </div>
-      </section>
-      <section className="jumbotron jumbotron-fluid">
-        <div className="container py-8">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="login_email">Email address</label>
-              <input
+    <Pane
+      display="flex"
+      flexDirection="column"
+      className="vbox">
+      <Pane
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        marginY={majorScale(4)}>
+
+        <Pane
+          max-width="480px"
+          display="block"
+          textAlign="center">
+          <Pane>
+            <Heading
+              size={900}
+              is="h1"
+              textAlign="center"
+              marginY={majorScale(1)}>Login</Heading>
+            <Text
+              size={600}
+              textAlign="center">
+              Login to make an appoint book with these professional therapists who
+              are available now.
+            </Text>
+          </Pane>
+          <Pane
+            display="block"
+            alignItems="center"
+            justifyContent="center"
+            textAlign="left"
+            marginY={majorScale(3)}
+          >
+            <form onSubmit={handleSubmit}>
+              <TextInputField
                 type="email"
                 className="form-control"
                 id="login_email"
+                label="Email"
                 aria-describedby="emailHelp"
                 placeholder="james@email.com"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
-              <small id="emailHelp" className="form-text text-muted">
-                We'll never share your email with anyone else.
-              </small>
-            </div>
-            <div className="form-group">
-              <label htmlFor="login_password">Password</label>
-              <input
+              <TextInputField
                 type="password"
+                label="Password"
                 className="form-control"
                 id="login_password"
                 placeholder="Shhhhhh..."
                 onChange={(e) => setPWord(e.target.value)}
                 value={pword}
               />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Login
-            </button>
-          </form>
-          <button type="" className="btn btn-primary">
-            Login with Google
-          </button>
-        </div>
-      </section>
-    </div>
+              <Button
+                type="submit"
+                appearance="primary" >
+                Login
+              </Button>
+            </form>
+            {/* <button type="" className="btn btn-primary" onClick={googleOAuth}>
+          Sign in with Google
+        </button> */}
+          </Pane>
+        </Pane >
+      </Pane>
+    </Pane >
+
   );
 };
 

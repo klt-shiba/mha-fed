@@ -21,7 +21,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk))
 document.addEventListener("DOMContentLoaded", () => {
   render(
     <Provider store={store}>
-      <App/>
+      <App />
     </Provider>,
     document.body.appendChild(document.createElement("div"))
   );
