@@ -24,7 +24,8 @@ export const createTherapist = (userInfo) => (dispatch) => {
       //.    token: "aaaaa.bbbbb.bbbbb"
       // }
       console.log(data);
-      dispatch(setTherapist(data));
+      dispatch(setTherapist(data))
+      localStorage.setItem("therapist_id", data.data.id);
     });
 };
 

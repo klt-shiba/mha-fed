@@ -24,11 +24,6 @@ const EditUserType = ({ match }) => {
   const history = useHistory();
   const dispatch = useDispatch()
 
-
-  const tempObj = useSelector(state => state.tempUserReducer.profile)
-  const store = useSelector(state => state)
-
-
   const tempUserObj = {
     profile: {
       first_name: preferredName,
@@ -45,7 +40,7 @@ const EditUserType = ({ match }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(tempObj.store)
+    console.log(tempUserObj)
     dispatch(storeNames(tempUserObj))
     therapistOrClient()
   }
@@ -64,11 +59,13 @@ const EditUserType = ({ match }) => {
   const therapistOrClient = () => {
     if (isTherapist) {
       console.log("Therapist is true")
-      dispatch(createTherapist(tempObj.profile))
-      history.push(`/therapists/${id}`)
+      dispatch(createTherapist(tempUserObj.profile))
+      const therapist_id = localStorage.getItem("therapist_id")
+      history.push(`/therapists/${therapist_id}`)
     } else {
       console.log("Therapist is false")
-      dispatch(createClient(tempObj.profile))
+      console.log(tempUserObj.profile)
+      dispatch(createClient(tempUserObj.profile))
       history.push(`/therapists`)
     }
   }

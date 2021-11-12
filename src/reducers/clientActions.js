@@ -25,5 +25,7 @@ export const createClient = (userInfo) => (dispatch) => {
       // }
       console.log(data);
       dispatch(setClient(data));
-    });
+      localStorage.setItem("client_id", data.data.id)
+    })
+    .catch(error => console.log(error));
 };
