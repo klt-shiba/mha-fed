@@ -15,6 +15,11 @@ const EditUserType = ({ match }) => {
   const [lastName, setLastName] = useState('')
   const [short_summary, setShortSummary] = useState('')
   const [languages, setLanguages] = useState([])
+  const [options] = useState([
+    { label: 'Im a Therapist', value: 'Therapist' },
+    { label: 'Im a client', value: 'Client' }
+  ])
+  const [value, setValue] = useState('Therapist')
   const { id } = useParams()
   const history = useHistory();
   const dispatch = useDispatch()
@@ -35,20 +40,25 @@ const EditUserType = ({ match }) => {
   }
 
   useEffect(() => {
-    console.log(tempObj)
-    // redirectTherapistProfile()
-    console.log(store)
+    setIfUserIsTherapist()
   })
-
-  const storeProfileInfo = e => {
-    e.preventDefault()
-    dispatch(storeNames(tempUserObj))
-  }
 
   const handleSubmit = e => {
     e.preventDefault()
     console.log(tempObj.store)
+    dispatch(storeNames(tempUserObj))
     therapistOrClient()
+  }
+
+  const handleRadio = (e) => {
+    setValue(e.target.value)
+    setIfUserIsTherapist()
+  }
+
+  const setIfUserIsTherapist = () => {
+    if (
+      value === 'Therapist' ? setIsTherapist(true) : setIsTherapist(false)
+    );
   }
 
   const therapistOrClient = () => {
@@ -62,23 +72,6 @@ const EditUserType = ({ match }) => {
       history.push(`/therapists`)
     }
   }
-
-  // GET user type value from onChange event handlder
-  // SET isTherapist
-  const getUserTypeValue = e => {
-    const user_type = e.target.value
-    if (
-      user_type === 'Therapist' ? setIsTherapist(true) : setIsTherapist(false)
-    );
-  }
-
-  const [options] = useState([
-    { label: 'Im a Therapist', value: 'Therapist' },
-    { label: 'Im a client', value: 'Client' }
-  ])
-
-  const [value, setValue] = useState('restricted')
-
 
   return (
     <Pane
@@ -115,7 +108,7 @@ const EditUserType = ({ match }) => {
             textAlign="left"
             marginY={majorScale(3)}
           >
-            <form onSubmit={handleSubmit} onChange={storeProfileInfo}>
+            <form onSubmit={handleSubmit}>
               <TextInputField
                 type='text'
                 className='form-control'
@@ -135,42 +128,39 @@ const EditUserType = ({ match }) => {
                 onChange={e => setLastName(e.target.value)}
                 value={lastName}
               />
-
               <Pane className='form-group'>
                 <RadioGroup
                   label="What are you here for?"
                   size={16}
                   value={value}
                   options={options}
-                  onChange={event => setValue(event.target.value)}
+                  onChange={event => handleRadio(event)}
                 />
               </Pane>
               <br />
               <Pane>
                 {' '}
                 {isTherapist ? (
-                  <div className=''>
-                    <div className='form-group'>
-                      <Label htmlFor="therapist_about_myself" marginBottom={4} display="block">
-                        Tell us about yourself
-                      </Label>
-                      <Textarea
-                        type='text'
-                        className='form-control'
-                        id='therapist_about_myself'
-                        placeholder='Counsellor specialising in Anxiety, Relationship Issues and Trauma and PTSD'
-                        rows='3'
-                        onChange={e => setShortSummary(e.target.value)}
-                        value={short_summary}
-                      />
-                    </div>
-                  </div>
+                  <Pane>
+                    <Label htmlFor="therapist_about_myself" marginBottom={4} display="block">
+                      Tell us about yourself
+                    </Label>
+                    <Textarea
+                      type='text'
+                      className='form-control'
+                      id='therapist_about_myself'
+                      placeholder='Counsellor specialising in Anxiety, Relationship Issues and Trauma and PTSD'
+                      rows='3'
+                      onChange={e => setShortSummary(e.target.value)}
+                      value={short_summary}
+                    />
+                  </Pane>
                 ) : (
                   'No worries, were here to help you get in touch with someone right for you'
                 )}{' '}
               </Pane>
               <br />
-              <Button type='submit' className='btn btn-primary'>
+              <Button type='submit' appearance="primary">
                 Create Profile
               </Button>
             </form>
