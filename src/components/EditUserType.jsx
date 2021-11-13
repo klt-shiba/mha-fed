@@ -8,7 +8,7 @@ import { TextInputField, Textarea, Pane, Button, RadioGroup, Heading, Text, majo
 
 
 // Edit Profile component
-const EditUserType = ({ match }) => {
+const EditUserType = ({ nextStep }) => {
   // SET and GET Therapist/Client state
   const [isTherapist, setIsTherapist] = useState(true)
   const [preferredName, setPreferredName] = useState('')
@@ -34,6 +34,16 @@ const EditUserType = ({ match }) => {
     }
   }
 
+  // const [formObject, setFormObject] = useState({
+  //   profile: {
+  //     first_name: preferredName,
+  //     last_name: lastName,
+  //     short_summary: short_summary,
+  //     languages: languages,
+  //     user_id: parseInt(id)
+  //   }
+  // })
+
   useEffect(() => {
     setIfUserIsTherapist()
   })
@@ -56,17 +66,23 @@ const EditUserType = ({ match }) => {
     );
   }
 
+
+  const Continue = (e) => {
+    e.preventDefault()
+    nextStep()
+  }
+
   const therapistOrClient = () => {
     if (isTherapist) {
       console.log("Therapist is true")
       dispatch(createTherapist(tempUserObj.profile))
       const therapist_id = localStorage.getItem("therapist_id")
-      history.push(`/therapists/${therapist_id}`)
+      // history.push(`/therapists/${therapist_id}`)
     } else {
       console.log("Therapist is false")
       console.log(tempUserObj.profile)
       dispatch(createClient(tempUserObj.profile))
-      history.push(`/therapists`)
+      // history.push(`/therapists`)
     }
   }
 
@@ -157,7 +173,7 @@ const EditUserType = ({ match }) => {
                 )}{' '}
               </Pane>
               <br />
-              <Button type='submit' appearance="primary">
+              <Button type='submit' appearance="primary" onClick={Continue}>
                 Create Profile
               </Button>
             </form>

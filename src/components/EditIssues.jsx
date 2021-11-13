@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { TextInputField, Pane, Button, Card, Heading, Text, majorScale, Checkbox } from "evergreen-ui";
+import CheckboxChip from "./CheckBoxChip";
+
 
 // Edit Profile component
-const EditIssues = () => {
+const EditIssues = ({ nextStep, prevStep }) => {
   // Set and Get profile form values
   const [short_summary, setShortSummary] = useState("");
   const [issues, setIssues] = useState([]);
   const [therapistIssues, setTherapistIssues] = useState([]);
   const { id } = useParams()
+  const [checked, setChecked] = useState(true)
+
+
 
   const issuesObj = {
     therapist: {
@@ -16,7 +22,7 @@ const EditIssues = () => {
   }
 
   const fetchIssues = () => {
-    fetch("http://127.0.0.1:3000/api/v1/issues")
+    fetch("http://127.0.0.1:3001/api/v1/issues")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -32,6 +38,11 @@ const EditIssues = () => {
       });
   };
 
+  const previous = (e) => {
+    e.preventDefault()
+    prevStep()
+  }
+
   useEffect(() => {
     fetchIssues();
   }, []);
@@ -40,13 +51,13 @@ const EditIssues = () => {
     e.preventDefault();
   };
 
-  const toggleNewIssueField = () => {};
+  const toggleNewIssueField = () => { };
 
   const handleChange = (e) => {
     const rawValue = e.target.value
     const idValue = rawValue.split("_")
-    console.log(idValue[0]); 
-    updateTherapistIssueArray(idValue[0]) 
+    console.log(idValue[0]);
+    updateTherapistIssueArray(idValue[0])
   };
 
   const updateTherapistIssueArray = (value) => {
@@ -64,6 +75,11 @@ const EditIssues = () => {
     console.log(therapistIssues)
   }
 
+  // const handleDelete = (chipToDelete) => () => {
+  //   setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
+  // };
+
+
   const renderIssuesCheckboxes = () => {
     console.log(issues);
     // console.log(issuesObject);
@@ -74,33 +90,30 @@ const EditIssues = () => {
       console.log(issues);
 
       return (
-        <div>
+        <Pane
+          display="block"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="left"
+          marginY={majorScale(3)}
+        >
           {issues.map((issue) => {
             console.log(issue);
-
             return (
-              <div className="form-check form-check-inline" key={`${issue.id}`}>
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  name="user-type"
-                  id={`issue_${issue.name}`}
-                  value={`${issue.id}_${issue.name}`}
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor={`issue_${issue.name}`}
-                >
-                  {issue.name}
-                </label>
-              </div>
+              <Checkbox
+                id={`issue_${issue.name}`}
+                key={`${issue.id}`}
+                value={`${issue.id}_${issue.name}`}
+                label={issue.name}
+              />
+
             );
-          })}
-        </div>
+          })
+          }
+        </Pane >
       );
     }
   };
-
 
   const postIssues = (e) => {
     e.preventDefault()
@@ -130,19 +143,56 @@ const EditIssues = () => {
         return false
       })
   }
-  
+
   return (
-    <div className="">
-      <form>
-        <div className="form-group" onChange={handleChange}>
-          <label htmlFor="therapist_last_name">Select all that apply</label>
-          {renderIssuesCheckboxes()}
-        </div>
-        <button onClick={postIssues} name="new_issue_button">
-          New issue +
-        </button>
-      </form>
-    </div>
+    <Pane
+      display="flex"
+      flexDirection="column"
+      className="vbox">
+      <Pane
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        marginY={majorScale(4)}>
+
+        <Pane
+          max-width="480px"
+          display="block"
+          textAlign="center">
+          <Pane>
+            <Heading
+              size={900}
+              is="h1"
+              textAlign="center"
+              marginY={majorScale(1)}>What do you specialise in?</Heading>
+            <Text
+              size={600}
+              textAlign="center">
+              ToDo:
+            </Text>
+          </Pane>
+          <Pane
+            display="block"
+            alignItems="center"
+            justifyContent="center"
+            textAlign="left"
+            marginY={majorScale(3)}
+          >
+            <form>
+              <div className="form-group" onChange={handleChange}>
+                {renderIssuesCheckboxes()}
+                <Checkbox label="checked"></Checkbox>
+                <CheckboxChip></CheckboxChip>
+              </div>
+              <Button onClick={postIssues} name="new_issue_button">
+                New issue +
+              </Button>
+              <Button appearance="primary" onClick={previous}>Continue</Button>
+            </form>
+          </Pane>
+        </Pane>
+      </Pane>
+    </Pane>
   );
 };
 

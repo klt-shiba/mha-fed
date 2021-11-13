@@ -11,6 +11,7 @@ const Register = () => {
   const [pword, setPWord] = useState("");
   const [loginErrors, setloginErrors] = useState("");
 
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -37,7 +38,7 @@ const Register = () => {
       // Add Error states to form
     } else {
       const id = databaseObj.data.id
-      history.push(`/users/${id}/create`)
+      history.push(`/users/${id}/getting-started`)
     }
   }
 
