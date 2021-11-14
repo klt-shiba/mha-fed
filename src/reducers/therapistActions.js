@@ -10,11 +10,10 @@ export const createTherapist = (userInfo) => (dispatch) => {
   fetch(`http://127.0.0.1:3001/api/v1/therapists`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       "Accept": "application/json",
       "Authorization": `Bearer ${token}`,
     },
-    body: JSON.stringify(userInfo),
+    body: userInfo,
   })
     .then((res) => res.json())
     .then((data) => {

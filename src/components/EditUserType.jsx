@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { storeNames } from '../reducers/tempUserActions'
 import { createTherapist } from '../reducers/therapistActions'
 import { createClient } from '../reducers/clientActions'
-import { TextInputField, Textarea, Pane, Button, RadioGroup, Heading, Text, majorScale, Label } from "evergreen-ui";
+import { TextInputField, Textarea, Pane, Button, RadioGroup, Heading, Text, majorScale, Label, FilePicker } from "evergreen-ui";
 
 
 // Edit Profile component
@@ -14,6 +14,7 @@ const EditUserType = ({ nextStep }) => {
   const [preferredName, setPreferredName] = useState('')
   const [lastName, setLastName] = useState('')
   const [short_summary, setShortSummary] = useState('')
+  const [image, setImage] = useState('')
   const [languages, setLanguages] = useState([])
   const [options] = useState([
     { label: 'Im a Therapist', value: 'Therapist' },
@@ -30,29 +31,23 @@ const EditUserType = ({ nextStep }) => {
       last_name: lastName,
       short_summary: short_summary,
       languages: languages,
-      user_id: parseInt(id)
+      user_id: parseInt(id),
+      avatar_img: image
     }
   }
-
-  // const [formObject, setFormObject] = useState({
-  //   profile: {
-  //     first_name: preferredName,
-  //     last_name: lastName,
-  //     short_summary: short_summary,
-  //     languages: languages,
-  //     user_id: parseInt(id)
-  //   }
-  // })
 
   useEffect(() => {
     setIfUserIsTherapist()
   })
+
+  const formData = new FormData()
 
   const handleSubmit = e => {
     e.preventDefault()
     console.log(tempUserObj)
     dispatch(storeNames(tempUserObj))
     therapistOrClient()
+    nextStep()
   }
 
   const handleRadio = (e) => {
@@ -66,21 +61,23 @@ const EditUserType = ({ nextStep }) => {
     );
   }
 
-
-  const Continue = (e) => {
-    e.preventDefault()
-    nextStep()
-  }
-
   const therapistOrClient = () => {
     if (isTherapist) {
+      formData.append('user_id', parseInt(id))
+      formData.append('first_name', preferredName)
+      formData.append('last_name', lastName)
+      formData.append('short_summary', short_summary)
+      formData.append('avatar_img', image)
+
+
       console.log("Therapist is true")
-      dispatch(createTherapist(tempUserObj.profile))
+      console.log(formData)
+      dispatch(createTherapist(formData))
       const therapist_id = localStorage.getItem("therapist_id")
       // history.push(`/therapists/${therapist_id}`)
     } else {
       console.log("Therapist is false")
-      console.log(tempUserObj.profile)
+      console.log(formData)
       dispatch(createClient(tempUserObj.profile))
       // history.push(`/therapists`)
     }
@@ -141,9 +138,30 @@ const EditUserType = ({ nextStep }) => {
                 onChange={e => setLastName(e.target.value)}
                 value={lastName}
               />
-              <Pane className='form-group'>
+              <Pane
+                marginY={majorScale(1)}
+                className='form-group'>
+                <Label htmlFor="add_profile_image" marginBottom={4} display="block">
+                  Stand out with a smile!
+                </Label>
+                <FilePicker
+                  single
+                  id="add_profile_image"
+                  width={250}
+                  onChange={file => {
+                    setImage(file[0])
+                    console.log(file[0])
+                  }}
+                  placeholder="Select the file here!"
+                />
+              </Pane>
+              <Pane
+                marginY={majorScale(3)}
+                className='form-group'>
+                <Label htmlFor="add_profile_image" marginBottom={4} display="block">
+                  What are you here for?
+                </Label>
                 <RadioGroup
-                  label="What are you here for?"
                   size={16}
                   value={value}
                   options={options}
@@ -173,7 +191,7 @@ const EditUserType = ({ nextStep }) => {
                 )}{' '}
               </Pane>
               <br />
-              <Button type='submit' appearance="primary" onClick={Continue}>
+              <Button type='submit' appearance="primary">
                 Create Profile
               </Button>
             </form>
