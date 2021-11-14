@@ -76,9 +76,15 @@ const EditUserType = ({ nextStep }) => {
       const therapist_id = localStorage.getItem("therapist_id")
       // history.push(`/therapists/${therapist_id}`)
     } else {
+      formData.append('user_id', parseInt(id))
+      formData.append('first_name', preferredName)
+      formData.append('last_name', lastName)
+      formData.append('short_summary', short_summary)
+      formData.append('avatar_img', image)
+
       console.log("Therapist is false")
       console.log(formData)
-      dispatch(createClient(tempUserObj.profile))
+      dispatch(createClient(formData))
       // history.push(`/therapists`)
     }
   }
