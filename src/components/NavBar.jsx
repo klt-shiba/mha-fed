@@ -1,7 +1,7 @@
-import { Heading, Pane } from "evergreen-ui";
+import { Heading, Pane, Avatar } from "evergreen-ui";
 import React from "react";
 
-const NavBar = () => {
+const NavBar = (props) => {
     return (
         <Pane
             flexShrink={0}
@@ -18,7 +18,12 @@ const NavBar = () => {
                 >Navigation (tbc)</Heading>
             </Pane>
             <Pane display="flex" alignItems="center">
-                {/* {this.props.children} */}
+                <Avatar
+                    isHidden={props.hidden}
+                    src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Alan_Turing_Aged_16.jpg"
+                    name="Alan Turing"
+                    size={40}
+                />
             </Pane>
         </Pane>
     );

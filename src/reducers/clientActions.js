@@ -10,19 +10,13 @@ export const createClient = (userInfo) => (dispatch) => {
   fetch(`http://127.0.0.1:3001/api/v1/clients`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       "Accept": "application/json",
       "Authorization": `Bearer ${token}`,
     },
-    body: JSON.stringify(userInfo),
+    body: userInfo,
   })
     .then((res) => res.json())
     .then((data) => {
-      // data sent back will in the format of
-      // {
-      //     user: {},
-      //.    token: "aaaaa.bbbbb.bbbbb"
-      // }
       console.log(data);
       dispatch(setClient(data));
       localStorage.setItem("client_id", data.data.id)

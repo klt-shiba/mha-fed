@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { logUserOut } from "../reducers/userActions";
+import React, { useEffect, useState } from "react";
+import { logUserOut, autoLogin } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Home.jsx";
@@ -13,15 +13,49 @@ import Footer from "./Footer";
 import CreateReview from "../components/CreateReview";
 import NavBar from "./NavBar";
 import GettingStarted from "../Container/GettingStarted"
+import { Avatar } from "evergreen-ui";
 
 
 const App = () => {
+  const [user, setUser] = useState("")
+
+  const hasToken = () => {
+
+    console.log("Working")
+    dispatch(autoLogin)
+    renderAvatar()
+  }
+
+  const renderAvatar = () => {
+    return (
+      <Avatar
+        src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Alan_Turing_Aged_16.jpg"
+        name="Alan Turing"
+        size={40}
+      />
+    )
+  }
+
+  const storeUser = async () => {
+    if (hasToken) {
+
+      console.log("True")
+      console.log(databaseObj)
+    } else {
+      console.log("not-working")
+    }
+  }
+
+  useEffect(() => {
+    hasToken()
+  })
 
   const databaseObj = useSelector((state) => state.userReducer.user);
 
   useEffect(() => {
     console.log(databaseObj);
     RenderButton();
+    storeUser()
   });
 
   const dispatch = useDispatch();
@@ -37,32 +71,13 @@ const App = () => {
       <div className="container">
         <span id="logout_signin">
           {!token ? (
-            <button className="btn btn-lg custom-button" role="button">
+            <button className="btn btn-lg custom-button">
               Login
             </button>
           ) : (
-            <button
-              className="btn btn-lg custom-button"
-              role="button"
-              onClick={handleClick}
-            >
-              Log out of website
-            </button>
-          )}
-        </span>
-        <span id="create_edit_account">
-          {Object.keys(databaseObj).length === 0 ? (
-            <button className="btn btn-lg custom-button" role="button">
-              Login
-            </button>
-          ) : (
-            <button
-              className="btn btn-lg custom-button"
-              role="button"
-              onClick={handleClick}
-            >
-              Log out of website
-            </button>
+            <div>
+              {hasToken()}
+            </div>
           )}
         </span>
       </div>
@@ -71,6 +86,7 @@ const App = () => {
 
   return (
     <div>
+      {RenderButton()}
       <NavBar />
       <Router>
         <Switch>

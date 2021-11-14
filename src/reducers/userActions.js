@@ -35,28 +35,6 @@ export const fetchUser = userInfo => dispatch => {
 }
 
 //   // Function to POST Register details details
-//   const postRegistrationForm = () => {
-//     fetch("http://localhost:3000/api/v1/users", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Accept: "application/json",
-//       },
-//       body: JSON.stringify({
-//         user: {
-//           email: email,
-//           password: pword,
-//           password_confirmation: pword,
-//         },
-//       }),
-//     })
-//       .then((r) => r.json())
-//       .then((data) => {
-//         console.log(data);
-//         history.push(`/users/${data.user.data.id}`);
-//       })
-//       .catch((e) => console.log(e));
-//   };
 
 export const signUserUp = userInfo => dispatch => {
   console.log('accessing userAction correctly')
@@ -87,6 +65,7 @@ export const signUserUp = userInfo => dispatch => {
 }
 
 export const autoLogin = () => dispatch => {
+  console.log('accessing autoLogin correctly')
   fetch(`http://127.0.0.1:3001/api/v1/auth`, {
     headers: {
       'Content-Type': 'application/json',
@@ -96,14 +75,11 @@ export const autoLogin = () => dispatch => {
   })
     .then(res => res.json())
     .then(data => {
-      // data sent back will in the format of
-      // {
-      //     user: {},
-      //.    token: "aaaaa.bbbbb.bbbbb"
-      // }
+      console.log(data)
       localStorage.setItem('token', data.jwt)
       dispatch(setUser(data.user))
     })
+    .catch((error) => console.log(error))
 }
 
 // export const createUserRole = ({ boolean, userInfo}) => (dispatch) => {
