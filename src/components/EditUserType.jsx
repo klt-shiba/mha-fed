@@ -47,7 +47,11 @@ const EditUserType = ({ nextStep }) => {
     console.log(tempUserObj)
     dispatch(storeNames(tempUserObj))
     therapistOrClient()
-    nextStep()
+    if (isTherapist) {
+      nextStep()
+    } else {
+      history.push('/therapists')
+    }
   }
 
   const handleRadio = (e) => {
@@ -68,8 +72,6 @@ const EditUserType = ({ nextStep }) => {
       formData.append('last_name', lastName)
       formData.append('short_summary', short_summary)
       formData.append('avatar_img', image)
-
-
       console.log("Therapist is true")
       console.log(formData)
       dispatch(createTherapist(formData))
@@ -81,7 +83,6 @@ const EditUserType = ({ nextStep }) => {
       formData.append('last_name', lastName)
       formData.append('short_summary', short_summary)
       formData.append('avatar_img', image)
-
       console.log("Therapist is false")
       console.log(formData)
       dispatch(createClient(formData))
