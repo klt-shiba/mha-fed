@@ -12,19 +12,18 @@ import Checkbox from '@mui/material/Checkbox';
 const EditTreatment = ({ nextStep, prevStep }) => {
 
     // Set and Get profile form values
-    const [issues, setIssues] = useState([]);
-    const [therapistIssues, setTherapistIssues] = useState([]);
-    const [checked, setChecked] = useState(true)
+    const [treatments, setTreatments] = useState([]);
+    const [therapistTreatments, setTherapistTreatments] = useState([]);
     const id = localStorage.getItem("therapist_id")
 
 
-    const issuesObj = {
+    const treatmentsObj = {
         therapist: {
-            issues: therapistIssues
+            treatments: therapistTreatments
         }
     }
 
-    const fetchIssues = () => {
+    const fetchTreatments = () => {
         fetch("http://127.0.0.1:3001/api/v1/treatments")
             .then((response) => {
                 if (response.ok) {
@@ -34,7 +33,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
             })
             .then((r) => {
                 console.log(r);
-                setIssues(r);
+                setTreatments(r);
             })
             .catch((error) => {
                 console.log(error);
@@ -47,12 +46,12 @@ const EditTreatment = ({ nextStep, prevStep }) => {
     }
 
     useEffect(() => {
-        fetchIssues();
+        fetchTreatments();
     }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        postIssues()
+        postTreatments()
     };
 
     const handleChange = (e) => {
@@ -64,22 +63,22 @@ const EditTreatment = ({ nextStep, prevStep }) => {
 
     const updateTherapistIssueArray = (value) => {
 
-        if (therapistIssues.includes(value)) {
-            const pos = therapistIssues.indexOf(value)
+        if (therapistTreatments.includes(value)) {
+            const pos = therapistTreatments.indexOf(value)
             if (pos >= 0) {
-                therapistIssues.splice(pos, 1)
+                therapistTreatments.splice(pos, 1)
             } else {
                 console.log("Borked")
             }
         } else {
-            therapistIssues.push(value)
+            therapistTreatments.push(value)
         }
-        console.log(therapistIssues)
+        console.log(therapistTreatments)
     }
 
-    const renderIssuesCheckboxes = () => {
+    const renderTreatmentsCheckboxes = () => {
 
-        if (issues.length === 0) {
+        if (treatments.length === 0) {
             return <div>Write a review</div>;
         } else {
             return (
@@ -91,7 +90,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                     marginY={majorScale(3)}
                 >
                     <FormGroup>
-                        {issues.map((issue) => {
+                        {treatments.map((issue) => {
                             return (
                                 <FormControlLabel control={
                                     <Checkbox
@@ -112,9 +111,9 @@ const EditTreatment = ({ nextStep, prevStep }) => {
         }
     };
 
-    const postIssues = (e) => {
+    const postTreatments = (e) => {
         e.preventDefault()
-        const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-issues`
+        const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-treatments`
         fetch(url, {
             method: 'POST',
             headers: {
@@ -122,16 +121,16 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                 Accept: 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify(issuesObj)
+            body: JSON.stringify(treatmentsObj)
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                nextStep()
+                // nextStep()
             })
             .catch(error => {
                 console.log(error)
-                console.log(JSON.stringify(issuesObj))
+                console.log(JSON.stringify(treatmentsObj))
                 return false
             })
     }
@@ -170,9 +169,9 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                         textAlign="left"
                         marginY={majorScale(3)}
                     >
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={e => postTreatments(e)}>
                             <div className="form-group" onChange={handleChange}>
-                                {renderIssuesCheckboxes()}
+                                {renderTreatmentsCheckboxes()}
                                 <CheckboxChip></CheckboxChip>
                             </div>
                             <Pane display="flex">

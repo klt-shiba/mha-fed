@@ -11,10 +11,8 @@ import Checkbox from '@mui/material/Checkbox';
 // Edit Profile component
 const EditIssues = ({ nextStep, prevStep }) => {
   // Set and Get profile form values
-  const [short_summary, setShortSummary] = useState("");
   const [issues, setIssues] = useState([]);
   const [therapistIssues, setTherapistIssues] = useState([]);
-  const [checked, setChecked] = useState(true)
   const id = localStorage.getItem("therapist_id")
 
 
