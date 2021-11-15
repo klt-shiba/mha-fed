@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { Pane, Button, Card, Heading, Text, majorScale } from "evergreen-ui";
+import Chip from '@mui/material/Chip';
+import { Pane, Button, Card, Heading, Paragraph, majorScale } from "evergreen-ui";
 
 
 const Therapist = () => {
@@ -68,25 +69,18 @@ const Therapist = () => {
   };
 
   const ShowIssues = () => {
-    console.log("working");
-    console.log(issues);
-
     if (issues.length === 0) {
       return <div>?</div>;
     } else {
-      console.log(issues);
-
       return (
         <ul>
           {issues.map((issue) => {
-            console.log(issue);
-
-            return (<li>
-              <h6 className="mb-2">{issue.name}</h6>
-            </li>
+            return (
+              <Chip label={issue.name} color="info" size="small"></Chip>
             )
-          })}
-        </ul>
+          })
+          }
+        </ul >
       );
     }
   };
@@ -122,6 +116,14 @@ const Therapist = () => {
         <Heading is="h1" size={900}>
           {therapist.first_name} {therapist.last_name}
         </Heading>
+      </Pane>
+      <Pane>
+        <Heading is="h2" size={600}>
+          About me
+        </Heading>
+        <Paragraph>
+          {therapist.long_summary}
+        </Paragraph>
       </Pane>
       <Pane>
         <Heading is="h2" size={600}>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Textarea, Pane, Button, Label, Heading, Text, majorScale } from "evergreen-ui";
 import EditUserType from "../components/EditUserType";
 import EditIssues from "../components/EditIssues";
+import EditTreatment from "../components/EditTreatment";
 
 
 const GettingStarted = () => {
@@ -36,10 +37,12 @@ const GettingStarted = () => {
                         nextStep={nextStep}
                         prevStep={prevStep} />
                 )
-            // case 3:
-            //     return (
-            //         <Confirmation />
-            //     )
+            case 3:
+                return (
+                    <EditTreatment
+                        nextStep={nextStep}
+                        prevStep={prevStep} />
+                )
             // case 4:
             //     return (
             //         <Success />

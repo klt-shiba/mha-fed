@@ -14,6 +14,7 @@ import CreateReview from "../components/CreateReview";
 import NavBar from "./NavBar";
 import GettingStarted from "../Container/GettingStarted"
 import { Avatar } from "evergreen-ui";
+import EditTreatment from "./EditTreatment";
 
 
 const App = () => {
@@ -97,7 +98,8 @@ const App = () => {
           <Route path="/register" exact component={Register} />
           <Route path="/users/:id/getting-started" exact component={GettingStarted} />
           <Route path="/users/:id/create" exact component={EditUserType} />
-          <Route path="/users/:id/edit-issues" exact component={EditIssues} />
+          <Route path="/therapists/:id/edit-issues" exact component={EditIssues} />
+          <Route path="/therapists/:id/edit-treatment" exact component={EditTreatment} />
           <Route path="/therapists/:id/review" exact component={CreateReview} />
         </Switch>
       </Router>

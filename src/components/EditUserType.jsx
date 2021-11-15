@@ -30,6 +30,7 @@ const EditUserType = ({ nextStep }) => {
       first_name: preferredName,
       last_name: lastName,
       short_summary: short_summary,
+      long_summary: short_summary,
       languages: languages,
       user_id: parseInt(id),
       avatar_img: image
@@ -71,6 +72,7 @@ const EditUserType = ({ nextStep }) => {
       formData.append('first_name', preferredName)
       formData.append('last_name', lastName)
       formData.append('short_summary', short_summary)
+      formData.append('long_summary', short_summary)
       formData.append('avatar_img', image)
       console.log("Therapist is true")
       console.log(formData)
@@ -82,6 +84,7 @@ const EditUserType = ({ nextStep }) => {
       formData.append('first_name', preferredName)
       formData.append('last_name', lastName)
       formData.append('short_summary', short_summary)
+      formData.append('long_summary', short_summary)
       formData.append('avatar_img', image)
       console.log("Therapist is false")
       console.log(formData)

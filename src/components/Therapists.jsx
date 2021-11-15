@@ -128,7 +128,6 @@ const Therapists = () => {
         <Link to="/" className="btn btn-link">
           Home
         </Link>
-
       </Pane>
     </Pane>
     </>
