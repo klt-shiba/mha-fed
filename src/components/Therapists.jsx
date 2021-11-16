@@ -32,6 +32,13 @@ const Therapists = () => {
     fetchTherapists();
   }, []);
 
+
+  useEffect(() => {
+    allTherapists();
+  });
+
+
+
   console.log("-------------");
   console.log(therapists);
 
@@ -48,7 +55,7 @@ const Therapists = () => {
         ratings.push(ratingObject.rating)
         return ratings
       })
-      average(results)
+      return average(results)
     } else {
       return 0
     }
@@ -57,40 +64,68 @@ const Therapists = () => {
   const average = (ratingsAverage) => ratingsAverage.reduce((a, b) => a + b) / ratingsAverage.length;
 
 
-  const allTherapists = therapists.map((therapist, index) => (
+  const allTherapists = () => {
 
-    <Link
-      to={`/therapists/${therapist.id}`}
-    >
-      <Card
+    return (
+
+      <Pane
+        text-align="center"
+        alignItems="center"
         display="flex"
-        flexDirection="column"
-        className="vbox"
-        key={index}
-        minWidth={250}
+        flexDirection="row"
+        flexWrap="wrap"
+        className="hbox"
         flex={1}
-        name={therapist.attributes.first_name}
-        description="Regular user"
-        elevation={0}
-        alignContent="space-between"
-        margin="0.3rem"
-        flex={1} elevation={1} padding="0.5rem"
       >
-        <img
-          src={therapist.attributes.avatar_url}
-          className="card-img-top"
-          alt={`${therapist.attributes.first_name} image`}
-        />
-        <Heading
-          is="h2"
-          size={700}>
-          {therapist.attributes.first_name} {therapist.attributes.last_name}</Heading>
 
-        <Text size={400}>{therapist.attributes.short_summary}</Text>
-        <Rating name="read-only" value={getRatings(therapist)} readOnly />
-      </Card >
-    </Link>
-  ));
+        {
+          therapists.map((therapist, index) => (
+
+            <Link
+              to={`/therapists/${therapist.id}`}
+            >
+              <Card
+                display="flex"
+                flexDirection="column"
+                className="vbox"
+                key={index}
+                minWidth={250}
+                flex={1}
+                name={therapist.attributes.first_name}
+                description="Regular user"
+                elevation={0}
+                alignContent="space-between"
+                margin="0.3rem"
+                flex={1} elevation={1} padding="0.5rem"
+              >
+                <img
+                  src={therapist.attributes.avatar_url}
+                  className="card-img-top"
+                  alt={`${therapist.attributes.first_name} image`}
+                />
+                <Heading
+                  is="h2"
+                  size={700}>
+                  {therapist.attributes.first_name} {therapist.attributes.last_name}</Heading>
+
+                <Text size={400}>{therapist.attributes.short_summary}</Text>
+                {updateRatings(getRatings(therapist))}
+              </Card >
+            </Link>
+          ))
+        }
+      </Pane>
+    )
+
+  }
+
+  const updateRatings = (value) => {
+
+
+    return (
+      <Rating name="read-only" value={value} readOnly />
+    )
+  }
 
   const noTherapists = (
     <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
@@ -144,11 +179,8 @@ const Therapists = () => {
         flex={1}
       >
 
-        {therapists.length > 0 ? allTherapists : noTherapists}
+        {therapists.length > 0 ? allTherapists() : noTherapists}
 
-        <Link to="/" className="btn btn-link">
-          Home
-        </Link>
       </Pane>
     </Pane>
     </>
