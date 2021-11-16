@@ -30,8 +30,10 @@ const CreateReview = () => {
 
   console.log(databaseObj);
 
+  const clientId = localStorage.getItem("client_id")
+
   const createReview = () => {
-    const url = `http://127.0.0.1:3000/api/v1/therapists/${id}/review`;
+    const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-review`;
     fetch(url, {
       method: "POST",
       headers: {
@@ -43,7 +45,7 @@ const CreateReview = () => {
         rating: rating,
         comment: comment,
         therapist_id: parseInt(id),
-        client_id: 2,
+        client_id: clientId
       }),
     })
       .then((res) => res.json())

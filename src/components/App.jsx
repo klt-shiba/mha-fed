@@ -20,13 +20,6 @@ import EditTreatment from "./EditTreatment";
 const App = () => {
   const [user, setUser] = useState("")
 
-  const hasToken = () => {
-
-    console.log("Working")
-    dispatch(autoLogin)
-    renderAvatar()
-  }
-
   const renderAvatar = () => {
     return (
       <Avatar
@@ -47,17 +40,10 @@ const App = () => {
     }
   }
 
-  useEffect(() => {
-    hasToken()
-  })
 
   const databaseObj = useSelector((state) => state.userReducer.user);
 
-  useEffect(() => {
-    console.log(databaseObj);
-    RenderButton();
-    storeUser()
-  });
+
 
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
@@ -66,6 +52,10 @@ const App = () => {
     e.preventDefault();
     dispatch(logUserOut());
   };
+  const hasToken = () => {
+    dispatch(autoLogin())
+    renderAvatar()
+  }
 
   const RenderButton = () => {
     return (
@@ -87,7 +77,7 @@ const App = () => {
 
   return (
     <div>
-      {RenderButton()}
+      {/* {RenderButton()} */}
       <NavBar />
       <Router>
         <Switch>

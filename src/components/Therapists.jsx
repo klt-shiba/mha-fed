@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchInput, Pane, Button, Card, Heading, Text, majorScale } from "evergreen-ui";
+import { Rating } from "@mui/material";
 
 const Therapists = () => {
   const [therapists, setTherapists] = useState([]);
@@ -34,7 +35,30 @@ const Therapists = () => {
   console.log("-------------");
   console.log(therapists);
 
+
+  const getRatings = (object) => {
+
+    const ratingArray = object.attributes.reviews
+
+    if (ratingArray.length >= 1) {
+
+      // Calculate Averate
+      const results = ratingArray.map(ratingObject => {
+        const ratings = []
+        ratings.push(ratingObject.rating)
+        return ratings
+      })
+      average(results)
+    } else {
+      return 0
+    }
+  }
+
+  const average = (ratingsAverage) => ratingsAverage.reduce((a, b) => a + b) / ratingsAverage.length;
+
+
   const allTherapists = therapists.map((therapist, index) => (
+
     <Link
       to={`/therapists/${therapist.id}`}
     >
@@ -63,10 +87,7 @@ const Therapists = () => {
           {therapist.attributes.first_name} {therapist.attributes.last_name}</Heading>
 
         <Text size={400}>{therapist.attributes.short_summary}</Text>
-
-
-
-
+        <Rating name="read-only" value={getRatings(therapist)} readOnly />
       </Card >
     </Link>
   ));

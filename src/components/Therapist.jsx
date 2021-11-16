@@ -3,7 +3,8 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import Chip from '@mui/material/Chip';
-import { Pane, Button, Card, Heading, Paragraph, majorScale } from "evergreen-ui";
+import { Pane, Button, Text, Heading, Paragraph, majorScale } from "evergreen-ui";
+import { Rating } from "@mui/material";
 
 
 const Therapist = () => {
@@ -44,23 +45,21 @@ const Therapist = () => {
   }, []);
 
   const ShowReviews = () => {
-    console.log("working");
-    console.log(reviews);
 
     if (reviews.length === 0) {
       return <div>Write a review</div>;
     } else {
       console.log(reviews);
-
       return (
         <div>
           {reviews.map((review) => {
             console.log(review);
 
-            return (<div>
-              <h6 className="mb-2">{review.rating} / 5</h6>
-              <p>"{review.comment}"</p>
-            </div>
+            return (
+              <Pane>
+                <Rating name="read-only" value={review.rating} readOnly />
+                <Paragraph>"{review.comment}"</Paragraph>
+              </Pane>
             )
           })}
         </div>

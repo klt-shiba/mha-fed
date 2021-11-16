@@ -65,8 +65,10 @@ export const signUserUp = userInfo => dispatch => {
 }
 
 export const autoLogin = () => dispatch => {
+
   console.log('accessing autoLogin correctly')
-  fetch(`http://127.0.0.1:3001/api/v1/auth`, {
+
+  fetch(`http://127.0.0.1:3001/api/v1/auto-auth`, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
