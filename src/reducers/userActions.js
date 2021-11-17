@@ -64,59 +64,22 @@ export const signUserUp = userInfo => dispatch => {
     })
 }
 
-export const autoLogin = () => dispatch => {
+export const autoLogin = () => async dispatch => {
 
   console.log('accessing autoLogin correctly')
 
-  fetch(`http://127.0.0.1:3001/api/v1/auto-auth`, {
+  const response = await fetch(`http://127.0.0.1:3001/api/v1/auto-auth`, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      localStorage.setItem('token', data.jwt)
-      dispatch(setUser(data.user))
-    })
-    .catch((error) => console.log(error))
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
+  const data = await response.json()
+  console.log(data)
+  dispatch(setUser(data.user))
 }
-
-// export const createUserRole = ({ boolean, userInfo}) => (dispatch) => {
-//   console.log("Accessed")
-//   const url = () => {
-//     if (boolean) {
-//       "http://127.0.0.1:3000/api/v1/therapists"
-//     } else {
-//       "http://127.0.0.1:3000/api/v1/clients"
-//     }
-//   }
-
-//   const token = localStorage.getItem("token");
-//   console.log(token)
-
-//   console.log("accessing createUserRole correctly");
-
-//   fetch(url, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Accept": "application/json",
-//       "Authorization": `Bearer ${token}`,
-//     },
-//     body: JSON.stringify(userInfo),
-//   })
-//     .then((res) => res.json())
-//     .then((data) => {
-//       // data sent back will in the format of
-//       // {
-//       //     user: {},
-//       //.    token: "aaaaa.bbbbb.bbbbb"
-//       // }
-//       console.log(data);
-//       dispatch(setUserType(data));
-//     });
-// };
-

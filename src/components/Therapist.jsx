@@ -8,6 +8,7 @@ import { Rating } from "@mui/material";
 
 
 const Therapist = () => {
+
   const [therapist, setTherapist] = useState("");
   const [therapistUser, setTherapistUser] = useState("");
   const [reviews, setReviews] = useState([]);
@@ -25,7 +26,6 @@ const Therapist = () => {
         throw new Error("Network response was not ok.");
       })
       .then((response) => {
-        console.log(response.data.attributes)
         setTherapist(response.data.attributes);
         setTherapistUser(response.data);
         setReviews(response.data.attributes.reviews)
