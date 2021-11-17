@@ -13,6 +13,7 @@ const Therapist = () => {
   const [therapistUser, setTherapistUser] = useState("");
   const [reviews, setReviews] = useState([]);
   const [issues, setIssues] = useState([]);
+  const [treatments, setTreatments] = useState([])
   const { id } = useParams();
   const history = useHistory();
 
@@ -26,10 +27,13 @@ const Therapist = () => {
         throw new Error("Network response was not ok.");
       })
       .then((response) => {
-        setTherapist(response.data.attributes);
-        setTherapistUser(response.data);
-        setReviews(response.data.attributes.reviews)
-        setIssues(response.data.attributes.issues)
+        const data = response.data
+        console.log(data)
+        setTherapist(data.attributes);
+        setTherapistUser(data);
+        setReviews(data.attributes.reviews)
+        setIssues(data.attributes.issues)
+        setTreatments(data.attributes.treatments)
       })
       .catch((error) => {
         console.log(error);
@@ -84,6 +88,23 @@ const Therapist = () => {
     }
   };
 
+  const ShowTreatments = () => {
+    if (treatments.length === 0) {
+      return <div>?</div>;
+    } else {
+      return (
+        <ul>
+          {treatments.map((treatment) => {
+            return (
+              <Chip label={treatment.name} color="success" size="small"></Chip>
+            )
+          })
+          }
+        </ul >
+      );
+    }
+  };
+
   const handleClick = (e) => {
     console.log(e.target);
     history.push("");
@@ -129,6 +150,12 @@ const Therapist = () => {
           What I can help with
         </Heading>
         <Pane>{ShowIssues()}</Pane>
+      </Pane>
+      <Pane>
+        <Heading is="h2" size={600}>
+          Approaches I take
+        </Heading>
+        <Pane>{ShowTreatments()}</Pane>
       </Pane>
       <Pane>
         <Heading is="h2" size={600}>
