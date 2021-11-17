@@ -1,11 +1,27 @@
 import React, { useContext } from "react";
-import { Pane, majorScale, Heading, Text } from "evergreen-ui";
+import { Pane, majorScale, Heading, Text, Button } from "evergreen-ui";
 import { UserContext } from "../UserContext";
+import { logUserOut } from "../reducers/userActions";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 const ProfilePage = () => {
 
     const { user, setUser } = useContext(UserContext)
+    const dispatch = useDispatch()
+    const history = useHistory()
 
+    const handleClick = (e) => {
+
+        e.preventDefault()
+        dispatch(logUserOut())
+
+        if (user) {
+            history.push('')
+        } else {
+            console.log("error")
+        }
+    }
     return (
         <Pane>
             {JSON.stringify(user, null, 1)}
@@ -36,6 +52,9 @@ const ProfilePage = () => {
                             </Text>
                         </Pane>
                     </Pane >
+                </Pane>
+                <Pane>
+                    <Button onClick={handleClick}>Log Out</Button>
                 </Pane>
             </Pane >
         </Pane>
