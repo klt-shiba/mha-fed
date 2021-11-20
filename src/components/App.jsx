@@ -17,6 +17,7 @@ import { Avatar } from "evergreen-ui";
 import EditTreatment from "./EditTreatment";
 import { UserContext } from "../UserContext";
 import ProfilePage from "./ProfilePage";
+import UpdateUserType from "./UpdateUserType";
 
 
 const App = () => {
@@ -29,7 +30,7 @@ const App = () => {
 
   useEffect(() => {
     fastLogin()
-  }, [token, user])
+  }, [token])
 
   const fastLogin = () => {
     console.log("Clicked")
@@ -38,6 +39,7 @@ const App = () => {
     } else {
       dispatch(autoLogin())
       setUser(databaseObj.data)
+      console.log(databaseObj)
     }
   }
 
@@ -58,6 +60,7 @@ const App = () => {
             <Route path="/therapists/:id/edit-treatment" exact component={EditTreatment} />
             <Route path="/therapists/:id/review" exact component={CreateReview} />
             <Route path="/users/:id/profile" exact component={ProfilePage} />
+            <Route path="/users/:id/update-profile" exact component={UpdateUserType} />
           </Switch>
           <Footer></Footer>
         </UserContext.Provider>

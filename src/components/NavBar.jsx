@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
-const NavBar = (props) => {
+const NavBar = ({ hasToken }) => {
 
     const { user, setUser } = useContext(UserContext)
     const token = localStorage.getItem("token")
@@ -40,16 +40,20 @@ const NavBar = (props) => {
     }
 
     const handleChange = () => {
-        props.hasToken()
+        hasToken()
     }
 
     const renderMenuItems = () => {
-        console.log(user)
-        return (
-            (!user) ?
-                <div>{renderLoginRegisterButtons()}</div>
-                : <div>{renderAvatar()} </div>
-        )
+
+        if (user == undefined) {
+            hasToken()
+        } else {
+            return (
+                (!user) ?
+                    <div>{renderLoginRegisterButtons()}</div>
+                    : <div>{renderAvatar()} </div>
+            )
+        }
     }
 
 

@@ -4,12 +4,14 @@ import { UserContext } from "../UserContext";
 import { logUserOut } from "../reducers/userActions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { Link, useParams } from "react-router-dom";
 
 const ProfilePage = () => {
 
     const { user, setUser } = useContext(UserContext)
     const dispatch = useDispatch()
     const history = useHistory()
+    const { id } = useParams();
 
     const handleClick = (e) => {
 
@@ -54,10 +56,15 @@ const ProfilePage = () => {
                     </Pane >
                 </Pane>
                 <Pane>
+                    <Link to={`/users/${id}/update-profile`}>
+                        Update personal information
+                    </Link>
+                </Pane>
+                <Pane>
                     <Button onClick={handleClick}>Log Out</Button>
                 </Pane>
             </Pane >
-        </Pane>
+        </Pane >
     )
 }
 

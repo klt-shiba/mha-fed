@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { storeNames } from "../reducers/tempUserActions";
-import { createTherapist } from "../reducers/therapistActions";
+import React, { useState } from "react";
+import { useParams, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Rating from '@mui/material/Rating';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
