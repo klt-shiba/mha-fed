@@ -25,7 +25,6 @@ const NavBar = (props) => {
     }
 
     const renderLoginRegisterButtons = () => {
-
         return (
             <Pane>
                 <Link
@@ -44,7 +43,19 @@ const NavBar = (props) => {
         props.hasToken()
     }
 
+    const renderMenuItems = () => {
+        console.log(user)
+        return (
+            (!user) ?
+                <div>{renderLoginRegisterButtons()}</div>
+                : <div>{renderAvatar()} </div>
+        )
+    }
 
+
+    useEffect(() => {
+        renderMenuItems()
+    }, [user])
 
     return (
         <Pane
@@ -86,12 +97,10 @@ const NavBar = (props) => {
             <Pane
                 display="flex"
                 alignItems="center">
-                {(!user) ?
-                    <div>{renderLoginRegisterButtons()}</div>
-                    : <div>{renderAvatar()} </div>
-                }
+                {renderMenuItems()}
+
             </Pane>
-        </Pane>
+        </Pane >
     );
 }
 

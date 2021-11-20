@@ -49,11 +49,6 @@ const EditTreatment = ({ nextStep, prevStep }) => {
         fetchTreatments();
     }, []);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        postTreatments()
-    };
-
     const handleChange = (e) => {
         const rawValue = e.target.value
         const idValue = rawValue.split("_")

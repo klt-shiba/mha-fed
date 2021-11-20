@@ -29,7 +29,7 @@ const App = () => {
 
   useEffect(() => {
     fastLogin()
-  }, [token])
+  }, [token, user])
 
   const fastLogin = () => {
     console.log("Clicked")
