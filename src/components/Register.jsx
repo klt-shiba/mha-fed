@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { TextInputField, Pane, Button, Card, Heading, Text, majorScale } from "evergreen-ui";
+import { TextInputField, Pane, Button, Heading, Text, majorScale } from "evergreen-ui";
 
 
 const Register = () => {

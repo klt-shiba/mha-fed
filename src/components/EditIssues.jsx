@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
 import { Pane, Button, Heading, Text, majorScale } from "evergreen-ui";
 import CheckboxChip from "./CheckBoxChip";
 import FormGroup from '@mui/material/FormGroup';
@@ -45,10 +44,9 @@ const EditIssues = ({ nextStep, prevStep }) => {
 
   useEffect(() => {
     fetchIssues();
-  }, []);
+  }, [issues]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     postIssues()
   };
 
@@ -86,31 +84,34 @@ const EditIssues = ({ nextStep, prevStep }) => {
           justifyContent="center"
           textAlign="left"
           marginY={majorScale(3)}
-        >
-          <FormGroup>
-            {issues.map((issue) => {
-              return (
-                <FormControlLabel control={
-                  <Checkbox
-                    id={`issue_${issue.name}`}
-                    key={`${issue.id}`}
-                    value={`${issue.id}_${issue.name}`}
-                    sx={{ '& .MuiSvgIcon-root': { fontSize: 24 } }}
-                  />}
-                  label={issue.name}
-                />
 
-              );
-            })
-            }
-          </FormGroup>
+        >
+          <div style={{ columnCount: "2", columnWidth: "auto" }}>
+            <FormGroup>
+
+              {issues.map((issue) => {
+                return (
+                  <FormControlLabel control={
+                    <Checkbox
+                      id={`issue_${issue.name}`}
+                      key={`${issue.id}`}
+                      value={`${issue.id}_${issue.name}`}
+                      sx={{ '& .MuiSvgIcon-root': { fontSize: 24 } }}
+                    />}
+                    label={issue.name}
+                  />
+
+                );
+              })
+              }
+            </FormGroup>
+          </div>
         </Pane >
       );
     }
   };
 
-  const postIssues = (e) => {
-    e.preventDefault()
+  const postIssues = () => {
     const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-issues`
     fetch(url, {
       method: 'POST',
@@ -128,7 +129,6 @@ const EditIssues = ({ nextStep, prevStep }) => {
       })
       .catch(error => {
         console.log(error)
-        console.log(JSON.stringify(issuesObj))
         return false
       })
   }

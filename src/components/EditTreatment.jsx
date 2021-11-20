@@ -89,23 +89,25 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                     textAlign="left"
                     marginY={majorScale(3)}
                 >
-                    <FormGroup>
-                        {treatments.map((issue) => {
-                            return (
-                                <FormControlLabel control={
-                                    <Checkbox
-                                        id={`issue_${issue.name}`}
-                                        key={`${issue.id}`}
-                                        value={`${issue.id}_${issue.name}`}
-                                        sx={{ '& .MuiSvgIcon-root': { fontSize: 24 } }}
-                                    />}
-                                    label={issue.name}
-                                />
+                    <div style={{ columnCount: "2", columnWidth: "auto" }}>
+                        <FormGroup>
+                            {treatments.map((issue) => {
+                                return (
+                                    <FormControlLabel control={
+                                        <Checkbox
+                                            id={`issue_${issue.name}`}
+                                            key={`${issue.id}`}
+                                            value={`${issue.id}_${issue.name}`}
+                                            sx={{ '& .MuiSvgIcon-root': { fontSize: 24 } }}
+                                        />}
+                                        label={issue.name}
+                                    />
 
-                            );
-                        })
-                        }
-                    </FormGroup>
+                                );
+                            })
+                            }
+                        </FormGroup>
+                    </div>
                 </Pane >
             );
         }

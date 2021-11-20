@@ -1,5 +1,5 @@
 import { Heading, Pane, Avatar, Button } from "evergreen-ui";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
@@ -17,7 +17,7 @@ const NavBar = (props) => {
                 to={`/users/${id}/profile`}>
                 <Avatar
                     src=""
-                    name={user.attributes.client.first_name}
+                    name={user.attributes.email}
                     size={40}
                 />
             </Link>
@@ -43,7 +43,6 @@ const NavBar = (props) => {
     const handleChange = () => {
         props.hasToken()
     }
-
 
 
 
