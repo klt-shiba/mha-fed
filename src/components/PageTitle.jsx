@@ -36,15 +36,15 @@ const HomeBannerContainer = styled.div`
 `
 const Heading = styled.h1`
     display: block;
-    font-size: 3.2rem;
-    font-weight: 800;
+    font-size: 2.8rem;
+    font-weight: 700;
     margin: 0.8rem;
     text-align: center;
 `
 
 const Summary = styled.span`
     display: block;
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin: 0.8rem;
     text-align: center;
 `

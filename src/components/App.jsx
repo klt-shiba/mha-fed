@@ -30,16 +30,20 @@ const App = () => {
 
   useEffect(() => {
     fastLogin()
+    console.log(token)
   }, [token])
 
   const fastLogin = () => {
     console.log("Clicked")
     if (!token) {
+      console.log("Token")
+      localStorage.removeItem("token")
       setUser(null)
+      return false
     } else {
+      console.log("other")
       dispatch(autoLogin())
       setUser(databaseObj.data)
-      console.log(databaseObj)
     }
   }
 

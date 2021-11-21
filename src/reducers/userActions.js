@@ -60,6 +60,7 @@ export const signUserUp = userInfo => dispatch => {
     })
     .catch(error => {
       console.log(error)
+      localStorage.removeItem('token')
       return false
     })
 }
@@ -77,6 +78,7 @@ export const autoLogin = () => async dispatch => {
   })
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
+    localStorage.removeItem('token')
     throw new Error(message);
   }
   const data = await response.json()

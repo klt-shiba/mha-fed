@@ -3,6 +3,9 @@ import { useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { TextInputField, Pane, Button, Heading, Text, majorScale } from "evergreen-ui";
+import PageTitle from "./PageTitle";
+import { Container } from "reactstrap";
+import Section from "./Section";
 
 
 const Register = () => {
@@ -56,74 +59,70 @@ const Register = () => {
   };
 
   return (
-    <Pane
-      display="flex"
-      flexDirection="column"
-      className="vbox">
-      <Pane
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        marginY={majorScale(4)}>
-
-        <Pane
-          max-width="480px"
-          display="block"
-          textAlign="center">
-          <Pane>
-            <Heading
-              size={900}
-              is="h1"
-              textAlign="center"
-              marginY={majorScale(1)}>Create an account</Heading>
-            <Text
-              size={600}
-              textAlign="center">
-              Take that first step and book with these professional therapists who
-              are available now.
-            </Text>
-          </Pane>
+    <>
+      <PageTitle
+        isSmall
+        title="Create an account"
+        summary="Take that first step and book with these professional therapists who
+        are available now."
+      />
+      <Container fluid="xl">
+        <Section>
           <Pane
-            display="block"
+            display="flex"
             alignItems="center"
             justifyContent="center"
-            textAlign="left"
-            marginY={majorScale(3)}
-          >
-            <form onSubmit={handleSubmit}>
-              <TextInputField
-                type="email"
-                label="Email address"
-                className="form-control"
-                id="register_email"
-                aria-describedby="register_email"
-                // description="This is a description."
-                placeholder="Enter email"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-              />
-              <TextInputField
-                type="password"
-                label="Password"
-                className="form-control"
-                id="exampleInputPassword1"
-                placeholder="Password"
-                onChange={(e) => setPWord(e.target.value)}
-                value={pword}
-              />
-              <Button
-                type="submit"
-                appearance="primary" >
-                Create account
-              </Button>
-            </form>
-            {/* <button type="" className="btn btn-primary" onClick={googleOAuth}>
+            textAlign="left">
+            <Pane
+              width="100%"
+              maxWidth='720px'>
+              <form onSubmit={handleSubmit}>
+                <TextInputField
+                  type="email"
+                  label="Email address"
+                  className="form-control"
+                  id="register_email"
+                  aria-describedby="register_email"
+                  // description="This is a description."
+                  placeholder="Enter email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  inputHeight={48}
+                />
+                <TextInputField
+                  type="password"
+                  label="Password"
+                  className="form-control"
+                  id="exampleInputPassword1"
+                  placeholder="Password"
+                  onChange={(e) => setPWord(e.target.value)}
+                  value={pword}
+                  inputHeight={48}
+                />
+                <Pane display="flex">
+                  <Pane flex={1} alignItems="center" display="flex">
+
+                  </Pane>
+                  <Pane>
+                    <Button
+                      type="submit"
+                      appearance="primary"
+                      size="large" >
+                      Create account
+                    </Button>
+                  </Pane>
+                </Pane>
+
+              </form>
+            </Pane>
+          </Pane>
+        </Section>
+        {/* <button type="" className="btn btn-primary" onClick={googleOAuth}>
             Sign in with Google
           </button> */}
-          </Pane>
-        </Pane >
-      </Pane>
-    </Pane >
+
+      </Container >
+    </>
   );
 };
 
