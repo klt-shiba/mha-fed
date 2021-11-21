@@ -10,6 +10,9 @@ const Container = styled.span`
     font-weight: 600;
     color: #333;
     margin: 0 8px 8px 0;
+    white-space: nowrap;
+    display: inline-flex;
+
     ${props => {
         if (props.hasColour === "blue") {
             return (props.hasColour && css`

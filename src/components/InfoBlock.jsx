@@ -6,24 +6,25 @@ import { Rating } from '@mui/material'
 const Container = styled.div`
     width:100%;
     height: auto; 
-
-    /* & div.heading-aligner {
-        margin: -3.6rem 0;
-        background-color: rgba(0,0,0,0.9);
-        z-index: ;
-    } */
+    margin-bottom: 2.4rem;
 
     & div.header-wrapper {
         display: block;
         border-bottom: 1px solid #aaa;
-        margin-bottom: 0.8rem;
+        margin: 1.2rem 0;
     }
+    ${up('md')} {
+        margin-bottom: 3.2rem;
+               
+    }
+
 `
 
 const Heading = styled.h2`
     display: block;
     font-size: 1.5rem;
     font-weight: 600;
+    margin: 0 0 1.2rem 0;
 `
 
 const InfoBlock = props => {
