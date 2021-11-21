@@ -137,8 +137,9 @@ const CardV2 = (props) => {
                         is="h2"
                         size={700}>{props.title}</Heading>
                 </div>
-                <div className="summary-card-container"><Text
-                    size={400} variant="body2" gutterBottom>{props.body}</Text></div>
+                <div className="summary-card-container">
+                    <Text
+                        size={400} variant="body2" gutterBottom>{props.body}</Text></div>
                 <div >
                     {props.rating}
                 </div>

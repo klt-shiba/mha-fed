@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { SearchInput, Pane, Button, Card, Heading, Text, majorScale } from "evergreen-ui";
 import { Rating } from "@mui/material";
 import CardV2 from "./CardV2"
 import CardContainer from "./CardContainer";
 import { Container } from 'reactstrap';
+import PageTitle from "./PageTitle"
+import Section from "./Section"
 
 
 const Therapists = () => {
@@ -76,7 +78,6 @@ const Therapists = () => {
     return (
 
       <CardContainer isCard>
-
         {
           therapists.map((therapist, index) => (
             <CardV2
@@ -102,6 +103,17 @@ const Therapists = () => {
     )
   }
 
+  const renderSearch = () => {
+    return (
+
+      <SearchInput
+        placeholder="Filter traits..."
+        width="100%"
+        height={48}
+      />
+    )
+  }
+
   const noTherapists = (
     <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
       <h4>
@@ -112,46 +124,28 @@ const Therapists = () => {
 
   return (
     <>
+      <PageTitle
+        isSmall
+        title="Find a Therapist"
+        summary="Take that first step and book with these professional therapists who
+        are available now."
+        searchBar={renderSearch()} />
       <Container fluid="xl">
+        {/* 
         <Pane
-          display="flex"
-          flexDirection="column"
-          className="vbox">
-          <Pane
-            display="block"
-            text-align="center"
-            alignItems="center"
-            textAlign="center"
-            marginY={majorScale(4)}>
-            <Heading
-              size={900}
-              is="h1"
-              textAlign="center"
-              marginY={majorScale(1)}>Find a Therapist</Heading>
-            <Text
-              size={600}
-              textAlign="center">
-              Take that first step and book with these professional therapists who
-              are available now.
-            </Text>
-          </Pane>
-          <Pane
-            display="block"
-            text-align="center"
-            alignItems="center"
-          >
-            <SearchInput
-              placeholder="Filter traits..."
-              width="100%"
-              height={48}
-            />
-          </Pane>
-
-
+          display="block"
+          text-align="center"
+          alignItems="center"
+        >
+          <SearchInput
+            placeholder="Filter traits..."
+            width="100%"
+            height={48}
+          />
+        </Pane> */}
+        <Section>
           {therapists.length > 0 ? allTherapists() : noTherapists}
-
-
-        </Pane>
+        </Section>
       </Container>
     </>
   );

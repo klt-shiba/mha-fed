@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import Section from "./Section";
 import InfoBlock from "./InfoBlock";
+import PageTitle from "./PageTitle"
 
 const ProfilePage = () => {
 
@@ -46,15 +47,18 @@ const ProfilePage = () => {
             return false
         }
     }
-
     const returnName = () => {
         return (
             userAttributes ? `Welcome ${userAttributes.first_name}` : "My Profile"
         )
     }
-
     return (
         <>
+            <PageTitle
+                isSmall
+                title={returnName()}
+                summary="Review and update your details."
+            />
             <Container fluid="xl">
                 {JSON.stringify(user, null, 1)}
                 {console.log(userAttributes)}
@@ -62,18 +66,6 @@ const ProfilePage = () => {
                     display="flex"
                     flexDirection="column"
                     className="vbox">
-                    <Section>
-                        <Heading
-                            size={900}
-                            is="h1"
-                            textAlign="center"
-                            marginY={majorScale(1)}>{returnName()}</Heading>
-                        <Text
-                            size={600}
-                            textAlign="center">
-                            Review and update your details.
-                        </Text>
-                    </Section >
                     <Section>
                         <InfoBlock
                             heading="Personal Information"
