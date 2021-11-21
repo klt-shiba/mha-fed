@@ -49,15 +49,20 @@ const Therapists = () => {
 
     const ratingArray = object.attributes.reviews
 
-    if (ratingArray.length >= 1) {
+    console.log(ratingArray)
 
+    if (!ratingArray) {
+      return false
+    }
+
+    else if (ratingArray.length >= 1) {
+      const ratings = []
       // Calculate Averate
-      const results = ratingArray.map(ratingObject => {
-        const ratings = []
+      ratingArray.map(ratingObject => {
         ratings.push(ratingObject.rating)
-        return ratings
       })
-      return average(results)
+      const roundedResults = Math.ceil(average(ratings))
+      return roundedResults
     } else {
       return 0
     }
@@ -86,6 +91,7 @@ const Therapists = () => {
         }
       </CardContainer >
     )
+
   }
 
 

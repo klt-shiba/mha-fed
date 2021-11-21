@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Rating from '@mui/material/Rating';
@@ -6,16 +6,17 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { styled } from '@mui/material/styles';
 import { Textarea, Pane, Button, Label, Heading, Text, majorScale } from "evergreen-ui";
+import { UserContext } from "../UserContext";
 
 const CreateReview = () => {
 
+  const { user, setUser } = useContext(UserContext)
   const [rating, setRating] = useState(" ");
   const [comment, setComment] = useState("");
   const token = localStorage.getItem("token");
-  const databaseObj = useSelector((state) => state.userReducer.user);
   const { id } = useParams();
-
   const history = useHistory();
+  const [userAttributes, setUserAttributes] = useState(null)
 
   const StyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
@@ -26,9 +27,30 @@ const CreateReview = () => {
     },
   });
 
-  console.log(databaseObj);
+  const checkUserType = () => {
+    if (!user) {
+      setUserAttributes(null)
+      return false
+    } else if (user.attributes.client === null) {
+      setUserAttributes(user.attributes.therapist)
+    } else if (user.attributes.therapist === null) {
+      setUserAttributes(user.attributes.client)
+    } else {
+      setUserAttributes(null)
+      return false
+    }
+  }
 
-  const clientId = databaseObj.data.attributes.client.id
+  const clientId = () => {
+    return (
+      userAttributes ? userAttributes.id : false
+    )
+  }
+
+  useEffect(() => {
+    checkUserType()
+    clientId()
+  }, [user, userAttributes])
 
   const createReview = () => {
     const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-review`;
@@ -43,12 +65,12 @@ const CreateReview = () => {
         rating: rating,
         comment: comment,
         therapist_id: parseInt(id),
-        client_id: clientId
+        client_id: clientId()
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        history.push(`/therapists/${id}`);
       })
       .catch((error) => console.log(error));
   };
@@ -56,7 +78,6 @@ const CreateReview = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     createReview();
-    history.push(`/therapists/${id}`);
   };
 
   return (

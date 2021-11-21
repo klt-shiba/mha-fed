@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
-import Chip from '@mui/material/Chip';
-import { Pane, Button, Heading, Paragraph, majorScale } from "evergreen-ui";
+import { useParams, useHistory } from "react-router-dom";
+import { Pane, Button, Paragraph, majorScale } from "evergreen-ui";
 import { Rating } from "@mui/material";
 import Section from "./Section";
 import { Container } from "reactstrap";
@@ -57,16 +56,13 @@ const Therapist = () => {
     }
 
     else if (ratingArray.length >= 1) {
-
+      const ratings = []
       // Calculate Averate
-      const results = ratingArray.map(ratingObject => {
-        const ratings = []
+      ratingArray.map(ratingObject => {
         ratings.push(ratingObject.rating)
-        return ratings
       })
-
-      setTherapistRating(average(results))
-
+      const roundedResults = Math.ceil(average(ratings))
+      setTherapistRating(roundedResults)
     } else {
       return 0
     }

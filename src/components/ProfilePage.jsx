@@ -15,7 +15,6 @@ const ProfilePage = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const { id } = useParams();
-    const [userType, setUserType] = useState(null)
     const [userAttributes, setUserAttributes] = useState(null)
 
     const handleClick = (e) => {
@@ -36,17 +35,24 @@ const ProfilePage = () => {
 
     const checkUserType = () => {
         if (!user) {
-            setUserType(null)
+            setUserAttributes(null)
             return false
         } else if (user.attributes.client === null) {
             setUserAttributes(user.attributes.therapist)
         } else if (user.attributes.therapist === null) {
             setUserAttributes(user.attributes.client)
         } else {
-            setUserType(null)
+            setUserAttributes(null)
             return false
         }
     }
+
+    const returnName = () => {
+        return (
+            userAttributes ? `Welcome ${userAttributes.first_name}` : "My Profile"
+        )
+    }
+
     return (
         <>
             <Container fluid="xl">
@@ -61,7 +67,7 @@ const ProfilePage = () => {
                             size={900}
                             is="h1"
                             textAlign="center"
-                            marginY={majorScale(1)}>{`Welcome ${userAttributes.first_name}`}</Heading>
+                            marginY={majorScale(1)}>{returnName()}</Heading>
                         <Text
                             size={600}
                             textAlign="center">
