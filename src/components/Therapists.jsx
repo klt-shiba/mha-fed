@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { signUserUp } from "../reducers/userActions";
-import { useDispatch, useSelector } from "react-redux";
 import { SearchInput, Pane, Button, Card, Heading, Text, majorScale } from "evergreen-ui";
 import { Rating } from "@mui/material";
+import CardV2 from "./CardV2"
+import CardContainer from "./CardContainer";
+import { Container } from 'reactstrap';
+
 
 const Therapists = () => {
   const [therapists, setTherapists] = useState([]);
@@ -68,62 +70,29 @@ const Therapists = () => {
 
     return (
 
-      <Pane
-        text-align="center"
-        alignItems="center"
-        display="flex"
-        flexDirection="row"
-        flexWrap="wrap"
-        className="hbox"
-        flex={1}
-      >
+      <CardContainer isCard>
 
         {
           therapists.map((therapist, index) => (
-
-            <Link
-              to={`/therapists/${therapist.id}`}
-            >
-              <Card
-                display="flex"
-                flexDirection="column"
-                className="vbox"
-                key={index}
-                minWidth={250}
-                flex={1}
-                name={therapist.attributes.first_name}
-                description="Regular user"
-                elevation={0}
-                alignContent="space-between"
-                margin="0.3rem"
-                flex={1} elevation={1} padding="0.5rem"
-              >
-                <img
-                  src={therapist.attributes.avatar_url}
-                  className="card-img-top"
-                  alt={`${therapist.attributes.first_name} image`}
-                />
-                <Heading
-                  is="h2"
-                  size={700}>
-                  {therapist.attributes.first_name} {therapist.attributes.last_name}</Heading>
-
-                <Text size={400}>{therapist.attributes.short_summary}</Text>
-                {updateRatings(getRatings(therapist))}
-              </Card >
-            </Link>
+            <CardV2
+              imgSrc={therapist.attributes.avatar_img_url}
+              title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
+              href={`/therapists/${therapist.id}`}
+              id={therapist.id}
+              body={therapist.attributes.short_summary}
+              rating={updateRatings(getRatings(therapist))}
+              isLoading={false} />
           ))
         }
-      </Pane>
+      </CardContainer >
     )
-
   }
+
 
   const updateRatings = (value) => {
 
-
     return (
-      <Rating name="read-only" value={value} readOnly />
+      <Rating name="read-only" value={value} readOnly size="large" />
     )
   }
 
@@ -136,53 +105,48 @@ const Therapists = () => {
   );
 
   return (
-    <><Pane
-      display="flex"
-      flexDirection="column"
-      className="vbox">
-      <Pane
-        display="block"
-        text-align="center"
-        alignItems="center"
-        textAlign="center"
-        marginY={majorScale(4)}>
-        <Heading
-          size={900}
-          is="h1"
-          textAlign="center"
-          marginY={majorScale(1)}>Find a Therapist</Heading>
-        <Text
-          size={600}
-          textAlign="center">
-          Take that first step and book with these professional therapists who
-          are available now.
-        </Text>
-      </Pane>
-      <Pane
-        display="block"
-        text-align="center"
-        alignItems="center"
-      >
-        <SearchInput
-          placeholder="Filter traits..."
-          width="100%"
-          height={48}
-        />
-      </Pane>
-      <Pane
-        text-align="center"
-        alignItems="center"
-        display="flex"
-        flexDirection="row"
-        flexWrap="wrap"
-        className="hbox"
-        flex={1}
-      >
+    <>
+      <Container fluid="xl">
+        <Pane
+          display="flex"
+          flexDirection="column"
+          className="vbox">
+          <Pane
+            display="block"
+            text-align="center"
+            alignItems="center"
+            textAlign="center"
+            marginY={majorScale(4)}>
+            <Heading
+              size={900}
+              is="h1"
+              textAlign="center"
+              marginY={majorScale(1)}>Find a Therapist</Heading>
+            <Text
+              size={600}
+              textAlign="center">
+              Take that first step and book with these professional therapists who
+              are available now.
+            </Text>
+          </Pane>
+          <Pane
+            display="block"
+            text-align="center"
+            alignItems="center"
+          >
+            <SearchInput
+              placeholder="Filter traits..."
+              width="100%"
+              height={48}
+            />
+          </Pane>
 
-        {therapists.length > 0 ? allTherapists() : noTherapists}
 
-      </Pane>
-    </Pane>
+          {therapists.length > 0 ? allTherapists() : noTherapists}
+
+
+        </Pane>
+      </Container>
     </>
   );
 };

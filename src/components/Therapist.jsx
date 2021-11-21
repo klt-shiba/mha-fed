@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
-import { signUserUp } from "../reducers/userActions";
-import { useDispatch, useSelector } from "react-redux";
 import Chip from '@mui/material/Chip';
-import { Pane, Button, Text, Heading, Paragraph, majorScale } from "evergreen-ui";
+import { Pane, Button, Heading, Paragraph, majorScale } from "evergreen-ui";
 import { Rating } from "@mui/material";
+import Section from "./Section";
+import { Container } from "reactstrap";
+import ImgBanner from "./ImgBanner";
+import Infoblock from "./InfoBlock"
+import Bullet from "./Bullets";
 
 
 const Therapist = () => {
 
-  const [therapist, setTherapist] = useState("");
+  const [therapist, setTherapist] = useState(null);
   const [therapistUser, setTherapistUser] = useState("");
   const [reviews, setReviews] = useState([]);
   const [issues, setIssues] = useState([]);
   const [treatments, setTreatments] = useState([])
   const { id } = useParams();
   const history = useHistory();
+  const [therapistRating, setTherapistRating] = useState(null)
 
   const fetchTherapist = () => {
     const url = `http://127.0.0.1:3001/api/v1/therapists/${id}`;
@@ -34,12 +38,41 @@ const Therapist = () => {
         setReviews(data.attributes.reviews)
         setIssues(data.attributes.issues)
         setTreatments(data.attributes.treatments)
+        getRatings(data.attributes)
       })
       .catch((error) => {
         console.log(error);
         history.push("/");
       });
   };
+
+  const getRatings = (object) => {
+
+    const ratingArray = object.reviews
+
+    console.log(ratingArray)
+
+    if (!ratingArray) {
+      return false
+    }
+
+    else if (ratingArray.length >= 1) {
+
+      // Calculate Averate
+      const results = ratingArray.map(ratingObject => {
+        const ratings = []
+        ratings.push(ratingObject.rating)
+        return ratings
+      })
+
+      setTherapistRating(average(results))
+
+    } else {
+      return 0
+    }
+  }
+
+  const average = (ratingsAverage) => ratingsAverage.reduce((a, b) => a + b) / ratingsAverage.length;
 
 
   const token = localStorage.getItem("token");
@@ -76,14 +109,14 @@ const Therapist = () => {
       return <div>?</div>;
     } else {
       return (
-        <ul>
+        <div>
           {issues.map((issue) => {
             return (
-              <Chip label={issue.name} color="info" size="small"></Chip>
+              <Bullet label={issue.name} hasColour="green" hasSize="small"></Bullet>
             )
           })
           }
-        </ul >
+        </div >
       );
     }
   };
@@ -93,17 +126,21 @@ const Therapist = () => {
       return <div>?</div>;
     } else {
       return (
-        <ul>
+        <div>
           {treatments.map((treatment) => {
             return (
-              <Chip label={treatment.name} color="success" size="small"></Chip>
+              <Bullet label={treatment.name} hasColour="blue" hasSize="small"></Bullet>
             )
           })
           }
-        </ul >
+        </div >
       );
     }
   };
+
+  useEffect(() => {
+    renderImgBanner()
+  }, [therapist, therapistRating])
 
   const handleClick = (e) => {
     console.log(e.target);
@@ -119,62 +156,65 @@ const Therapist = () => {
     }
   };
 
-  return (
-    <Pane
-      display="flex"
-      flexDirection="column"
-      className="vbox">
-      <Pane
-        width="100%">
-        <img
-          src={therapist.avatar_url}
-          alt={`${therapist.first_name} image`}
-          className="img-fluid position-absolute"
-        />
-      </Pane>
-      <Pane>
-        <Heading is="h1" size={900}>
-          {therapist.first_name} {therapist.last_name}
-        </Heading>
-      </Pane>
-      <Pane>
-        <Heading is="h2" size={600}>
-          About me
-        </Heading>
-        <Paragraph>
-          {therapist.long_summary}
-        </Paragraph>
-      </Pane>
-      <Pane>
-        <Heading is="h2" size={600}>
-          What I can help with
-        </Heading>
-        <Pane>{ShowIssues()}</Pane>
-      </Pane>
-      <Pane>
-        <Heading is="h2" size={600}>
-          Approaches I take
-        </Heading>
-        <Pane>{ShowTreatments()}</Pane>
-      </Pane>
-      <Pane>
-        <Heading is="h2" size={600}>
-          My reviews
-        </Heading>
-        <Pane>{ShowReviews()}</Pane>
-        <Pane>
-          <Button
-            appearance="primary"
-            onClick={handleClick}
-          >
-            Review Therapist
-          </Button></Pane>
-      </Pane>
 
-      <Link to="/therapists" className="btn btn-link">
-        Back to Therapists
-      </Link>
-    </Pane >
+  const renderImgBanner = () => {
+    if (!therapist) {
+      return false
+    } else {
+      return (
+        <ImgBanner
+          src={therapist.avatar_img_url}
+          alt={`${therapist.first_name} image`}
+          heading={`${therapist.first_name}` + ` ${therapist.last_name}`}
+          rating={therapistRating} />
+      )
+    }
+  }
+
+
+  return (
+    <Container fluid="xl">
+      <Pane
+        display="flex"
+        flexDirection="column"
+        className="vbox">
+        <Section>
+          {renderImgBanner()}
+        </Section>
+        <Section>
+          <Pane>
+            <Infoblock
+              heading="About me"
+              content={therapist ? therapist.long_summary : false} />
+          </Pane>
+          <Pane marginY={majorScale(3)}>
+            <Infoblock
+              heading="What I can help with"
+              content={ShowIssues()} />
+          </Pane>
+          <Pane marginY={majorScale(3)}>
+            <Infoblock
+              heading="Approaches I take"
+              content={ShowTreatments()} />
+          </Pane>
+          <Pane
+            marginY={majorScale(3)}>
+            <Infoblock
+              heading="My reviews"
+              content={ShowReviews()} />
+          </Pane>
+          <Pane>
+            <Button
+              appearance="primary"
+              width="full"
+              onClick={handleClick}
+            >
+              Review Therapist
+            </Button>
+          </Pane>
+        </Section>
+      </Pane >
+    </Container>
   );
 };
 

@@ -47,11 +47,13 @@ const NavBar = ({ hasToken }) => {
 
         if (user == undefined) {
             hasToken()
+            return (
+                <div>{renderLoginRegisterButtons()}</div>
+            )
         } else {
             return (
-                (!user) ?
-                    <div>{renderLoginRegisterButtons()}</div>
-                    : <div>{renderAvatar()} </div>
+
+                <div>{renderAvatar()} </div>
             )
         }
     }
@@ -102,7 +104,6 @@ const NavBar = ({ hasToken }) => {
                 display="flex"
                 alignItems="center">
                 {renderMenuItems()}
-
             </Pane>
         </Pane >
     );

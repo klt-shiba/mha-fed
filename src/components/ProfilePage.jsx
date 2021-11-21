@@ -5,6 +5,8 @@ import { logUserOut } from "../reducers/userActions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
+import { Container } from "reactstrap";
+import Section from "./Section";
 
 const ProfilePage = () => {
 
@@ -25,46 +27,48 @@ const ProfilePage = () => {
         }
     }
     return (
-        <Pane>
-            {JSON.stringify(user, null, 1)}
-            <Pane
-                display="flex"
-                flexDirection="column"
-                className="vbox">
+        <>
+            <Container fluid="xl">
+                {JSON.stringify(user, null, 1)}
                 <Pane
                     display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    marginY={majorScale(4)}>
-
+                    flexDirection="column"
+                    className="vbox">
                     <Pane
-                        max-width="480px"
-                        display="block"
-                        textAlign="center">
-                        <Pane>
-                            <Heading
-                                size={900}
-                                is="h1"
-                                textAlign="center"
-                                marginY={majorScale(1)}>My Profile</Heading>
-                            <Text
-                                size={600}
-                                textAlign="center">
-                                Review and update your details.
-                            </Text>
-                        </Pane>
-                    </Pane >
-                </Pane>
-                <Pane>
-                    <Link to={`/users/${id}/update-profile`}>
-                        Update personal information
-                    </Link>
-                </Pane>
-                <Pane>
-                    <Button onClick={handleClick}>Log Out</Button>
-                </Pane>
-            </Pane >
-        </Pane >
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        marginY={majorScale(4)}>
+
+                        <Section
+                            max-width="480px"
+                            display="block"
+                            textAlign="center">
+                            <Pane>
+                                <Heading
+                                    size={900}
+                                    is="h1"
+                                    textAlign="center"
+                                    marginY={majorScale(1)}>My Profile</Heading>
+                                <Text
+                                    size={600}
+                                    textAlign="center">
+                                    Review and update your details.
+                                </Text>
+                            </Pane>
+                        </Section >
+                    </Pane>
+                    <Pane>
+                        <Link to={`/users/${id}/update-profile`}>
+                            Update personal information
+                        </Link>
+                    </Pane>
+                    <Pane>
+                        <Button onClick={handleClick}>Log Out</Button>
+                    </Pane>
+                </Pane >
+            </Container>
+        </>
     )
 }
 
