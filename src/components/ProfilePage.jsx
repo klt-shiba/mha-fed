@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Pane, majorScale, Heading, Text, Button } from "evergreen-ui";
 import { UserContext } from "../UserContext";
 import { logUserOut } from "../reducers/userActions";
@@ -7,6 +7,7 @@ import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import Section from "./Section";
+import InfoBlock from "./InfoBlock";
 
 const ProfilePage = () => {
 
@@ -14,9 +15,10 @@ const ProfilePage = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const { id } = useParams();
+    const [userType, setUserType] = useState(null)
+    const [userAttributes, setUserAttributes] = useState(null)
 
     const handleClick = (e) => {
-
         e.preventDefault()
         dispatch(logUserOut())
 
@@ -26,48 +28,64 @@ const ProfilePage = () => {
             console.log("error")
         }
     }
+
+    useEffect(() => {
+        checkUserType()
+    }, [user])
+
+
+    const checkUserType = () => {
+        if (!user) {
+            setUserType(null)
+            return false
+        } else if (user.attributes.client === null) {
+            setUserAttributes(user.attributes.therapist)
+        } else if (user.attributes.therapist === null) {
+            setUserAttributes(user.attributes.client)
+        } else {
+            setUserType(null)
+            return false
+        }
+    }
     return (
         <>
             <Container fluid="xl">
                 {JSON.stringify(user, null, 1)}
+                {console.log(userAttributes)}
                 <Pane
                     display="flex"
                     flexDirection="column"
                     className="vbox">
-                    <Pane
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        marginY={majorScale(4)}>
-
-                        <Section
-                            max-width="480px"
-                            display="block"
+                    <Section>
+                        <Heading
+                            size={900}
+                            is="h1"
+                            textAlign="center"
+                            marginY={majorScale(1)}>{`Welcome ${userAttributes.first_name}`}</Heading>
+                        <Text
+                            size={600}
                             textAlign="center">
-                            <Pane>
-                                <Heading
-                                    size={900}
-                                    is="h1"
-                                    textAlign="center"
-                                    marginY={majorScale(1)}>My Profile</Heading>
-                                <Text
-                                    size={600}
-                                    textAlign="center">
-                                    Review and update your details.
-                                </Text>
-                            </Pane>
-                        </Section >
-                    </Pane>
+                            Review and update your details.
+                        </Text>
+                    </Section >
+                    <Section>
+                        <InfoBlock
+                            heading="Personal Information"
+                            content={JSON.stringify(userAttributes, null, 1)}>
+                        </InfoBlock>
+                    </Section>
                     <Pane>
                         <Link to={`/users/${id}/update-profile`}>
                             Update personal information
                         </Link>
                     </Pane>
+
+
                     <Pane>
                         <Button onClick={handleClick}>Log Out</Button>
                     </Pane>
                 </Pane >
-            </Container>
+            </Container >
         </>
     )
 }
