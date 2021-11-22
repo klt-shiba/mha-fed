@@ -3,15 +3,16 @@ import styled, { css } from 'styled-components'
 import { up } from 'styled-breakpoints';
 
 const Section = styled.section`
-  padding: 0.8rem 0rem;
-  background-color: ${props => props.backgroundColour};
+  padding: 32px 0;
+  background-color: white;
   display: ${props => props.isHidden ? "none" : "block"};
 
   ${up('md')} {
-    padding: 1.2rem 0rem;
+    padding: 40px 0rem;
+    background-color: ${props => props.backgroundColour};
   }
   ${up('lg')} {
-    padding: 4.0rem 0rem;
+    padding:72px 0rem;
   }
 `;
 

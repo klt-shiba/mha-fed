@@ -8,7 +8,9 @@ import { Link, useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import Section from "./Section";
 import InfoBlock from "./InfoBlock";
-import PageTitle from "./PageTitle"
+import PageTitle from "./PageTitle";
+import FormCard from "./FormCard";
+
 
 const ProfilePage = () => {
 

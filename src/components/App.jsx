@@ -13,7 +13,6 @@ import Footer from "./Footer";
 import CreateReview from "../components/CreateReview";
 import NavBar from "./NavBar";
 import GettingStarted from "../Container/GettingStarted"
-import { Avatar } from "evergreen-ui";
 import EditTreatment from "./EditTreatment";
 import { UserContext } from "../UserContext";
 import ProfilePage from "./ProfilePage";
