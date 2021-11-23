@@ -71,6 +71,7 @@ const Therapists = () => {
       return "Empty"
     } else {
       const results = collectIssueNames(issues)
+      console.log(results)
       setDropdownIssues(results)
     }
   }
@@ -119,11 +120,11 @@ const Therapists = () => {
         multiple
         limitTags={4}
         id="autocomplete"
-        options={dropdownIssues ? dropdownIssues : ["Not working"]}
-        getOptionLabel={(option) => option.label}
+        options={dropdownIssues ? dropdownIssues : "Not working"}
+        getOptionLabel={(issue) => issue.label}
         onInputChange={handleInputChange}
         onChange={(event, newValue) => {
-          setDropdownValues([newValue])
+          setDropdownValues(newValue)
         }}
         value={dropdownValue}
 
