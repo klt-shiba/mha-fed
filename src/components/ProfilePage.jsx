@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Pane, majorScale, Heading, Text, Button } from "evergreen-ui";
+import { Pane, Button } from "evergreen-ui";
 import { UserContext } from "../UserContext";
 import { logUserOut } from "../reducers/userActions";
 import { useDispatch } from "react-redux";
@@ -9,7 +9,7 @@ import { Container } from "reactstrap";
 import Section from "./Section";
 import InfoBlock from "./InfoBlock";
 import PageTitle from "./PageTitle";
-import FormCard from "./FormCard";
+
 
 
 const ProfilePage = () => {

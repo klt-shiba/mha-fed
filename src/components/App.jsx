@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { logUserOut, autoLogin } from "../reducers/userActions";
+import { autoLogin } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Home.jsx";

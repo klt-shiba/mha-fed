@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Textarea, Pane, Button, Label, Heading, Text, majorScale } from "evergreen-ui";
+import React, { useState } from "react";
 import EditUserType from "../components/EditUserType";
 import EditIssues from "../components/EditIssues";
 import EditTreatment from "../components/EditTreatment";

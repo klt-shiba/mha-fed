@@ -32,6 +32,11 @@ const HomeBannerContainer = styled.div`
         align-items: center;
         justify-content: center;
         padding: 4.0rem 0;
+
+
+        & > *:last-child {
+            margin-top: 32px;
+        }
     }
 `
 const Heading = styled.h1`

@@ -1,7 +1,5 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { up } from 'styled-breakpoints'
-import { Rating } from '@mui/material'
 
 const Container = styled.span`
     width:auto;
