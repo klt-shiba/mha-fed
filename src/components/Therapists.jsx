@@ -65,6 +65,7 @@ const Therapists = () => {
   }
 
 
+
   const prepareIssues = () => {
     if (!issues) {
       console.log("Not working")
@@ -127,7 +128,6 @@ const Therapists = () => {
           setDropdownValues(newValue)
         }}
         value={dropdownValue}
-
         renderInput={(params) => (
           <TextField
             sx={{
@@ -151,7 +151,81 @@ const Therapists = () => {
 
   useEffect(() => {
     allTherapists();
+    cleanUpIssues()
+    filterTherapists()
   });
+
+
+
+  const cleanUpIssues = () => {
+    const results = []
+
+    dropdownValue.map((el) => {
+      results.push(el.label)
+    })
+    console.log(results)
+    return results
+  }
+
+  const filterTherapists = () => {
+
+    const results = []
+    const currentTherapists = [...therapists]
+
+    console.log(currentTherapists)
+
+
+    // If dropdowns options have been selected
+    if (dropdownValue.length > 0) {
+
+      // Loop through current Therapists
+      currentTherapists.map((el, index) => {
+
+        // Store Therapists Issues array
+        let issues = el.attributes.issues
+
+        // If Issues array has more than 0 issues
+        if (issues.length > 0) {
+
+          // Loop through issues and see if dropdown options exist in Therapists issues.
+          issues.map((el) => {
+
+            // Store each issue name
+            let issueNames = el.name
+
+            dropdownValue.map((el) => {
+
+              if (el === issueNames) {
+
+                console.log(issueNames)
+
+              } else {
+
+                return false
+
+              }
+
+            })
+
+          })
+
+          // Return Therapist that have issues
+          // This will be all in the future.
+          console.log(el)
+
+        } else {
+
+          return false
+
+        }
+      })
+    } else {
+
+      return false
+    }
+
+    return results
+  }
 
 
   const getRatings = (object) => {
@@ -177,23 +251,51 @@ const Therapists = () => {
 
   const allTherapists = () => {
 
-    return (
 
-      <CardContainer isCard>
-        {
-          therapists.map((therapist, index) => (
-            <CardV2
-              imgSrc={therapist.attributes.avatar_img_url}
-              title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
-              href={`/therapists/${therapist.id}`}
-              id={therapist.id}
-              body={therapist.attributes.short_summary}
-              rating={updateRatings(getRatings(therapist))}
-              isLoading={false} />
-          ))
-        }
-      </CardContainer >
-    )
+
+    if (dropdownValue.length > 0) {
+
+
+      return (
+
+        <CardContainer isCard>
+          {
+            therapists.map((therapist, index) => (
+              <CardV2
+                imgSrc={therapist.attributes.avatar_img_url}
+                title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
+                href={`/therapists/${therapist.id}`}
+                id={therapist.id}
+                body={therapist.attributes.short_summary}
+                rating={updateRatings(getRatings(therapist))}
+                isLoading={false} />
+            ))
+          }
+        </CardContainer >
+      )
+
+
+    } else {
+
+      return (
+
+        <CardContainer isCard>
+          {
+            therapists.map((therapist, index) => (
+              <CardV2
+                imgSrc={therapist.attributes.avatar_img_url}
+                title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
+                href={`/therapists/${therapist.id}`}
+                id={therapist.id}
+                body={therapist.attributes.short_summary}
+                rating={updateRatings(getRatings(therapist))}
+                isLoading={false} />
+            ))
+          }
+        </CardContainer >
+      )
+
+    }
 
   }
 
