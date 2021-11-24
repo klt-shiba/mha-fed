@@ -56,11 +56,11 @@ const ProfilePage = () => {
     }
 
     const returnName = () => {
-        console.log(userAttributes)
         return (
             userAttributes ? `Welcome ${userAttributes.first_name}` : "My Profile"
         )
     }
+
     return (
         <>
             <PageTitle
@@ -69,8 +69,6 @@ const ProfilePage = () => {
                 summary="Review and update your details."
             />
             <Container fluid="xl">
-                {JSON.stringify(user, null, 1)}
-                {console.log(userAttributes)}
                 <Pane
                     display="flex"
                     flexDirection="column"

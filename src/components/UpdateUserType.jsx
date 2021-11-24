@@ -20,11 +20,8 @@ const UpdateUserType = () => {
 
     const userId = user ? user.id : null
     let urlId = ""
-    // const url = user ? user.attributes.client.id : null
-    // const therapistId = user ? user.attributes.therapist.id : null
 
     const checkUserType = () => {
-
         if (!user) {
             setIsTherapist(null)
             return false
