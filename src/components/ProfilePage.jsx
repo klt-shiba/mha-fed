@@ -19,6 +19,7 @@ const ProfilePage = () => {
     const history = useHistory()
     const { id } = useParams();
     const [userAttributes, setUserAttributes] = useState(null)
+    const [isTherapist, setIsTherapist] = useState(null)
 
     const handleClick = (e) => {
         e.preventDefault()
@@ -39,24 +40,25 @@ const ProfilePage = () => {
     const checkUserType = () => {
         if (!user) {
             setUserAttributes(null)
+            setIsTherapist(null)
             return false
         } else if (user.attributes.client === null) {
             setUserAttributes(user.attributes.therapist)
+            setIsTherapist(true)
         } else if (user.attributes.therapist === null) {
             setUserAttributes(user.attributes.client)
+            setIsTherapist(false)
         } else {
             setUserAttributes(null)
+            setIsTherapist(null)
             return false
         }
     }
     const returnName = () => {
+        console.log(userAttributes)
         return (
             userAttributes ? `Welcome ${userAttributes.first_name}` : "My Profile"
         )
-    }
-
-    const isTherapist = () => {
-
     }
     return (
         <>
@@ -81,16 +83,26 @@ const ProfilePage = () => {
                                     Update personal information
                                 </Link>}>
                         </InfoBlock>
-                        {userAttributes ? (
-                            <InfoBlock
-                                heading="Account details"
-                                content={JSON.stringify(user, null, 1)}
-                                links={
-                                    <Link to={`/users/${id}/update-account`}>
-                                        Update account information
-                                    </Link>}>
-                            </InfoBlock>
-                        ) : "Bye"}
+                        <InfoBlock
+                            heading="Account details"
+                            content={JSON.stringify(user, null, 1)}
+                            links={
+                                <Link to={`/users/${id}/update-account`}>
+                                    Update account information
+                                </Link>}>
+                        </InfoBlock>
+                        {
+                            isTherapist ?
+                                <InfoBlock
+                                    heading="Therapist profile"
+                                    content={JSON.stringify(userAttributes, null, 1)}
+                                    links={
+                                        <Link to={`/users/${id}/update-account`}>
+                                            Update therapist information
+                                        </Link>}>
+                                </InfoBlock> :
+                                false
+                        }
                     </Section>
                     <Pane>
                         <Button onClick={handleClick}>Log Out</Button>
