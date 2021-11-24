@@ -54,6 +54,10 @@ const ProfilePage = () => {
             userAttributes ? `Welcome ${userAttributes.first_name}` : "My Profile"
         )
     }
+
+    const isTherapist = () => {
+
+    }
     return (
         <>
             <PageTitle
@@ -77,24 +81,17 @@ const ProfilePage = () => {
                                     Update personal information
                                 </Link>}>
                         </InfoBlock>
-                        <InfoBlock
-                            heading="Account details"
-                            content={JSON.stringify(user, null, 1)}
-                            links={
-                                <Link to={`/users/${id}/update-account`}>
-                                    Update account information
-                                </Link>}>
-                        </InfoBlock>
-
-                        <InfoBlock
-                            heading="Therapist profile"
-                            content={JSON.stringify(userAttributes, null, 1)}
-                            links={
-                                <Link to={`/users/${id}/update-account`}>
-                                    Update therapist information
-                                </Link>}>
-                        </InfoBlock>                    </Section>
-
+                        {userAttributes ? (
+                            <InfoBlock
+                                heading="Account details"
+                                content={JSON.stringify(user, null, 1)}
+                                links={
+                                    <Link to={`/users/${id}/update-account`}>
+                                        Update account information
+                                    </Link>}>
+                            </InfoBlock>
+                        ) : "Bye"}
+                    </Section>
                     <Pane>
                         <Button onClick={handleClick}>Log Out</Button>
                     </Pane>

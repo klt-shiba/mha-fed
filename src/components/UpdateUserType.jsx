@@ -31,6 +31,7 @@ const UpdateUserType = () => {
     const routeToProfile = () => {
         history.push(`/users/${user.id}/profile`)
     }
+
     const handleClick = (e) => {
         e.preventDefault()
         switch (e.target.value) {
@@ -44,6 +45,7 @@ const UpdateUserType = () => {
                 console.log("Not working")
         }
     }
+
     const formData = new FormData()
 
 
@@ -54,9 +56,8 @@ const UpdateUserType = () => {
         formData.append('last_name', form.last_name)
         formData.append('avatar_img', form.avatar_img)
 
-        console.log(formData)
-
         const url = `http://127.0.0.1:3001/api/v1/clients/${clientId}/update`
+
         fetch(url, {
             method: "PATCH",
             headers: {

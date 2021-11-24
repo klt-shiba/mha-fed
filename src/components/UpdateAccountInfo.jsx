@@ -9,6 +9,7 @@ import Section from './Section'
 
 const UpdateAccountInfo = () => {
 
+    const token = localStorage.getItem("token")
     const { user, setUser } = useContext(UserContext)
     const { id } = useParams()
     const [form, setForm] = useState({
@@ -17,7 +18,25 @@ const UpdateAccountInfo = () => {
         password_confirmation: ""
     })
     const history = useHistory()
-    const formData = new FormData()
+
+    const updateAccount = () => {
+        const url = `http://127.0.0.1:3001/api/v1/users/${id}/update`;
+        fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(form),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setUser(data)
+            })
+            .catch((error) => console.log(error));
+    };
+
 
     const renderFields = () => {
         return (
@@ -61,7 +80,7 @@ const UpdateAccountInfo = () => {
                 routeToProfile()
                 break;
             case "Submit":
-                console.log("submit form")
+                updateAccount()
                 break;
             default:
                 console.log("Not working")
