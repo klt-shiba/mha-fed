@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { signUserUp } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { TextInputField, Pane, Button, Heading, Text, majorScale } from "evergreen-ui";
+import { TextInputField, Pane, Button } from "evergreen-ui";
 import PageTitle from "./PageTitle";
 import { Container } from "reactstrap";
 import Section from "./Section";
@@ -53,7 +53,7 @@ const Register = () => {
     console.log(e);
   };
 
-  
+
 
   const googleOAuth = () => {
     window.location.href =

@@ -115,8 +115,8 @@ const FormCard = props => {
                     {props.inputBody}
                 </div>
                 <div className="button-wrapper">
-                    <Button type="submit" size="large" marginRight={16} onClick={props.onSecondaryClick}> {props.secondaryLabel || "secondaryLabel"}</Button>
-                    <Button type="submit" appearance="primary" size="large" onClick={props.onPrimaryClick}> {props.primaryLabel || "primaryLabel"} </Button>
+                    <Button type="button" size="large" marginRight={16} onClick={props.onSecondaryClick} value={props.secondaryValue}> {props.secondaryLabel || "secondaryLabel"}</Button>
+                    <Button type="submit" appearance="primary" size="large" onClick={props.onPrimaryClick} value={props.primaryValue}> {props.primaryLabel || "primaryLabel"} </Button>
                 </div>
             </form>
         </Container>

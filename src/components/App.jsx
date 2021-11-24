@@ -17,6 +17,7 @@ import EditTreatment from "./EditTreatment";
 import { UserContext } from "../UserContext";
 import ProfilePage from "./ProfilePage";
 import UpdateUserType from "./UpdateUserType";
+import UpdateAccountInfo from "./UpdateAccountInfo";
 
 
 const App = () => {
@@ -64,6 +65,7 @@ const App = () => {
             <Route path="/therapists/:id/review" exact component={CreateReview} />
             <Route path="/users/:id/profile" exact component={ProfilePage} />
             <Route path="/users/:id/update-profile" exact component={UpdateUserType} />
+            <Route path="/users/:id/update-account" exact component={UpdateAccountInfo} />
           </Switch>
           <Footer></Footer>
         </UserContext.Provider>

@@ -71,15 +71,29 @@ const ProfilePage = () => {
                     <Section>
                         <InfoBlock
                             heading="Personal Information"
-                            content={JSON.stringify(userAttributes, null, 1)}>
+                            content={JSON.stringify(userAttributes, null, 1)}
+                            links={
+                                <Link to={`/users/${id}/update-profile`}>
+                                    Update personal information
+                                </Link>}>
                         </InfoBlock>
-                    </Section>
-                    <Pane>
-                        <Link to={`/users/${id}/update-profile`}>
-                            Update personal information
-                        </Link>
-                    </Pane>
+                        <InfoBlock
+                            heading="Account details"
+                            content={JSON.stringify(user, null, 1)}
+                            links={
+                                <Link to={`/users/${id}/update-account`}>
+                                    Update account information
+                                </Link>}>
+                        </InfoBlock>
 
+                        <InfoBlock
+                            heading="Therapist profile"
+                            content={JSON.stringify(userAttributes, null, 1)}
+                            links={
+                                <Link to={`/users/${id}/update-account`}>
+                                    Update therapist information
+                                </Link>}>
+                        </InfoBlock>                    </Section>
 
                     <Pane>
                         <Button onClick={handleClick}>Log Out</Button>

@@ -27,14 +27,17 @@ const Heading = styled.h2`
     margin: 0 0 1.2rem 0;
 `
 
-const InfoBlock = props => {
+const InfoBlock = ({ heading, content, links }) => {
     return (
         <Container>
             <div className="header-wrapper">
-                <Heading>{props.heading}</Heading>
+                <Heading>{heading}</Heading>
             </div>
             <div>
-                {props.content}
+                {content}
+            </div>
+            <div>
+                {links}
             </div>
         </Container>
     )

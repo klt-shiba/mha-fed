@@ -14,6 +14,7 @@ import { Autocomplete, TextField, InputBase } from "@mui/material";
 
 const Therapists = () => {
   const [therapists, setTherapists] = useState([]);
+  const [filteredTherapist, setFilteredTherapist] = useState([]);
   const [issues, setIssues] = useState(null)
   const [dropdownIssues, setDropdownIssues] = useState(null)
   const [dropdownValue, setDropdownValues] = useState([])
@@ -29,7 +30,6 @@ const Therapists = () => {
         throw new Error("Network response was not ok.");
       })
       .then((response) => {
-        console.log(response.data);
         setTherapists(response.data);
       })
       .catch((error) => {
@@ -52,9 +52,7 @@ const Therapists = () => {
   }, [issues]);
 
   const fetchIssues = async () => {
-
     try {
-
       const url = "http://127.0.0.1:3001/api/v1/issues"
       const res = await fetch(url);
       const data = await res.json();
@@ -68,11 +66,9 @@ const Therapists = () => {
 
   const prepareIssues = () => {
     if (!issues) {
-      console.log("Not working")
-      return "Empty"
+      return false
     } else {
       const results = collectIssueNames(issues)
-      console.log(results)
       setDropdownIssues(results)
     }
   }
@@ -91,23 +87,13 @@ const Therapists = () => {
   }
 
   const handleChange = (e) => {
-    console.log(e.target.id)
     setDropdownValues(e.target.text)
   }
   const handleInputChange = (e) => {
-    // Value when you type into the input field
-    console.log(e.target.value)
   }
 
   const renderSearch = () => {
     return (
-      // <Combobox
-      //   placeholder="I need help with..."
-      //   width="100%"
-      //   height={48}
-      //   items={prepareIssues()}
-      //   itemToString={item => (item ? item.label : '')}
-      // />
       <Autocomplete
         sx={{
           bgcolor: "white",
@@ -155,79 +141,53 @@ const Therapists = () => {
     filterTherapists()
   });
 
-
-
   const cleanUpIssues = () => {
     const results = []
-
     dropdownValue.map((el) => {
       results.push(el.label)
     })
-    console.log(results)
     return results
   }
 
+  // Filter Therapists by issues that they deal with.
   const filterTherapists = () => {
-
     const results = []
     const currentTherapists = [...therapists]
-
-    console.log(currentTherapists)
-
 
     // If dropdowns options have been selected
     if (dropdownValue.length > 0) {
 
-      // Loop through current Therapists
+      // Loop through each Therapists
       currentTherapists.map((el, index) => {
 
         // Store Therapists Issues array
+        const currentTherapist = el
         let issues = el.attributes.issues
 
-        // If Issues array has more than 0 issues
+        // If Therapist has more than 0 issues
         if (issues.length > 0) {
-
           // Loop through issues and see if dropdown options exist in Therapists issues.
           issues.map((el) => {
-
             // Store each issue name
             let issueNames = el.name
-
             dropdownValue.map((el) => {
-
-              if (el === issueNames) {
-
-                console.log(issueNames)
-
+              if (el.label === issueNames) {
+                results.push(currentTherapist)
+                return true
               } else {
-
                 return false
-
               }
-
             })
-
           })
-
-          // Return Therapist that have issues
-          // This will be all in the future.
-          console.log(el)
-
         } else {
-
           return false
-
         }
       })
     } else {
-
       return false
     }
-
-    return results
+    setFilteredTherapist(results)
   }
-
-
   const getRatings = (object) => {
     const ratingArray = object.attributes.reviews
     if (!ratingArray) {
@@ -245,22 +205,13 @@ const Therapists = () => {
       return 0
     }
   }
-
   const average = (ratingsAverage) => ratingsAverage.reduce((a, b) => a + b) / ratingsAverage.length;
-
-
   const allTherapists = () => {
-
-
-
-    if (dropdownValue.length > 0) {
-
-
+    if (dropdownValue.length >= 1) {
       return (
-
         <CardContainer isCard>
           {
-            therapists.map((therapist, index) => (
+            filteredTherapist.map((therapist, index) => (
               <CardV2
                 imgSrc={therapist.attributes.avatar_img_url}
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
@@ -273,12 +224,12 @@ const Therapists = () => {
           }
         </CardContainer >
       )
-
-
+    } else if ((dropdownValue.length >= 1) && (filteredTherapist.length === 0)) {
+      return (noTherapists)
+    } else if (!dropdownValue) {
+      return false
     } else {
-
       return (
-
         <CardContainer isCard>
           {
             therapists.map((therapist, index) => (
@@ -294,9 +245,7 @@ const Therapists = () => {
           }
         </CardContainer >
       )
-
     }
-
   }
 
 
@@ -309,7 +258,7 @@ const Therapists = () => {
   const noTherapists = (
     <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
       <h4>
-        {/* No recipes yet. Why not <Link to="/new_recipe">create one</Link> */}
+        Loading
       </h4>
     </div>
   );
@@ -323,7 +272,6 @@ const Therapists = () => {
         are available now."
         searchBar={renderSearch()} />
       <Container fluid="xl">
-        {console.log(dropdownValue)}
         <Section>
           {therapists.length > 0 ? allTherapists() : noTherapists}
         </Section>

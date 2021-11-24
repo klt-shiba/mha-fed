@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
-import { Pane, majorScale, Heading, Text, Button, TextInputField, FilePicker, Label } from "evergreen-ui";
-import { useParams } from "react-router";
+import { Pane, majorScale, TextInputField, FilePicker, Label } from "evergreen-ui";
+import { useParams, useHistory } from "react-router";
 import FormCard from './FormCard';
 import Section from './Section'
 
@@ -12,16 +12,65 @@ const UpdateUserType = () => {
     const [form, setForm] = useState({
         first_name: "",
         last_name: "",
-        short_summary: "",
-        long_summary: "",
-        user_id: parseInt(id),
-        avatar_img: ""
+        avatar_img: "",
+        user_id: ""
     })
+
+    const userId = user ? user.id : null
+    const clientId = user ? user.attributes.client.id : null
+
+
+    const token = localStorage.getItem('token')
+    const history = useHistory()
 
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(form)
     }
+
+    const routeToProfile = () => {
+        history.push(`/users/${user.id}/profile`)
+    }
+    const handleClick = (e) => {
+        e.preventDefault()
+        switch (e.target.value) {
+            case "Cancel":
+                routeToProfile()
+                break;
+            case "Submit":
+                patchDetails()
+                break;
+            default:
+                console.log("Not working")
+        }
+    }
+    const formData = new FormData()
+
+
+    const patchDetails = () => {
+
+        formData.append('user_id', userId)
+        formData.append('first_name', form.first_name)
+        formData.append('last_name', form.last_name)
+        formData.append('avatar_img', form.avatar_img)
+
+        console.log(formData)
+
+        const url = `http://127.0.0.1:3001/api/v1/clients/${clientId}/update`
+        fetch(url, {
+            method: "PATCH",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+            })
+            .catch((error) => console.log(error));
+    };
 
     const renderFields = () => {
         return (
@@ -79,12 +128,18 @@ const UpdateUserType = () => {
     return (
         <Section
             backgroundColour="#f2f2f2">
+            {console.log(user)}
             <FormCard
-                formHeading="Update personal information"
+                formHeading="Update personal details"
                 formSubheading="This is a subheading"
                 inputBody={renderFields()}
                 secondaryLabel="Cancel"
-                primaryLabel="Update information" />
+                onSecondaryClick={handleClick}
+                secondaryValue={"Cancel"}
+                primaryLabel="Update personal details"
+                onPrimaryClick={handleClick}
+                primaryValue={"Submit"}
+            />
         </Section>
     )
 }
