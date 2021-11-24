@@ -54,6 +54,7 @@ const ProfilePage = () => {
             return false
         }
     }
+
     const returnName = () => {
         console.log(userAttributes)
         return (

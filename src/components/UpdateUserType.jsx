@@ -7,8 +7,10 @@ import Section from './Section'
 
 
 const UpdateUserType = () => {
+
     const { user, setUser } = useContext(UserContext)
     const { id } = useParams()
+    const [isTherapist, setIsTherapist] = useState(null)
     const [form, setForm] = useState({
         first_name: "",
         last_name: "",
@@ -17,7 +19,26 @@ const UpdateUserType = () => {
     })
 
     const userId = user ? user.id : null
-    const clientId = user ? user.attributes.client.id : null
+    let urlId = ""
+    // const url = user ? user.attributes.client.id : null
+    // const therapistId = user ? user.attributes.therapist.id : null
+
+    const checkUserType = () => {
+
+        if (!user) {
+            setIsTherapist(null)
+            return false
+        } else if (user.attributes.client === null) {
+            setIsTherapist(true)
+            urlId = user.attributes.therapist.id
+        } else if (user.attributes.therapist === null) {
+            setIsTherapist(false)
+            urlId = user.attributes.client.id
+        } else {
+            setIsTherapist(null)
+            return false
+        }
+    }
 
 
     const token = localStorage.getItem('token')
@@ -51,12 +72,16 @@ const UpdateUserType = () => {
 
     const patchDetails = () => {
 
+        checkUserType()
+
         formData.append('user_id', userId)
         formData.append('first_name', form.first_name)
         formData.append('last_name', form.last_name)
         formData.append('avatar_img', form.avatar_img)
 
-        const url = `http://127.0.0.1:3001/api/v1/clients/${clientId}/update`
+        const url = isTherapist ?
+            `http://127.0.0.1:3001/api/v1/therapists/${urlId}/update` :
+            `http://127.0.0.1:3001/api/v1/clients/${urlId}/update`
 
         fetch(url, {
             method: "PATCH",
