@@ -1,22 +1,20 @@
 import styled, { css } from 'styled-components'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'reactstrap';
-import { up } from 'styled-breakpoints'
 
 const HomeBannerContainer = styled.div`
     width: 100%;
     background-repeat: no-repeat;
     background-color: black;
     height: ${props => props.isSmall ? "auto" : "800px"};
+    display: block;
     position: relative;
     overflow: hidden;
-    align-items: center;
-    display: flex;
 
     & img {
-        object-fit: cover;
+        object-fit: fill;
         width: 100%;
-        height: 100%;
+        height: auto;
         position: absolute;
         top:0;
         left:0;
@@ -24,11 +22,6 @@ const HomeBannerContainer = styled.div`
         opacity: 0.5;
         filter: blur(2px);
         background-color: blue;
-
-        ${up("lg")} {
-            object-fit: cover;
-            height: 100%;
-        }
     }
 
     & div.content_aligner {
@@ -48,20 +41,20 @@ const HomeBannerContainer = styled.div`
 `
 const Heading = styled.h1`
     display: block;
-    font-size: 54px;
-    font-weight: 800;
+    font-size: 2.8rem;
+    font-weight: 700;
     margin: 0.8rem;
     text-align: center;
 `
 
 const Summary = styled.span`
     display: block;
-    font-size: 20px;
+    font-size: 1.8rem;
     margin: 0.8rem;
     text-align: center;
 `
 
-const PageTitle = (props) => {
+const HomeBanner = (props) => {
     return (
         <div>
             <HomeBannerContainer isSmall={props.isSmall}>
@@ -79,4 +72,4 @@ const PageTitle = (props) => {
     )
 }
 
-export default PageTitle
+export default HomeBanner

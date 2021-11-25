@@ -1,37 +1,35 @@
+import { formLabelClasses } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import PrimaryBanner from "./PrimaryBanner";
+import PageTitle from "./PageTitle";
+import { SearchInput } from "evergreen-ui";
+import HomeSearch from "./HomeSearch";
 
 const Home = () => {
+
+
+  const imgURL = "https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
+
+
+  const renderSearch = () => {
+    return (
+      <SearchInput
+        width={100}></SearchInput>
+    )
+  }
   return (
-    <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
-      <div className="jumbotron jumbotron-fluid bg-transparent">
-        <div className="container secondary-color">
-          <h1 className="display-4">Find a Therapist</h1>
-          <p className="lead">
-            Take that first step and book with these professional therapists who
-            are available now.
-          </p>
-          <hr className="my-4" />
-          <Link
-            to="/therapists"
-            className="btn btn-lg custom-button"
-            role="button"
-          >
-            View Therapists
-          </Link>
-          <Link to="/login" className="btn btn-lg custom-button" role="button">
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="btn btn-lg custom-button"
-            role="button"
-          >
-            Register
-          </Link>
-        </div>
-      </div>
-    </div>
+    <>
+      <PageTitle
+        src={imgURL}
+        title="Real reviews that help you choose"
+        summary="Over 50,000 reviews of Therapists, Counsellors and Social workers"
+        searchBar={HomeSearch()}
+      />
+      <PrimaryBanner hasDirection={false} />
+      <PrimaryBanner hasDirection hasButton />
+    </>
+
   );
 };
 
