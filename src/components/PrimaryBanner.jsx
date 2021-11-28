@@ -126,7 +126,7 @@ const ButtonWrapper = styled.div`
     
 `;
 
-const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection, hasImg, hasRating, isRating }) => {
+const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection, hasImg, hasRating, isRating, hasLocation }) => {
 
 
   return (
@@ -135,6 +135,7 @@ const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirecti
         <BannerWrapper hasDirection={hasDirection}>
           <SplitContainer>
             <ContentWrapper>
+              <div>{hasLocation || "Australia"}</div>
               <h2>{heading || "Rate my Therapist cat"}</h2>
               <div>
                 {subHeading ||

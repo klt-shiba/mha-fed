@@ -8,6 +8,7 @@ import ImgBanner from "./ImgBanner";
 import Infoblock from "./InfoBlock"
 import Bullet from "./Bullets";
 import PrimaryBanner from "./PrimaryBanner";
+import TherapistRatingCard from "./TherapistRatingsCard";
 
 
 const Therapist = () => {
@@ -84,16 +85,25 @@ const Therapist = () => {
       return <div>Write a review</div>;
     } else {
       console.log(reviews);
+
+      const formatDate = (dateString) => {
+        const options = { year: "numeric", month: "long", day: "numeric" }
+        return new Date(dateString).toLocaleDateString(undefined, options)
+      }
+
       return (
         <div>
           {reviews.map((review) => {
             console.log(review);
 
+            let dateString = review.created_at
             return (
-              <Pane>
-                <Rating name="read-only" value={review.rating} readOnly />
-                <Paragraph>"{review.comment}"</Paragraph>
-              </Pane>
+              <TherapistRatingCard
+                isRating={review.rating}
+                hasComment={review.comment}
+                hasDate={formatDate(dateString)}
+                hasAuthor={"Anonymous"}>
+              </TherapistRatingCard>
             )
           })}
         </div>
@@ -209,41 +219,43 @@ const Therapist = () => {
             hasRating={true}
             isRating={therapistRating} />
           <Container>
-            <Row>
-              <Col xs="12" lg="8">
-                <Pane>
-                  <Infoblock
-                    heading="About me"
-                    content={therapist ? therapist.long_summary : false} />
-                </Pane>
-                <Pane marginY={majorScale(3)}>
-                  <Infoblock
-                    heading="What I can help with"
-                    content={ShowIssues()} />
-                </Pane>
-                <Pane marginY={majorScale(3)}>
-                  <Infoblock
-                    heading="Approaches I take"
-                    content={ShowTreatments()} />
-                </Pane>
-              </Col>
-              <Col xs="12" lg="4">
-                <Pane>
-                  <Infoblock
-                    heading="My reviews"
-                    content={ShowReviews()} />
-                </Pane>
-                <Pane>
-                  <Button
-                    appearance="primary"
-                    width="full"
-                    onClick={handleClick}
-                  >
-                    Review Therapist
-                  </Button>
-                </Pane>
-              </Col>
-            </Row>
+            <Pane marginY={majorScale(3)}>
+              <Row>
+                <Col xs="12" lg="8">
+                  <Pane>
+                    <Infoblock
+                      heading="About me"
+                      content={therapist ? therapist.long_summary : false} />
+                  </Pane>
+                  <Pane marginY={majorScale(3)}>
+                    <Infoblock
+                      heading="What I can help with"
+                      content={ShowIssues()} />
+                  </Pane>
+                  <Pane marginY={majorScale(3)}>
+                    <Infoblock
+                      heading="Approaches I take"
+                      content={ShowTreatments()} />
+                  </Pane>
+                </Col>
+                <Col xs="12" lg="4">
+                  <Pane>
+                    <Infoblock
+                      heading="My reviews"
+                      content={ShowReviews()} />
+                  </Pane>
+                  <Pane>
+                    <Button
+                      appearance="primary"
+                      width="full"
+                      onClick={handleClick}
+                    >
+                      Review Therapist
+                    </Button>
+                  </Pane>
+                </Col>
+              </Row>
+            </Pane>
           </Container>
         </Section>
       </Pane >
