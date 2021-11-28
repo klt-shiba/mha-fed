@@ -40,7 +40,6 @@ const SplitContainer = styled.div`
 
   ${up("md")} {
     display: flex;
-    justify-content: center;
     align-items: center;
   }
 `;
@@ -77,6 +76,11 @@ const ContentWrapper = styled.div`
   position: relative;
   padding: 32px 16px 32px 16px;
   color: white;
+  width: 100%;
+
+  ${up("md")} {
+    padding: 32px 32px;
+    }
 
   
   & h2 {
@@ -85,9 +89,21 @@ const ContentWrapper = styled.div`
 
     ${up("md")} {
         font-size: 44px;
+        margin-bottom: 16px;
     }
 
   }
+
+    
+  & > div {
+    margin-bottom: 8px;
+
+    ${up("md")} {
+        margin-bottom: 16px;
+    }
+
+  }
+  
 
 
 `
@@ -111,6 +127,8 @@ const ButtonWrapper = styled.div`
 `;
 
 const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection, hasImg, hasRating, isRating }) => {
+
+
   return (
     <CustomSection>
       <CustomContainer>
@@ -122,8 +140,8 @@ const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirecti
                 {subHeading ||
                   "Something about finding a therapist! Some about finding a therapist!"}
               </div>
+              {hasRating ? <Rating name="read-only" value={isRating} readOnly size="large" /> : false}
               <ButtonWrapper hasButton={hasButton}>
-                {hasRating ? <Rating name="read-only" value={isRating} readOnly size="large" /> : false}
                 <Button appearance="primary">
                   {buttonLabel || "Find Therapist"}
                 </Button>

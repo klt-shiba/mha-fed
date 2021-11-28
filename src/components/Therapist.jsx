@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { Pane, Button, Paragraph, majorScale } from "evergreen-ui";
 import { Rating } from "@mui/material";
 import Section from "./Section";
-import { Container } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import ImgBanner from "./ImgBanner";
 import Infoblock from "./InfoBlock"
 import Bullet from "./Bullets";
@@ -208,38 +208,43 @@ const Therapist = () => {
             subHeading={renderSubheading(therapist)}
             hasRating={true}
             isRating={therapistRating} />
-        </Section>
-        <Section>
-          <Pane>
-            <Infoblock
-              heading="About me"
-              content={therapist ? therapist.long_summary : false} />
-          </Pane>
-          <Pane marginY={majorScale(3)}>
-            <Infoblock
-              heading="What I can help with"
-              content={ShowIssues()} />
-          </Pane>
-          <Pane marginY={majorScale(3)}>
-            <Infoblock
-              heading="Approaches I take"
-              content={ShowTreatments()} />
-          </Pane>
-          <Pane
-            marginY={majorScale(3)}>
-            <Infoblock
-              heading="My reviews"
-              content={ShowReviews()} />
-          </Pane>
-          <Pane>
-            <Button
-              appearance="primary"
-              width="full"
-              onClick={handleClick}
-            >
-              Review Therapist
-            </Button>
-          </Pane>
+          <Container>
+            <Row>
+              <Col xs="12" lg="8">
+                <Pane>
+                  <Infoblock
+                    heading="About me"
+                    content={therapist ? therapist.long_summary : false} />
+                </Pane>
+                <Pane marginY={majorScale(3)}>
+                  <Infoblock
+                    heading="What I can help with"
+                    content={ShowIssues()} />
+                </Pane>
+                <Pane marginY={majorScale(3)}>
+                  <Infoblock
+                    heading="Approaches I take"
+                    content={ShowTreatments()} />
+                </Pane>
+              </Col>
+              <Col xs="12" lg="4">
+                <Pane>
+                  <Infoblock
+                    heading="My reviews"
+                    content={ShowReviews()} />
+                </Pane>
+                <Pane>
+                  <Button
+                    appearance="primary"
+                    width="full"
+                    onClick={handleClick}
+                  >
+                    Review Therapist
+                  </Button>
+                </Pane>
+              </Col>
+            </Row>
+          </Container>
         </Section>
       </Pane >
     </Container>

@@ -17,9 +17,7 @@ const Container = styled.div`
         margin-bottom: 3.2rem;
                
     }
-
 `
-
 const Heading = styled.h2`
     display: block;
     font-size: 1.5rem;
