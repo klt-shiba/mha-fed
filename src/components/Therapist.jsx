@@ -7,6 +7,7 @@ import { Container } from "reactstrap";
 import ImgBanner from "./ImgBanner";
 import Infoblock from "./InfoBlock"
 import Bullet from "./Bullets";
+import PrimaryBanner from "./PrimaryBanner";
 
 
 const Therapist = () => {
@@ -168,14 +169,45 @@ const Therapist = () => {
   }
 
 
+  const renderSubheading = (object) => {
+    const specialization = object ? object.specialization : null
+    if (!object) {
+      return false
+    } else {
+      return (
+        `${specialization} specialising in ${stringifyIssuesForSubheading(object)}`
+      );
+    };
+  }
+
+  const stringifyIssuesForSubheading = (object) => {
+    const smallIssuesArray = object ? object.issues : null
+    const results = []
+
+    for (let issue of smallIssuesArray) {
+      results.push(issue.name)
+    }
+    results.slice(0, 2)
+    return results.join(', ')
+
+  }
+
+
   return (
     <Container fluid="xl">
       <Pane
         display="flex"
         flexDirection="column"
         className="vbox">
+        {JSON.stringify(therapist, null, 1)}
         <Section>
-          {renderImgBanner()}
+          <PrimaryBanner
+            hasDirection={false}
+            hasImg={therapist ? therapist.avatar_img_url : false}
+            heading={therapist ? `${therapist.first_name} ` + ` ${therapist.last_name} ` : false}
+            subHeading={renderSubheading(therapist)}
+            hasRating={true}
+            isRating={therapistRating} />
         </Section>
         <Section>
           <Pane>

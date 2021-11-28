@@ -238,7 +238,7 @@ const Therapists = () => {
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
                 href={`/therapists/${therapist.id}`}
                 id={therapist.id}
-                body={therapist.attributes.short_summary}
+                body={renderSubheading(therapist)}
                 rating={updateRatings(getRatings(therapist))}
                 isLoading={false} />
             ))
@@ -263,13 +263,42 @@ const Therapists = () => {
     </div>
   );
 
+  const renderSubheading = (object) => {
+    const specialization = object ? object.attributes.specialization : null
+    if (!object) {
+      return false
+    } else {
+      return (
+        `${specialization} specialising in ${stringifyIssuesForSubheading(object)}`
+      );
+    };
+  }
+
+  const stringifyIssuesForSubheading = (object) => {
+    console.log(object)
+    const smallIssuesArray = object ? object.attributes.issues : null
+    const results = []
+
+
+    if (!smallIssuesArray) {
+      return false
+    } else {
+      for (let issue of smallIssuesArray) {
+        results.push(issue.name)
+      }
+    }
+    return results.slice(0, 2).join(', ')
+  }
+
+
   return (
     <>
       <PageTitle
         isSmall
-        title="Find a Therapist"
+        title="Real reviews"
         summary="Take that first step and book with these professional therapists who
         are available now."
+        src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80"
         searchBar={renderSearch()} />
       <Container fluid="xl">
         <Section>

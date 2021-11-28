@@ -115,7 +115,6 @@ ${props => {
 }
 `
 
-
 const CardV2 = (props) => {
     return (
         <CardContainer
@@ -132,16 +131,17 @@ const CardV2 = (props) => {
                         src={props.imgSrc}
                         alt={props.altTag} />
                 </ImgContainer>
+                <div >
+                    {props.rating}
+                </div>
                 <div>
                     <Heading
                         is="h2"
                         size={700}>{props.title}</Heading>
                 </div>
-                <div >
-                    {props.rating}
-                </div>
                 <div className="summary-card-container">
-                    <Text size={400} variant="body2" gutterBottom>{props.body}</Text></div>
+                    <Text size={400} variant="body2" gutterBottom>{props.body}</Text>
+                </div>
             </div>
         </CardContainer >
     )

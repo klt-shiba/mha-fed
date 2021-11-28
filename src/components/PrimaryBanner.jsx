@@ -3,7 +3,8 @@ import styled, { css } from "styled-components";
 import { up } from "styled-breakpoints";
 import Section from "./Section";
 import { Container } from "reactstrap";
-import { Pane, Button } from "evergreen-ui";
+import { Button } from "evergreen-ui";
+import { Rating } from "@mui/material";
 
 const CustomSection = styled(Section)`
   background: black;
@@ -37,7 +38,7 @@ const SplitContainer = styled.div`
   position: relative;
 
 
-  ${up("xl")} {
+  ${up("md")} {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,34 +110,35 @@ const ButtonWrapper = styled.div`
     
 `;
 
-const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection }) => {
-    return (
-        <CustomSection>
-            <CustomContainer>
-                <BannerWrapper hasDirection={hasDirection}>
-                    <SplitContainer>
-                        <ContentWrapper>
-                            <h2>{heading || "Rate my Therapist cat"}</h2>
-                            <div>
-                                {subHeading ||
-                                    "Something about finding a therapist! Some about finding a therapist!"}
-                            </div>
-                            <ButtonWrapper hasButton={hasButton}>
-                                <Button appearance="primary">
-                                    {buttonLabel || "Find Therapist"}
-                                </Button>
-                            </ButtonWrapper>
-                        </ContentWrapper>
-                    </SplitContainer>
-                    <SplitContainer>
-                        <BannerImgWrapper>
-                            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*"></img>
-                        </BannerImgWrapper>
-                    </SplitContainer>
-                </BannerWrapper>
-            </CustomContainer>
-        </CustomSection>
-    );
+const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection, hasImg, hasRating, isRating }) => {
+  return (
+    <CustomSection>
+      <CustomContainer>
+        <BannerWrapper hasDirection={hasDirection}>
+          <SplitContainer>
+            <ContentWrapper>
+              <h2>{heading || "Rate my Therapist cat"}</h2>
+              <div>
+                {subHeading ||
+                  "Something about finding a therapist! Some about finding a therapist!"}
+              </div>
+              <ButtonWrapper hasButton={hasButton}>
+                {hasRating ? <Rating name="read-only" value={isRating} readOnly size="large" /> : false}
+                <Button appearance="primary">
+                  {buttonLabel || "Find Therapist"}
+                </Button>
+              </ButtonWrapper>
+            </ContentWrapper>
+          </SplitContainer>
+          <SplitContainer>
+            <BannerImgWrapper>
+              <img src={hasImg || "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*"}></img>
+            </BannerImgWrapper>
+          </SplitContainer>
+        </BannerWrapper>
+      </CustomContainer>
+    </CustomSection>
+  );
 };
 
 export default PrimaryBanner;
