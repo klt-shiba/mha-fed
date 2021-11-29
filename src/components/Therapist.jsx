@@ -197,8 +197,8 @@ const Therapist = () => {
     for (let issue of smallIssuesArray) {
       results.push(issue.name)
     }
-    results.slice(0, 2)
-    return results.join(', ')
+
+    return results.slice(0, 3).join(', ')
 
   }
 
@@ -209,9 +209,9 @@ const Therapist = () => {
         display="flex"
         flexDirection="column"
         className="vbox">
-        {JSON.stringify(therapist, null, 1)}
         <Section>
           <PrimaryBanner
+            hasLocation={therapist ? therapist.location : false}
             hasDirection={false}
             hasImg={therapist ? therapist.avatar_img_url : false}
             heading={therapist ? `${therapist.first_name} ` + ` ${therapist.last_name} ` : false}
@@ -259,6 +259,7 @@ const Therapist = () => {
           </Container>
         </Section>
       </Pane >
+      {JSON.stringify(therapist, null, 2)}
     </Container>
   );
 };

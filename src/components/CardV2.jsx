@@ -32,8 +32,8 @@ const CardContainer = styled.a`
     padding: 0.4rem 0;
 
     & h2 {
-        font-weight: 600;
-        font-size: 2rem;
+        font-weight: 700;
+        font-size: 28px;
     }
     &:hover {
         background-color: #fafafa;
@@ -49,17 +49,17 @@ const CardContainer = styled.a`
     
     & span {
 
-        font-size: 1.5rem;
-        font-weight: 500;
+        font-size: 20px;
+        font-weight: 400;
     }
 
     & div.summary-card-container span{
-        line-height: 2rem;
+        line-height: 28px;
         color: #444;
     }
     & div {
         width:100%;
-        margin-bottom: 1.2rem;
+        margin-bottom: 12px;
     }
 `;
 

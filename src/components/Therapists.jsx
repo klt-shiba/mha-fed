@@ -287,7 +287,7 @@ const Therapists = () => {
         results.push(issue.name)
       }
     }
-    return results.slice(0, 2).join(', ')
+    return results.slice(0, 3).join(', ')
   }
 
 

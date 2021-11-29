@@ -4,7 +4,7 @@ import CheckboxChip from "./CheckBoxChip";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
+import { useParams } from "react-router-dom";
 
 
 // Edit Profile component
@@ -12,7 +12,7 @@ const EditIssues = ({ nextStep, prevStep }) => {
   // Set and Get profile form values
   const [issues, setIssues] = useState([]);
   const [therapistIssues, setTherapistIssues] = useState([]);
-  const id = localStorage.getItem("therapist_id")
+  const { id } = useParams();
 
 
   const issuesObj = {
@@ -44,7 +44,7 @@ const EditIssues = ({ nextStep, prevStep }) => {
 
   useEffect(() => {
     fetchIssues();
-  }, [issues]);
+  }, []);
 
   const handleSubmit = (e) => {
     postIssues()

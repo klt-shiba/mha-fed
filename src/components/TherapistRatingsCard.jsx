@@ -29,7 +29,7 @@ const Container = styled.div`
 const TherapistRatingCard = ({ isRating, hasComment, hasAuthor, hasDate }) => {
     return (
         <Container>
-            <Rating name="read-only" value={isRating} readOnly size="large" />
+            <Rating name="read-only" value={isRating} readOnly size="medium" />
             <div className="rating-comment">{hasComment}</div>
             <div>
                 <span className="rating-author">{hasAuthor} - </span>

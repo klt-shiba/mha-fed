@@ -14,7 +14,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
     // Set and Get profile form values
     const [treatments, setTreatments] = useState([]);
     const [therapistTreatments, setTherapistTreatments] = useState([]);
-    const id = localStorage.getItem("therapist_id")
+    const { id } = useParams();
 
 
     const treatmentsObj = {
