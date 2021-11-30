@@ -49,7 +49,7 @@ const HomeSearch = (issuesArray) => {
     const onClick = (e) => {
         e.preventDefault()
 
-        if (!searchBy === "Issue") {
+        if (searchBy === "Location") {
 
             fetch(`http://127.0.0.1:3001/api/v1/therapists/search?q=${queries}`, {
                 method: 'POST',
