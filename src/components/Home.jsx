@@ -5,26 +5,46 @@ import PrimaryBanner from "./PrimaryBanner";
 import PageTitle from "./PageTitle";
 import { SearchInput } from "evergreen-ui";
 import HomeSearch from "./HomeSearch";
+import {
+  useState, useEffect
+} from "react";
 
 const Home = () => {
+
+  const [issues, setIssues] = useState(null)
 
 
   const imgURL = "https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
 
+  const fetchIssues = () => {
+    fetch("http://127.0.0.1:3001/api/v1/issues")
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then((r) => {
+        setIssues(r.sort());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  const renderSearch = () => {
-    return (
-      <SearchInput
-        width={100}></SearchInput>
-    )
-  }
+
+  useEffect(() => {
+    fetchIssues()
+  }, [])
+
+
   return (
     <>
       <PageTitle
         src={imgURL}
         title="Real reviews that help you choose"
         summary="Over 50,000 reviews of Therapists, Counsellors and Social workers"
-        searchBar={HomeSearch()}
+        searchBar={HomeSearch(issues)}
       />
       <PrimaryBanner hasDirection={false} />
       <PrimaryBanner hasDirection hasButton />

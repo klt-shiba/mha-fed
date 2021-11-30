@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, TextField, FormControl, Select, InputLabel, MenuItem } from "@mui/material";
+import { Autocomplete, TextField, FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 import { Button } from "evergreen-ui";
 import styled, { css } from 'styled-components'
 
@@ -28,40 +28,200 @@ const CustomFormControl = styled(FormControl)`
 `
 
 
-const HomeSearch = () => {
+const HomeSearch = (issuesArray) => {
 
     const [searchBy, setSearchBy] = useState('Issue');
+    const [queries, setQueries] = useState([]);
+    const [multipleQueries, setMultipleQueries] = useState([]);
 
     const handleChange = (event) => {
         setSearchBy(event.target.value);
     };
 
 
+
+
+    const handleSecondChange = (event) => {
+        setQueries(event.target.value);
+    };
+
+
+    const onClick = (e) => {
+        e.preventDefault()
+
+        if (!searchBy === "Issue") {
+
+            fetch(`http://127.0.0.1:3001/api/v1/therapists/search?q=${queries}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({ queries })
+            })
+                .then(resp => resp.json())
+                .then(data => {
+                    console.log(data)
+                }).catch((error) => console.log(error))
+        } else {
+            console.log("Borked")
+            return false
+        }
+    }
+
+    const locationArray = [
+        {
+            name: 'Australian Capital Territory'
+        },
+        {
+            name: 'New South Wales'
+        },
+        {
+            name: 'Victoria'
+        },
+        {
+            name: 'Queensland'
+        },
+        {
+            name: 'South Australia'
+        },
+        {
+            name: 'Western Australia'
+        },
+        {
+            name: 'Tasmania'
+        },
+        {
+            name: 'Northern Territory'
+        }
+    ]
+
+    const professionArray = [
+        {
+            name: 'Psychologist'
+        },
+        {
+            name: 'Social Worker'
+        },
+        {
+            name: 'Counsellor'
+        },
+        {
+            name: 'Psychotherapist'
+        }
+    ]
+
+    const handleArray = (array) => {
+        if (!array) {
+            return false
+        } else if (searchBy === 'Location') {
+            return locationArray
+        } else if (searchBy === 'Profession') {
+            return professionArray
+        } else {
+            return array
+        }
+    }
+
+    const renderSelectOptions = () => {
+
+        if (searchBy === 'Location') {
+            return (
+                locationArray.map((el) => {
+                    return (
+                        <MenuItem value={el.name}>{el.name}</MenuItem>
+                    )
+                })
+            )
+        } else if (searchBy === 'Profession') {
+            return (
+                professionArray.map((el) => {
+                    return (
+                        <MenuItem value={el.name}>{el.name}</MenuItem>
+                    )
+                })
+            )
+        } else {
+            return false
+        }
+    }
+
+
+
+    const chooseSearchFieldType = () => {
+
+        if (searchBy === 'Issue') {
+            return (
+                <Autocomplete
+                    fullWidth
+                    multiple
+                    limitTags={2}
+                    id="multiple-limit-tags"
+                    options={handleArray(issuesArray)}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => (
+                        <TextField {...params} label={`Search by ${searchBy}`} placeholder={searchBy[0].name} />
+                    )}
+                />
+            )
+
+        } else {
+            return (
+                <FormControl fullWidth>
+                    <InputLabel id="select_options_label">{`Search by ${searchBy}`}</InputLabel>
+                    <Select
+                        labelId="select_options"
+                        id="select_options_id"
+                        value={queries}
+                        label={`Search by ${searchBy}`}
+                        onChange={handleSecondChange}
+                    >
+                        {renderSelectOptions()}
+                    </Select>
+                </FormControl>
+            )
+        }
+    }
     return (
         <>
             <SearchContainer>
                 <div>
                     <CustomFormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Filter by</InputLabel>
+                        <InputLabel id="therapist_filter_label">Filter by</InputLabel>
                         <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
+                            labelId="therapist_filter_label"
+                            id="therapist_filter"
                             value={searchBy}
                             label="Search by"
                             onChange={handleChange}
                         >
-                            <MenuItem value={"Issue"}>Issue</MenuItem>
-                            <MenuItem value={"Location"}>Location</MenuItem>
-                            <MenuItem value={"Profession"}>Profession</MenuItem>
+                            <MenuItem value="Issue">Issue</MenuItem>
+                            <MenuItem value="Location">Location</MenuItem>
+                            <MenuItem value="Profession">Profession</MenuItem>
                         </Select>
                     </CustomFormControl>
-                    <TextField id="Search" label={`Search by ${searchBy}`} variant="outlined"
-                        fullWidth />
+                    {chooseSearchFieldType()}
+                    {/* <Autocomplete
+                    fullWidth
+                    multiple
+                    limitTags={2}
+                    id="multiple-limit-tags"
+                    options={handleArray(array)}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => (
+                        <TextField {...params} label={`Search by ${searchBy}`} placeholder={searchBy[0].name} />
+                    )}
+                /> */}
+                    {/* <TextField id="Search" label={`Search by ${searchBy}`} variant="outlined"
+                        fullWidth /> */}
                     <Button
+                        type="submit"
                         height={56}
                         marginLeft={16}
                         appearance="primary"
-                        width={120}>Search</Button>
+                        width={120}
+                        onClick={onClick}>Search</Button>
 
                 </div>
             </SearchContainer>
