@@ -1,9 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
-import { up } from 'styled-breakpoints';
 import { Heading, Text } from 'evergreen-ui';
-import { Rating } from "@mui/material";
-
 
 const CardContainer = styled.a`
     

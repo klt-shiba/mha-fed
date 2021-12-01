@@ -26,6 +26,7 @@ const CreateReview = () => {
     },
   });
 
+
   const checkUserType = () => {
     if (!user) {
       setUserAttributes(null)

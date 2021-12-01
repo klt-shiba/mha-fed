@@ -1,24 +1,57 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { SearchInput, Combobox } from "evergreen-ui";
+import { useHistory, useLocation } from "react-router-dom";
 import { Rating } from "@mui/material";
 import CardV2 from "./CardV2"
 import CardContainer from "./CardContainer";
 import { Container } from 'reactstrap';
 import PageTitle from "./PageTitle"
 import Section from "./Section"
-import { Autocomplete, TextField, InputBase } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
+import ResultsBar from './ResultsBar'
 
+const Therapists = props => {
 
-
-
-const Therapists = () => {
   const [therapists, setTherapists] = useState([]);
   const [filteredTherapist, setFilteredTherapist] = useState([]);
   const [issues, setIssues] = useState(null)
   const [dropdownIssues, setDropdownIssues] = useState(null)
   const [dropdownValue, setDropdownValues] = useState([])
   const history = useHistory();
+  const location = useLocation();
+  const [homepageSearch, setHomepageSearch] = useState(null)
+  const searchResulstString = location.search ? location.search : ""
+
+
+  useEffect(() => {
+    checkIfSearchResultExists()
+  }, [homepageSearch]);
+
+  useEffect(() => {
+    fetchIssues();
+  }, []);
+
+  useEffect(() => {
+    // console.log(location.pathname); // result: '/secondpage'
+    // console.log(location.search); // result: '?query=abc'
+    console.log(location.state) // result: 'some_value'
+    setHomepageSearch(location.state);
+  }, []);
+
+  useEffect(() => {
+    prepareIssues()
+  }, [issues]);
+
+  const checkIfSearchResultExists = () => {
+    if (!homepageSearch) {
+      console.log("Fetch run")
+      setHomepageSearch(null)
+      fetchTherapists();
+    } else {
+      console.log("Searhed run")
+      console.log(homepageSearch)
+    }
+    console.log(therapists)
+  }
 
   const fetchTherapists = () => {
     const url = "http://127.0.0.1:3001/api/v1/therapists";
@@ -38,19 +71,6 @@ const Therapists = () => {
       });
   };
 
-  useEffect(() => {
-    fetchTherapists();
-  }, []);
-
-
-  useEffect(() => {
-    fetchIssues();
-  }, []);
-
-  useEffect(() => {
-    prepareIssues()
-  }, [issues]);
-
   const fetchIssues = async () => {
     try {
       const url = "http://127.0.0.1:3001/api/v1/issues"
@@ -61,8 +81,6 @@ const Therapists = () => {
       console.log(`errors: ${error}`)
     }
   }
-
-
 
   const prepareIssues = () => {
     if (!issues) {
@@ -206,6 +224,7 @@ const Therapists = () => {
     }
   }
   const average = (ratingsAverage) => ratingsAverage.reduce((a, b) => a + b) / ratingsAverage.length;
+
   const allTherapists = () => {
     if (dropdownValue.length >= 1) {
       return (
@@ -228,6 +247,23 @@ const Therapists = () => {
       return (noTherapists)
     } else if (!dropdownValue) {
       return false
+    } else if (homepageSearch) {
+      return (
+        <CardContainer isCard>
+          {
+            homepageSearch.data.map((therapist, index) => (
+              <CardV2
+                imgSrc={therapist.attributes.avatar_img_url}
+                title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
+                href={`/therapists/${therapist.id}`}
+                id={therapist.id}
+                body={renderSubheading(therapist)}
+                rating={updateRatings(getRatings(therapist))}
+                isLoading={false} />
+            ))
+          }
+        </CardContainer >
+      )
     } else {
       return (
         <CardContainer isCard>
@@ -247,14 +283,11 @@ const Therapists = () => {
       )
     }
   }
-
-
   const updateRatings = (value) => {
     return (
       <Rating name="read-only" value={value} readOnly size="large" />
     )
   }
-
   const noTherapists = (
     <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
       <h4>
@@ -275,10 +308,9 @@ const Therapists = () => {
   }
 
   const stringifyIssuesForSubheading = (object) => {
-    console.log(object)
+
     const smallIssuesArray = object ? object.attributes.issues : null
     const results = []
-
 
     if (!smallIssuesArray) {
       return false
@@ -288,6 +320,11 @@ const Therapists = () => {
       }
     }
     return results.slice(0, 3).join(', ')
+  }
+
+  const clearResults = () => {
+    location.state = ""
+    setHomepageSearch(null)
   }
 
 
@@ -302,6 +339,11 @@ const Therapists = () => {
         searchBar={renderSearch()} />
       <Container fluid="xl">
         <Section>
+          <ResultsBar
+            searchResult={homepageSearch ? searchResulstString.slice(3) : "Everything"}
+            numberOfResults={homepageSearch ? homepageSearch.data.length : therapists.length}
+            totalTherapists={therapists.length}
+            hasClick={clearResults}></ResultsBar>
           {therapists.length > 0 ? allTherapists() : noTherapists}
         </Section>
       </Container>

@@ -12,16 +12,20 @@ const NavBar = ({ hasToken }) => {
 
     const renderAvatar = () => {
         const id = user.id
-        return (
-            <Link
-                to={`/users/${id}/profile`}>
-                <Avatar
-                    src=""
-                    name={user.attributes.email}
-                    size={40}
-                />
-            </Link>
-        )
+        if (!user) {
+            return false
+        } else {
+            return (
+                <Link
+                    to={`/users/${id}/profile`}>
+                    <Avatar
+                        src=""
+                        name={user.attributes.email}
+                        size={40}
+                    />
+                </Link>
+            )
+        }
     }
 
     const renderLoginRegisterButtons = () => {

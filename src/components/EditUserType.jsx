@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { storeNames } from '../reducers/tempUserActions'
 import { createTherapist } from '../reducers/therapistActions'
 import { createClient } from '../reducers/clientActions'

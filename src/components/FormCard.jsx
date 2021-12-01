@@ -1,9 +1,7 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { up } from 'styled-breakpoints'
-import Section from "./Section"
 import { Button } from 'evergreen-ui'
-
 
 const Container = styled.span`
     width: 100%;

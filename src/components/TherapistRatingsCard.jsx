@@ -1,17 +1,11 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { up } from "styled-breakpoints";
-import Section from "./Section";
-import { Button } from "evergreen-ui";
+import styled from "styled-components";
 import { Rating } from "@mui/material";
-
-
 
 
 const Container = styled.div`
     width: 100%;
     padding: 12px 0;
-
 
     & > div {
         margin-bottom: 8px;
@@ -22,9 +16,7 @@ const Container = styled.div`
        color: #777;
        font-style: italic;
     }
-    
 `
-
 
 const TherapistRatingCard = ({ isRating, hasComment, hasAuthor, hasDate }) => {
     return (
@@ -38,6 +30,5 @@ const TherapistRatingCard = ({ isRating, hasComment, hasAuthor, hasDate }) => {
         </Container>
     )
 }
-
 
 export default TherapistRatingCard

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Autocomplete, TextField, FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 import { Button } from "evergreen-ui";
-import styled, { css } from 'styled-components'
-
+import styled, { css } from 'styled-components';
+import { useHistory } from "react-router-dom";
 
 const SearchContainer = styled.div`
     background-color: white;
@@ -38,19 +38,12 @@ const HomeSearch = (issuesArray) => {
         setSearchBy(event.target.value);
     };
 
-
-
-
     const handleSecondChange = (event) => {
         setQueries(event.target.value);
     };
 
-
     const onClick = (e) => {
-        e.preventDefault()
-
-        if (searchBy === "Location") {
-
+        if (searchBy === "Location" || searchBy === "Profession") {
             fetch(`http://127.0.0.1:3001/api/v1/therapists/search?q=${queries}`, {
                 method: 'POST',
                 headers: {
@@ -58,18 +51,25 @@ const HomeSearch = (issuesArray) => {
                     Accept: 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({ queries })
+                body: JSON.stringify({
+                    'key': searchBy,
+                    'query': queries
+                })
             })
                 .then(resp => resp.json())
                 .then(data => {
                     console.log(data)
+                    history.push({
+                        pathname: '/therapists',
+                        search: `?q=${queries}`,
+                        state: data
+                    })
                 }).catch((error) => console.log(error))
         } else {
             console.log("Borked")
             return false
         }
     }
-
     const locationArray = [
         {
             name: 'Australian Capital Territory'
@@ -96,13 +96,12 @@ const HomeSearch = (issuesArray) => {
             name: 'Northern Territory'
         }
     ]
-
     const professionArray = [
         {
             name: 'Psychologist'
         },
         {
-            name: 'Social Worker'
+            name: 'Social worker'
         },
         {
             name: 'Counsellor'
@@ -123,6 +122,8 @@ const HomeSearch = (issuesArray) => {
             return array
         }
     }
+
+    const history = useHistory()
 
     const renderSelectOptions = () => {
 
@@ -146,8 +147,6 @@ const HomeSearch = (issuesArray) => {
             return false
         }
     }
-
-
 
     const chooseSearchFieldType = () => {
 
@@ -202,26 +201,15 @@ const HomeSearch = (issuesArray) => {
                         </Select>
                     </CustomFormControl>
                     {chooseSearchFieldType()}
-                    {/* <Autocomplete
-                    fullWidth
-                    multiple
-                    limitTags={2}
-                    id="multiple-limit-tags"
-                    options={handleArray(array)}
-                    getOptionLabel={(option) => option.name}
-                    renderInput={(params) => (
-                        <TextField {...params} label={`Search by ${searchBy}`} placeholder={searchBy[0].name} />
-                    )}
-                /> */}
-                    {/* <TextField id="Search" label={`Search by ${searchBy}`} variant="outlined"
-                        fullWidth /> */}
                     <Button
                         type="submit"
                         height={56}
                         marginLeft={16}
                         appearance="primary"
                         width={120}
-                        onClick={onClick}>Search</Button>
+                        onClick={onClick}>
+                        Search
+                    </Button>
 
                 </div>
             </SearchContainer>

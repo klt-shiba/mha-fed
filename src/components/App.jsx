@@ -30,7 +30,6 @@ const App = () => {
 
   useEffect(() => {
     fastLogin()
-    console.log(token)
   }, [token])
 
   const fastLogin = () => {
