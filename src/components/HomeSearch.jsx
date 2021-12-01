@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Autocomplete, TextField, FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 import { Button } from "evergreen-ui";
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
 
 const SearchContainer = styled.div`

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
 import { Heading, Text } from 'evergreen-ui';
+import { up } from 'styled-breakpoints';
 
 const CardContainer = styled.a`
     
@@ -94,16 +95,24 @@ ${props => {
     width: 100%;
     position:relative;
     margin-bottom: 1.2rem;
-    height: 16.0rem;
+    height: 22.0rem;
     box-sizing: border-box;
     overflow: hidden;
     background: #f2f2f2;
     border-radius: 8px;
 
+    ${up('md')} {
+        height: 20.0rem;
+    }
+
     & img {
         width: 100%;
-        height: 16.0rem;
+        height: 22.0rem;
         object-fit: cover;
+
+        ${up('md')} {
+            height: 20.0rem;
+        }
     }
     @keyframes shine {
     to {

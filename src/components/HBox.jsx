@@ -4,7 +4,8 @@ import React from 'react';
 
 const HBox = () => {
 
-    return <Pane display="flex"
+    return
+    <Pane display="flex"
         flexDirection="row"
         flexWrap="wrap"
         className="hbox"
