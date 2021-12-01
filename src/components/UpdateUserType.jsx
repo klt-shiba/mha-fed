@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../UserContext";
 import { Pane, majorScale, TextInputField, FilePicker, Label } from "evergreen-ui";
 import { useParams, useHistory } from "react-router";
@@ -22,6 +22,7 @@ const UpdateUserType = () => {
     let urlId = ""
 
     const checkUserType = () => {
+
         if (!user) {
             setIsTherapist(null)
             return false
@@ -37,6 +38,10 @@ const UpdateUserType = () => {
         }
     }
 
+
+    useEffect(() => {
+        checkUserType()
+    }, [user])
 
     const token = localStorage.getItem('token')
     const history = useHistory()
@@ -68,8 +73,6 @@ const UpdateUserType = () => {
 
 
     const patchDetails = () => {
-
-        checkUserType()
 
         formData.append('user_id', userId)
         formData.append('first_name', form.first_name)

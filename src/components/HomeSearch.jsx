@@ -110,7 +110,6 @@ const HomeSearch = (issuesArray) => {
             name: 'Psychotherapist'
         }
     ]
-
     const handleArray = (array) => {
         if (!array) {
             return false
@@ -126,7 +125,6 @@ const HomeSearch = (issuesArray) => {
     const history = useHistory()
 
     const renderSelectOptions = () => {
-
         if (searchBy === 'Location') {
             return (
                 locationArray.map((el) => {
@@ -148,6 +146,15 @@ const HomeSearch = (issuesArray) => {
         }
     }
 
+    const handleChipChange = (e) => {
+        console.log(multipleQueries)
+        setMultipleQueries(e.target.text)
+    }
+
+    const handleInputChange = (e) => {
+    }
+
+
     const chooseSearchFieldType = () => {
 
         if (searchBy === 'Issue') {
@@ -156,15 +163,18 @@ const HomeSearch = (issuesArray) => {
                     fullWidth
                     multiple
                     limitTags={2}
-                    id="multiple-limit-tags"
+                    id="autocomplete"
                     options={handleArray(issuesArray)}
                     getOptionLabel={(option) => option.name}
+                    onChange={(event, newValue) => {
+                        setMultipleQueries(newValue)
+                    }}
+                    onInputChange={handleInputChange}
                     renderInput={(params) => (
-                        <TextField {...params} label={`Search by ${searchBy}`} placeholder={searchBy[0].name} />
+                        <TextField {...params} label={`Search by ${searchBy}`} inputValue={"value"} onChange={handleChipChange} placeholder={searchBy[0].name} />
                     )}
                 />
             )
-
         } else {
             return (
                 <FormControl fullWidth>

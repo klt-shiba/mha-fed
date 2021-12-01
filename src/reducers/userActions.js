@@ -32,6 +32,7 @@ export const fetchUser = userInfo => dispatch => {
       localStorage.setItem('token', data.jwt)
       dispatch(setUser(data.user))
     })
+    .catch(error => console.log(error))
 }
 
 //   // Function to POST Register details details
@@ -79,7 +80,7 @@ export const autoLogin = () => async dispatch => {
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
     localStorage.removeItem('token')
-    throw new Error(message);
+    console.log(message)
   }
   const data = await response.json()
   console.log(data)
