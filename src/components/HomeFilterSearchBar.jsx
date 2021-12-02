@@ -28,13 +28,14 @@ const CustomFormControl = styled(FormControl)`
 `
 
 
-const HomeFilterSearchBar = ({ issuesArray, therapistsArray }) => {
+const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
 
     const history = useHistory()
 
     const [searchBy, setSearchBy] = useState('Issue');
     const [queries, setQueries] = useState([]);
     const [multipleQueries, setMultipleQueries] = useState([]);
+    const [therapists, setTherapists] = useState([])
 
     const handleChange = (event) => {
         setSearchBy(event.target.value);
@@ -47,11 +48,20 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray }) => {
     const onClick = (e) => {
         if (searchBy === "Location" || searchBy === "Specialization") {
             console.log("No Therapists")
+            history.push({
+                path: `/therapists`,
+                search: `?${searchBy}=${queries}`,
+                state: { data: therapists }
+            })
         } else if (searchBy === "Issue" && multipleQueries.length >= 1) {
             console.log("Borked")
             return false
         } else {
-            console.log("All Therapist Selected")
+            history.push({
+                path: `/therapists`,
+                search: ``,
+                state: { data: therapists }
+            })
         }
     }
     const locationArray = [
@@ -136,14 +146,13 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray }) => {
     const handleInputChange = (e) => {
     }
 
-
     const checkIfTherapistExists = (array) => {
 
         if (!array) {
             console.log("Therapists don't exist")
             return false
         } else {
-            console.log(array)
+            setTherapists(array)
         }
     }
 
