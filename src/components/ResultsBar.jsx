@@ -22,7 +22,7 @@ const ResultsBar = ({ searchResult, hasClick, numberOfResults, totalTherapists }
                     marginLeft={16}
                     width={120}
                     onClick={hasClick}>
-                    Clear Search
+                    Clear
                 </Button>
             </div>
         </Container>

@@ -28,7 +28,7 @@ const CustomFormControl = styled(FormControl)`
 `
 
 
-const HomeSearch = (issuesArray) => {
+const HomeSearchV2 = (issuesArray) => {
 
     const [searchBy, setSearchBy] = useState('Issue');
     const [queries, setQueries] = useState([]);
@@ -42,32 +42,39 @@ const HomeSearch = (issuesArray) => {
         setQueries(event.target.value);
     };
 
-    const onClick = (e) => {
-        if (searchBy === "Location" || searchBy === "Profession") {
-            fetch(`http://127.0.0.1:3001/api/v1/therapists/search?q=${queries}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({
-                    'key': searchBy,
-                    'query': queries
+    const fetchTherapists = (query) => {
+        const url = "http://127.0.0.1:3001/api/v1/therapists";
+        fetch(url)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then((response) => {
+                history.push({
+                    pathname: '/therapists',
+                    search: `?${searchBy}=${query}`,
+                    state: response
                 })
             })
-                .then(resp => resp.json())
-                .then(data => {
-                    console.log(data)
-                    history.push({
-                        pathname: '/therapists',
-                        search: `?q=${queries}`,
-                        state: data
-                    })
-                }).catch((error) => console.log(error))
-        } else {
+            .catch((error) => {
+                console.log(error);
+                history.push("/");
+            });
+    };
+
+
+    const onClick = (e) => {
+        if (searchBy === "Location" || searchBy === "Specialization") {
+            fetchTherapists(queries)
+        } else if (searchBy === "Issue" && multipleQueries.length >= 1) {
             console.log("Borked")
             return false
+        } else {
+            console.log("All Therapist Selected")
+            fetchTherapists()
+
         }
     }
     const locationArray = [
@@ -115,7 +122,7 @@ const HomeSearch = (issuesArray) => {
             return false
         } else if (searchBy === 'Location') {
             return locationArray
-        } else if (searchBy === 'Profession') {
+        } else if (searchBy === 'Specialization') {
             return professionArray
         } else {
             return array
@@ -133,7 +140,7 @@ const HomeSearch = (issuesArray) => {
                     )
                 })
             )
-        } else if (searchBy === 'Profession') {
+        } else if (searchBy === 'Specialization') {
             return (
                 professionArray.map((el) => {
                     return (
@@ -206,7 +213,7 @@ const HomeSearch = (issuesArray) => {
                         >
                             <MenuItem value="Issue">Issue</MenuItem>
                             <MenuItem value="Location">Location</MenuItem>
-                            <MenuItem value="Profession">Profession</MenuItem>
+                            <MenuItem value="Specialization">Specialization</MenuItem>
                         </Select>
                     </CustomFormControl>
                     {chooseSearchFieldType()}
@@ -227,4 +234,4 @@ const HomeSearch = (issuesArray) => {
 }
 
 
-export default HomeSearch
+export default HomeSearchV2

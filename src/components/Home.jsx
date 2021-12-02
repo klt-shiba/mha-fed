@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PrimaryBanner from "./PrimaryBanner";
 import PageTitle from "./PageTitle";
 import { SearchInput } from "evergreen-ui";
-import HomeSearch from "./HomeSearch";
+import HomeSearchV2 from "./HomeSearchV2";
 import {
   useState, useEffect
 } from "react";
@@ -44,7 +44,7 @@ const Home = () => {
         src={imgURL}
         title="Real reviews that help you choose"
         summary="Over 50,000 reviews of Therapists, Counsellors and Social workers"
-        searchBar={HomeSearch(issues)}
+        searchBar={HomeSearchV2(issues)}
       />
       <PrimaryBanner hasDirection={false} />
       <PrimaryBanner hasDirection hasButton />

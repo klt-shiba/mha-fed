@@ -259,7 +259,6 @@ const Therapist = () => {
           </Container>
         </Section>
       </Pane >
-      {JSON.stringify(therapist, null, 2)}
     </Container>
   );
 };

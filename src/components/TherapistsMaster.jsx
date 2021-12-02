@@ -8,22 +8,20 @@ import PageTitle from "./PageTitle"
 import Section from "./Section"
 import { Autocomplete, TextField } from "@mui/material";
 import ResultsBar from './ResultsBar'
-import HomeFilterSearchBar from './HomeFilterSearchBar'
+import HomeSearchV2 from './HomeSearchV2'
 
 const Therapists = props => {
-
-  const history = useHistory();
-  const location = useLocation();
-
 
   const [therapists, setTherapists] = useState([]);
   const [filteredTherapist, setFilteredTherapist] = useState([]);
   const [issues, setIssues] = useState(null)
   const [dropdownIssues, setDropdownIssues] = useState(null)
   const [dropdownValue, setDropdownValues] = useState([])
+  const history = useHistory();
+  const location = useLocation();
   const [homepageSearch, setHomepageSearch] = useState(null)
-  const [searchKey, setSearchKey] = useState(null)
-  const [searchValue, setSearchValue] = useState(null)
+  const searchResulstString = location.search ? location.search : ""
+
 
   useEffect(() => {
     checkIfSearchResultExists()
@@ -34,78 +32,21 @@ const Therapists = props => {
   }, []);
 
   useEffect(() => {
-    // console.log(location.pathname); // result: '/secondpage'
-    // console.log(location.search); // result: '?query=abc'
-    // console.log(location.state) // result: 'some_value'
-    if (!location.search) {
-      clearResults()
-    } else {
-      trimSearchParameter(checkSearchParameter(location.search))
-      setHomepageSearch(location.state);
-      checkIfSearchResulstAndValueExist()
-    }
+    console.log(location.pathname); // result: '/secondpage'
+    console.log(location.search); // result: '?query=abc'
+    console.log(location.state) // result: 'some_value'
+    setHomepageSearch(location.state);
 
-  }, [homepageSearch, location.search]);
+  });
 
   useEffect(() => {
     prepareIssues()
   }, [issues]);
 
+
   const checkSearchParameter = (searchParameter) => {
     if (!searchParameter) {
       console.log("Search parameter doesn't exist")
-      return false
-    } else {
-      console.log("Has Search Parameter")
-      return searchParameter
-    }
-  }
-
-  const trimSearchParameter = (string) => {
-
-    if (!string) {
-      console.log("No string")
-      return false
-    } else {
-
-      let resultsArray = string.substring(1).split("=")
-      let trimmedValue = resultsArray[1].split("%20").join(" ")
-
-      setSearchKey(resultsArray[0].toLowerCase())
-      setSearchValue(trimmedValue)
-
-    }
-  }
-
-  const checkIfSearchResulstAndValueExist = () => {
-
-    if (!searchKey && !searchValue) {
-      console.log("No Search Result exists")
-      return false
-    } else {
-      console.log("Search and Key exists")
-      filterTherapistsByKeyAndValue(searchKey, searchValue)
-
-    }
-  }
-
-
-  const filterTherapistsByKeyAndValue = (key, value) => {
-
-    let results = []
-    if (!homepageSearch) {
-      return false
-    } else {
-
-      homepageSearch.data.some((el) => {
-        let therapistAttributeObj = el.attributes
-        if (therapistAttributeObj[key] === value) {
-          results.push(el)
-        } else {
-          return false
-        }
-      })
-      setFilteredTherapist(results)
     }
   }
 
@@ -269,11 +210,10 @@ const Therapists = props => {
           return false
         }
       })
-      setFilteredTherapist(results)
     } else {
       return false
     }
-
+    setFilteredTherapist(results)
   }
   const getRatings = (object) => {
     const ratingArray = object.attributes.reviews
@@ -295,7 +235,7 @@ const Therapists = props => {
   const average = (ratingsAverage) => ratingsAverage.reduce((a, b) => a + b) / ratingsAverage.length;
 
   const allTherapists = () => {
-    if (filteredTherapist || dropdownValue.length >= 1) {
+    if (dropdownValue.length >= 1) {
       return (
         <CardContainer isCard>
           {
@@ -306,6 +246,27 @@ const Therapists = props => {
                 href={`/therapists/${therapist.id}`}
                 id={therapist.id}
                 body={therapist.attributes.short_summary}
+                rating={updateRatings(getRatings(therapist))}
+                isLoading={false} />
+            ))
+          }
+        </CardContainer >
+      )
+    } else if ((dropdownValue.length >= 1) && (filteredTherapist.length === 0)) {
+      return (noTherapists)
+    } else if (!dropdownValue) {
+      return false
+    } else if (homepageSearch) {
+      return (
+        <CardContainer isCard>
+          {
+            homepageSearch.data.map((therapist, index) => (
+              <CardV2
+                imgSrc={therapist.attributes.avatar_img_url}
+                title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
+                href={`/therapists/${therapist.id}`}
+                id={therapist.id}
+                body={renderSubheading(therapist)}
                 rating={updateRatings(getRatings(therapist))}
                 isLoading={false} />
             ))
@@ -371,16 +332,10 @@ const Therapists = props => {
   }
 
   const clearResults = () => {
-    history.push({
-      search: "",
-      state: ""
-    })
-    console.log(filteredTherapist)
+    location.state = ""
     setHomepageSearch(null)
-    setSearchValue(null)
-    setSearchKey(null)
-    setFilteredTherapist(null)
   }
+
 
   return (
     <>
@@ -390,11 +345,11 @@ const Therapists = props => {
         summary="Take that first step and book with these professional therapists who
         are available now."
         src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80"
-        searchBar={HomeFilterSearchBar(issues)} />
+        searchBar={HomeSearchV2(issues)} />
       <Container fluid="xl">
         <Section>
           <ResultsBar
-            searchResult={homepageSearch ? searchValue : "Everything"}
+            searchResult={homepageSearch ? searchResulstString.slice(3) : "Everything"}
             numberOfResults={homepageSearch ? homepageSearch.data.length : "18"}
             totalTherapists={therapists ? therapists.length : "18"}
             hasClick={clearResults}></ResultsBar>
