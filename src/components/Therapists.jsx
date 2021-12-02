@@ -191,7 +191,13 @@ const Therapists = props => {
       const url = "http://127.0.0.1:3001/api/v1/issues"
       const res = await fetch(url);
       const data = await res.json();
-      setIssues(data)
+
+      setIssues(data.data.sort(function (a, b) {
+        if (a.name < b.name) { return -1; }
+        if (a.name > b.name) { return 1; }
+        return 0;
+      }))
+
     } catch (error) {
       console.log(`errors: ${error}`)
     }
