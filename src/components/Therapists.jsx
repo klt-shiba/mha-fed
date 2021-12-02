@@ -132,6 +132,7 @@ const Therapists = props => {
       })
       .then((response) => {
         setTherapists(response.data);
+        return response
       })
       .catch((error) => {
         console.log(error);
@@ -382,6 +383,26 @@ const Therapists = props => {
     setFilteredTherapist(null)
   }
 
+
+  const renderFilterBar = () => {
+
+    if (!therapists) {
+      return (
+        <HomeFilterSearchBar
+          issuesArray={issues ? issues : false}
+          therapistsArray={homepageSearch ? homepageSearch : therapists}
+        />
+      )
+    } else {
+      return (
+        <HomeFilterSearchBar
+          issuesArray={issues ? issues : false}
+          therapistsArray={therapists ? therapists : homepageSearch}
+        />
+      )
+    }
+
+  }
   return (
     <>
       <PageTitle
@@ -390,7 +411,7 @@ const Therapists = props => {
         summary="Take that first step and book with these professional therapists who
         are available now."
         src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80"
-        searchBar={HomeFilterSearchBar(issues)} />
+        searchBar={renderFilterBar()} />
       <Container fluid="xl">
         <Section>
           <ResultsBar

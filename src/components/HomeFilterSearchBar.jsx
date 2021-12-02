@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Autocomplete, TextField, FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 import { Button } from "evergreen-ui";
 import styled from 'styled-components';
@@ -28,7 +28,9 @@ const CustomFormControl = styled(FormControl)`
 `
 
 
-const HomeFilterSearchBar = (issuesArray) => {
+const HomeFilterSearchBar = ({ issuesArray, therapistsArray }) => {
+
+    const history = useHistory()
 
     const [searchBy, setSearchBy] = useState('Issue');
     const [queries, setQueries] = useState([]);
@@ -42,39 +44,14 @@ const HomeFilterSearchBar = (issuesArray) => {
         setQueries(event.target.value);
     };
 
-    const fetchTherapists = (query) => {
-        const url = "http://127.0.0.1:3001/api/v1/therapists";
-        fetch(url)
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error("Network response was not ok.");
-            })
-            .then((response) => {
-                history.push({
-                    pathname: '/therapists',
-                    search: `?${searchBy}=${query}`,
-                    state: response
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-                history.push("/");
-            });
-    };
-
-
     const onClick = (e) => {
         if (searchBy === "Location" || searchBy === "Specialization") {
-            fetchTherapists(queries)
+            console.log("No Therapists")
         } else if (searchBy === "Issue" && multipleQueries.length >= 1) {
             console.log("Borked")
             return false
         } else {
             console.log("All Therapist Selected")
-            fetchTherapists()
-
         }
     }
     const locationArray = [
@@ -129,8 +106,6 @@ const HomeFilterSearchBar = (issuesArray) => {
         }
     }
 
-    const history = useHistory()
-
     const renderSelectOptions = () => {
         if (searchBy === 'Location') {
             return (
@@ -160,6 +135,23 @@ const HomeFilterSearchBar = (issuesArray) => {
 
     const handleInputChange = (e) => {
     }
+
+
+    const checkIfTherapistExists = (array) => {
+
+        if (!array) {
+            console.log("Therapists don't exist")
+            return false
+        } else {
+            console.log(array)
+        }
+    }
+
+
+    useEffect(() => {
+        checkIfTherapistExists(therapistsArray)
+    }, [therapistsArray])
+
 
     const chooseSearchFieldType = () => {
 
