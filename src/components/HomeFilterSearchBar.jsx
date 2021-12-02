@@ -44,7 +44,6 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
     const handleSecondChange = (event) => {
         setQueries(event.target.value);
     };
-
     const onClick = (e) => {
         if (searchBy === "Location" || searchBy === "Specialization") {
             console.log("No Therapists")

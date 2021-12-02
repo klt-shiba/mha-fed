@@ -71,9 +71,14 @@ const Therapists = props => {
       let resultsArray = string.substring(1).split("=")
       let trimmedValue = resultsArray[1].split("%20").join(" ")
 
+      if (resultsArray[0] === 'Issue') {
+        let trimmedArray = resultsArray[1].split(",")
+        console.log(trimmedArray)
+        setSearchValue(trimmedArray)
+      } else {
+        setSearchValue(trimmedValue)
+      }
       setSearchKey(resultsArray[0].toLowerCase())
-      setSearchValue(trimmedValue)
-
     }
   }
 
@@ -82,8 +87,10 @@ const Therapists = props => {
     if (!searchKey && !searchValue) {
       console.log("No Search Result exists")
       return false
+    } else if (Array.isArray(searchValue)) {
+      console.log("Search and Key exists and it's an Array")
     } else {
-      console.log("Search and Key exists")
+      console.log("Search and Key exists and it's a string")
       filterTherapistsByKeyAndValue(searchKey, searchValue)
 
     }
