@@ -89,6 +89,7 @@ const Therapists = props => {
       return false
     } else if (Array.isArray(searchValue)) {
       console.log("Search and Key exists and it's an Array")
+      filterTherapistsByKeyAndArray(searchKey, searchValue)
     } else {
       console.log("Search and Key exists and it's a string")
       filterTherapistsByKeyAndValue(searchKey, searchValue)
@@ -108,6 +109,44 @@ const Therapists = props => {
         let therapistAttributeObj = el.attributes
         if (therapistAttributeObj[key] === value) {
           results.push(el)
+        } else {
+          return false
+        }
+      })
+      setFilteredTherapist(results)
+    }
+  }
+
+  const filterTherapistsByKeyAndArray = (key, array) => {
+
+    let results = []
+
+    let searchedIssuesArray = array
+
+    if (!homepageSearch) {
+      return false
+
+    } else {
+
+      let therapistsArray = homepageSearch.data
+
+      therapistsArray.map((therapist) => {
+
+        //Array of Therapist Issues Objs
+        let therapistIssuesArray = therapist.attributes.issues
+        let therapistIssuesNameArray = []
+
+        therapistIssuesArray.map((el) => {
+          therapistIssuesNameArray.push(el.name)
+        })
+
+        console.log(therapistIssuesNameArray)
+        console.log(searchedIssuesArray)
+
+
+        // Array of issues
+        if (searchedIssuesArray.every((issue) => therapistIssuesNameArray.includes(issue))) {
+          results.push(therapist)
         } else {
           return false
         }
