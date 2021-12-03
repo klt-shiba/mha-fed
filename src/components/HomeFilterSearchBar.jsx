@@ -45,16 +45,26 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
         setQueries(event.target.value);
     };
     const onClick = (e) => {
-        if (searchBy === "Location" || searchBy === "Specialization") {
+        if (searchBy === "Profession" || searchBy === "State") {
             console.log("No Therapists")
             history.push({
                 path: `/therapists`,
                 search: `?${searchBy}=${queries}`,
                 state: { data: therapists }
             })
-        } else if (searchBy === "Issue" && multipleQueries.length >= 1) {
-            console.log("Borked")
-            return false
+        } else if (searchBy === "Issue" && queries.length >= 1) {
+            const cleanIssues = []
+
+            let createArray = queries.map((el) => {
+                cleanIssues.push(el.name)
+            })
+
+            history.push({
+                path: `/therapists`,
+                search: `?${searchBy}=${cleanIssues.toString()}`,
+                state: { data: therapists }
+            })
+
         } else {
             history.push({
                 path: `/therapists`,
@@ -106,9 +116,9 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
     const handleArray = (array) => {
         if (!array) {
             return false
-        } else if (searchBy === 'Location') {
+        } else if (searchBy === 'State') {
             return locationArray
-        } else if (searchBy === 'Specialization') {
+        } else if (searchBy === 'Profession') {
             return professionArray
         } else {
             return array
@@ -116,7 +126,7 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
     }
 
     const renderSelectOptions = () => {
-        if (searchBy === 'Location') {
+        if (searchBy === 'State') {
             return (
                 locationArray.map((el) => {
                     return (
@@ -124,7 +134,7 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
                     )
                 })
             )
-        } else if (searchBy === 'Specialization') {
+        } else if (searchBy === 'Profession') {
             return (
                 professionArray.map((el) => {
                     return (
@@ -173,7 +183,7 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
                     options={handleArray(issuesArray)}
                     getOptionLabel={(option) => option.name}
                     onChange={(event, newValue) => {
-                        setMultipleQueries(newValue)
+                        setQueries(newValue)
                     }}
                     onInputChange={handleInputChange}
                     renderInput={(params) => (
@@ -212,8 +222,8 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
                             onChange={handleChange}
                         >
                             <MenuItem value="Issue">Issue</MenuItem>
-                            <MenuItem value="Location">Location</MenuItem>
-                            <MenuItem value="Specialization">Specialization</MenuItem>
+                            <MenuItem value="State">State</MenuItem>
+                            <MenuItem value="Profession">Profession</MenuItem>
                         </Select>
                     </CustomFormControl>
                     {chooseSearchFieldType()}

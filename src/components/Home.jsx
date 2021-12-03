@@ -25,7 +25,11 @@ const Home = () => {
         throw new Error("Network response was not ok.");
       })
       .then((r) => {
-        setIssues(r.sort());
+        setIssues(r.sort(function (a, b) {
+          if (a.name < b.name) { return -1; }
+          if (a.name > b.name) { return 1; }
+          return 0;
+        }))
       })
       .catch((error) => {
         console.log(error);
@@ -43,7 +47,7 @@ const Home = () => {
       <PageTitle
         src={imgURL}
         title="Real reviews that help you choose"
-        summary="Over 50,000 reviews of Therapists, Counsellors and Social workers"
+        summary="Over 50,000 reviews of Psychologist, Counsellors and Social workers"
         searchBar={HomeSearchV2(issues)}
       />
       <PrimaryBanner hasDirection={false} />

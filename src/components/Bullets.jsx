@@ -6,7 +6,7 @@ const Container = styled.span`
     font-size: 1.2rem;
     border-radius: 24px;
     font-weight: 600;
-    color: #333;
+    color: #666;
     margin: 0 8px 8px 0;
     white-space: nowrap;
     display: inline-flex;
@@ -14,12 +14,12 @@ const Container = styled.span`
     ${props => {
         if (props.hasColour === "blue") {
             return (props.hasColour && css`
-         background-color: lightblue;
+         background-color: #dff7ff;
         `)
         }
         else if (props.hasColour === "green") {
             return (props.hasColour && css`
-          background-color: lightgreen;
+          background-color: #cff8cf;
           `
             )
         } else {
@@ -33,7 +33,7 @@ const Container = styled.span`
     ${props => {
         if (props.hasSize === "small") {
             return (props.hasSize && css`
-                padding: 8px;
+                padding: 8px 12px;
                 font-size: 1rem;
         `)
         }
@@ -44,7 +44,7 @@ const Container = styled.span`
             )
         } else {
             return (props.hasSize && css`
-                padding: 12px;
+                padding: 12px 16px;
                 font-size: 1.2rem;
 
           `

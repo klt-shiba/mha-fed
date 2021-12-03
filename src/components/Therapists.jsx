@@ -101,10 +101,11 @@ const Therapists = props => {
   const filterTherapistsByKeyAndValue = (key, value) => {
 
     let results = []
+
+
     if (!homepageSearch) {
       return false
     } else {
-
       homepageSearch.data.some((el) => {
         let therapistAttributeObj = el.attributes
         if (therapistAttributeObj[key] === value) {
@@ -192,7 +193,7 @@ const Therapists = props => {
       const res = await fetch(url);
       const data = await res.json();
 
-      setIssues(data.data.sort(function (a, b) {
+      setIssues(data.sort(function (a, b) {
         if (a.name < b.name) { return -1; }
         if (a.name > b.name) { return 1; }
         return 0;
@@ -358,7 +359,7 @@ const Therapists = props => {
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
                 href={`/therapists/${therapist.id}`}
                 id={therapist.id}
-                body={therapist.attributes.short_summary}
+                body={renderSubheading(therapist)}
                 rating={updateRatings(getRatings(therapist))}
                 isLoading={false} />
             ))
@@ -398,7 +399,7 @@ const Therapists = props => {
   );
 
   const renderSubheading = (object) => {
-    const specialization = object ? object.attributes.specialization : null
+    const specialization = object ? object.attributes.profession : null
     if (!object) {
       return false
     } else {
@@ -460,7 +461,7 @@ const Therapists = props => {
       <PageTitle
         isSmall
         title="Real reviews"
-        summary="Take that first step and book with these professional therapists who
+        summary="Take that first step and book with these professional who
         are available now."
         src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80"
         searchBar={renderFilterBar()} />
@@ -468,7 +469,7 @@ const Therapists = props => {
         <Section>
           <ResultsBar
             searchResult={homepageSearch ? searchValue : "Everything"}
-            numberOfResults={homepageSearch ? homepageSearch.data.length : "18"}
+            numberOfResults={filteredTherapist ? filteredTherapist.length : "18"}
             totalTherapists={therapists ? therapists.length : "18"}
             hasClick={clearResults}></ResultsBar>
           {therapists.length > 0 ? allTherapists() : noTherapists}

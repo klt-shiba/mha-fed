@@ -180,7 +180,7 @@ const Therapist = () => {
 
 
   const renderSubheading = (object) => {
-    const specialization = object ? object.specialization : null
+    const specialization = object ? object.profession : null
     if (!object) {
       return false
     } else {
@@ -211,7 +211,7 @@ const Therapist = () => {
         className="vbox">
         <Section>
           <PrimaryBanner
-            hasLocation={therapist ? therapist.location : false}
+            hasLocation={therapist ? therapist.state : false}
             hasDirection={false}
             hasImg={therapist ? therapist.avatar_img_url : false}
             heading={therapist ? `${therapist.first_name} ` + ` ${therapist.last_name} ` : false}

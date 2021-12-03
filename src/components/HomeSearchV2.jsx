@@ -40,6 +40,7 @@ const HomeSearchV2 = (issuesArray) => {
 
     const handleSecondChange = (event) => {
         setQueries(event.target.value);
+        console.log(queries)
     };
 
     const fetchTherapists = (query) => {
@@ -67,22 +68,18 @@ const HomeSearchV2 = (issuesArray) => {
 
     const onClick = (e) => {
 
+        if (searchBy === "State" || searchBy === "Profession") {
 
-        if (searchBy === "Location" || searchBy === "Specialization") {
             fetchTherapists(queries)
 
         } else if (searchBy === "Issue" && queries.length >= 1) {
 
             const cleanIssues = []
 
-            let createArray = queries.map((el) => {
+            queries.map((el) => {
                 cleanIssues.push(el.name)
             })
-
-            console.log(cleanIssues.toString())
-            console.log("==============")
             fetchTherapists(cleanIssues.toString())
-
         } else {
             console.log("All Therapist Selected")
             setQueries("")
@@ -132,9 +129,9 @@ const HomeSearchV2 = (issuesArray) => {
     const handleArray = (array) => {
         if (!array) {
             return false
-        } else if (searchBy === 'Location') {
+        } else if (searchBy === 'State') {
             return locationArray
-        } else if (searchBy === 'Specialization') {
+        } else if (searchBy === 'Profession') {
             return professionArray
         } else {
             return array
@@ -144,7 +141,7 @@ const HomeSearchV2 = (issuesArray) => {
     const history = useHistory()
 
     const renderSelectOptions = () => {
-        if (searchBy === 'Location') {
+        if (searchBy === 'State') {
             return (
                 locationArray.map((el) => {
                     return (
@@ -152,7 +149,7 @@ const HomeSearchV2 = (issuesArray) => {
                     )
                 })
             )
-        } else if (searchBy === 'Specialization') {
+        } else if (searchBy === 'Profession') {
             return (
                 professionArray.map((el) => {
                     return (
@@ -227,8 +224,8 @@ const HomeSearchV2 = (issuesArray) => {
                             onChange={handleChange}
                         >
                             <MenuItem value="Issue">Issue</MenuItem>
-                            <MenuItem value="Location">Location</MenuItem>
-                            <MenuItem value="Specialization">Specialization</MenuItem>
+                            <MenuItem value="State">State</MenuItem>
+                            <MenuItem value="Profession">Profession</MenuItem>
                         </Select>
                     </CustomFormControl>
                     {(searchBy === 'Issue') ?
@@ -240,7 +237,6 @@ const HomeSearchV2 = (issuesArray) => {
                             options={handleArray(issuesArray)}
                             getOptionLabel={(option) => option.name}
                             onChange={(event, newValue) => {
-                                console.log(queries)
                                 setQueries(newValue)
                             }}
                             onInputChange={handleInputChange}
