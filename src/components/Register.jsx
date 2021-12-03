@@ -69,7 +69,9 @@ const Register = () => {
         are available now."
       />
       <Container fluid="xl">
-        <Section>
+        <Section
+          hasPaddingTop
+          hasPaddingBottom>
           <Pane
             display="flex"
             alignItems="center"

@@ -356,6 +356,7 @@ const Therapists = props => {
             filteredTherapist.map((therapist, index) => (
               <CardV2
                 imgSrc={therapist.attributes.avatar_img_url}
+                hasLocation={therapist.attributes.state}
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
                 href={`/therapists/${therapist.id}`}
                 id={therapist.id}
@@ -373,6 +374,7 @@ const Therapists = props => {
             therapists.map((therapist, index) => (
               <CardV2
                 imgSrc={therapist.attributes.avatar_img_url}
+                hasLocation={therapist.attributes.state}
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
                 href={`/therapists/${therapist.id}`}
                 id={therapist.id}
@@ -466,7 +468,10 @@ const Therapists = props => {
         src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80"
         searchBar={renderFilterBar()} />
       <Container fluid="xl">
-        <Section>
+        <Section
+          hasPaddingTop
+          hasPaddingBottom
+        >
           <ResultsBar
             searchResult={homepageSearch ? searchValue : "Everything"}
             numberOfResults={filteredTherapist ? filteredTherapist.length : "18"}

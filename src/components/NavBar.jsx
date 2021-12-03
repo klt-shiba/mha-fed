@@ -2,6 +2,7 @@ import { Heading, Pane, Avatar, Button } from "evergreen-ui";
 import React, { useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import styled from 'styled-components'
 
 const NavBar = ({ hasToken }) => {
 
@@ -72,7 +73,7 @@ const NavBar = ({ hasToken }) => {
             flexShrink={0}
             display="flex"
             padding={16}
-            background="purple600"
+            background="white"
             borderRadius={3}
         >
             <Pane flex={1}
@@ -82,7 +83,7 @@ const NavBar = ({ hasToken }) => {
                     to="/">
                     <Heading
                         size={600}
-                        color="white"
+                        color="black"
                         textAlign="left"
                     >
                         Home
@@ -97,7 +98,7 @@ const NavBar = ({ hasToken }) => {
                     to="/therapists">
                     <Heading
                         size={600}
-                        color="white"
+                        color="black"
                         textAlign="left"
                     >
                         Therapists

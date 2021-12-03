@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
-import { Heading, Text } from 'evergreen-ui';
+import { Heading, Text, MapMarkerIcon } from 'evergreen-ui';
 import { up } from 'styled-breakpoints';
 
 const CardContainer = styled.a`
@@ -58,6 +58,15 @@ const CardContainer = styled.a`
     & div {
         width:100%;
         margin-bottom: 12px;
+    }
+
+    & div.location-wrapper {
+        display:flex;
+        align-items: center;
+        & span {
+            padding-left: 8px;
+        }
+
     }
 `;
 
@@ -137,8 +146,9 @@ const CardV2 = (props) => {
                         src={props.imgSrc}
                         alt={props.altTag} />
                 </ImgContainer>
-                <div >
-                    {props.rating}
+                <div className="location-wrapper">
+                    <MapMarkerIcon /> <span>{props.hasLocation}</span>
+
                 </div>
                 <div>
                     <Heading
@@ -147,6 +157,9 @@ const CardV2 = (props) => {
                 </div>
                 <div className="summary-card-container">
                     <Text size={400} variant="body2" gutterBottom>{props.body}</Text>
+                </div>
+                <div >
+                    {props.rating}
                 </div>
             </div>
         </CardContainer >

@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { up } from "styled-breakpoints";
 import Section from "./Section";
 import { Container } from "reactstrap";
-import { Button } from "evergreen-ui";
+import { Button, MapMarkerIcon } from "evergreen-ui";
 import { Rating } from "@mui/material";
 
 const CustomSection = styled(Section)`
@@ -135,7 +135,7 @@ const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirecti
         <BannerWrapper hasDirection={hasDirection}>
           <SplitContainer>
             <ContentWrapper>
-              <div>{hasLocation || "Australia"}</div>
+              <div><MapMarkerIcon /> {hasLocation || "Australia"}</div>
               <h2>{heading || "Rate my Therapist cat"}</h2>
               <div>
                 {subHeading ||

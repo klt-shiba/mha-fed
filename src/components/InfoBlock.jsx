@@ -8,20 +8,25 @@ const Container = styled.div`
     height: auto; 
     margin-bottom: 2.4rem;
 
+    ${up('md')} {
+        margin-bottom: 3.2rem;
+               
+    }
     & div.header-wrapper {
         display: block;
         border-bottom: 1px solid #aaa;
         margin: 1.2rem 0;
     }
-    ${up('md')} {
-        margin-bottom: 3.2rem;
-               
+
+    & div.body-wrapper {
+        font-size: 17px;
     }
+
 `
 const Heading = styled.h2`
     display: block;
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 700;
     margin: 0 0 1.2rem 0;
 `
 
@@ -31,7 +36,7 @@ const InfoBlock = ({ heading, content, links }) => {
             <div className="header-wrapper">
                 <Heading>{heading}</Heading>
             </div>
-            <div>
+            <div className="body-wrapper">
                 {content}
             </div>
             <div>

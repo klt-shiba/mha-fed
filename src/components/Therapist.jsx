@@ -204,62 +204,67 @@ const Therapist = () => {
 
 
   return (
-    <Container fluid="xl">
-      <Pane
-        display="flex"
-        flexDirection="column"
-        className="vbox">
-        <Section>
-          <PrimaryBanner
-            hasLocation={therapist ? therapist.state : false}
-            hasDirection={false}
-            hasImg={therapist ? therapist.avatar_img_url : false}
-            heading={therapist ? `${therapist.first_name} ` + ` ${therapist.last_name} ` : false}
-            subHeading={renderSubheading(therapist)}
-            hasRating={true}
-            isRating={therapistRating} />
-          <Container>
-            <Pane marginY={majorScale(3)}>
-              <Row>
-                <Col xs="12" lg="8">
-                  <Pane>
-                    <Infoblock
-                      heading="About me"
-                      content={therapist ? therapist.long_summary : false} />
-                  </Pane>
-                  <Pane marginY={majorScale(3)}>
-                    <Infoblock
-                      heading="What I can help with"
-                      content={ShowIssues()} />
-                  </Pane>
-                  <Pane marginY={majorScale(3)}>
-                    <Infoblock
-                      heading="Approaches I take"
-                      content={ShowTreatments()} />
-                  </Pane>
-                </Col>
-                <Col xs="12" lg="4">
-                  <Pane>
-                    <Infoblock
-                      heading="My reviews"
-                      content={ShowReviews()} />
-                  </Pane>
-                  <Pane>
-                    <Button
-                      appearance="primary"
-                      width="full"
-                      onClick={handleClick}
-                    >
-                      Review Therapist
-                    </Button>
-                  </Pane>
-                </Col>
-              </Row>
-            </Pane>
-          </Container>
-        </Section>
-      </Pane >
-    </Container>
+    <>
+      <Section
+        backgroundColour="#fafafa">
+        <PrimaryBanner
+          hasLocation={therapist ? therapist.state : false}
+          hasDirection={false}
+          hasImg={therapist ? therapist.avatar_img_url : false}
+          heading={therapist ? `${therapist.first_name} ` + ` ${therapist.last_name} ` : false}
+          subHeading={renderSubheading(therapist)}
+          hasRating={true}
+          isRating={therapistRating} />
+      </Section>
+      <Container>
+        <Pane
+          display="flex"
+          flexDirection="column"
+          className="vbox">
+          <Section>
+            <Container>
+              <Pane marginY={majorScale(3)}>
+                <Row>
+                  <Col xs="12" lg="8">
+                    <Pane>
+                      <Infoblock
+                        heading="About me"
+                        content={therapist ? therapist.long_summary : false} />
+                    </Pane>
+                    <Pane marginY={majorScale(3)}>
+                      <Infoblock
+                        heading="What I can help with"
+                        content={ShowIssues()} />
+                    </Pane>
+                    <Pane marginY={majorScale(3)}>
+                      <Infoblock
+                        heading="Approaches I take"
+                        content={ShowTreatments()} />
+                    </Pane>
+                  </Col>
+                  <Col xs="12" lg="4">
+                    <Pane>
+                      <Infoblock
+                        heading="My reviews"
+                        content={ShowReviews()} />
+                    </Pane>
+                    <Pane>
+                      <Button
+                        appearance="primary"
+                        width="full"
+                        onClick={handleClick}
+                      >
+                        Review Therapist
+                      </Button>
+                    </Pane>
+                  </Col>
+                </Row>
+              </Pane>
+            </Container>
+          </Section>
+        </Pane >
+      </Container>
+    </>
   );
 };
 
