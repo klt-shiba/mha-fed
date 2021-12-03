@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Pane, Button, Heading, Text, majorScale } from "evergreen-ui";
 import CheckboxChip from "./CheckBoxChip";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
-
+import { UserContext } from "../UserContext";
+import { useDispatch, useSelector } from 'react-redux'
 
 // Edit Profile component
 const EditTreatment = ({ nextStep, prevStep }) => {
-
+    const databaseObj = useSelector(state => state.therapistReducer.isTherapist)
     // Set and Get profile form values
     const [treatments, setTreatments] = useState([]);
     const [therapistTreatments, setTherapistTreatments] = useState([]);
-    const { id } = useParams();
+    const { user, setUser } = useContext(UserContext)
 
 
     const treatmentsObj = {
@@ -45,6 +45,11 @@ const EditTreatment = ({ nextStep, prevStep }) => {
         prevStep()
     }
 
+    const next = (e) => {
+        e.preventDefault()
+        nextStep()
+    }
+
     useEffect(() => {
         fetchTreatments();
     }, []);
@@ -55,7 +60,6 @@ const EditTreatment = ({ nextStep, prevStep }) => {
         console.log(idValue[0]);
         updateTherapistIssueArray(idValue[0])
     };
-
     const updateTherapistIssueArray = (value) => {
 
         if (therapistTreatments.includes(value)) {
@@ -110,26 +114,33 @@ const EditTreatment = ({ nextStep, prevStep }) => {
 
     const postTreatments = (e) => {
         e.preventDefault()
-        const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-treatments`
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify(treatmentsObj)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                // nextStep()
+
+        if (!user) {
+            return false
+        } else {
+            console.log(databaseObj)
+            let id = databaseObj.id
+            const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-treatments`
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(treatmentsObj)
             })
-            .catch(error => {
-                console.log(error)
-                console.log(JSON.stringify(treatmentsObj))
-                return false
-            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    // nextStep()
+                })
+                .catch(error => {
+                    console.log(error)
+                    console.log(JSON.stringify(treatmentsObj))
+                    return false
+                })
+        }
     }
 
     return (
@@ -179,7 +190,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                                     <Button onClick={previous} name="back_button" marginRight={16}>
                                         Back
                                     </Button>
-                                    <Button appearance="primary" type="submit">Complete</Button>
+                                    <Button onClick={next} appearance="primary" type="submit">Complete</Button>
                                 </Pane>
                             </Pane>
                         </form>

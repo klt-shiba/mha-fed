@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Pane, Button, Heading, Text, majorScale } from "evergreen-ui";
 import CheckboxChip from "./CheckBoxChip";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useParams } from "react-router-dom";
-
+import { UserContext } from "../UserContext";
+import { useDispatch, useSelector } from 'react-redux'
 
 // Edit Profile component
 const EditIssues = ({ nextStep, prevStep }) => {
   // Set and Get profile form values
   const [issues, setIssues] = useState([]);
+  const { user, setUser } = useContext(UserContext)
   const [therapistIssues, setTherapistIssues] = useState([]);
-  const { id } = useParams();
+  const databaseObj = useSelector(state => state.therapistReducer.isTherapist)
 
 
   const issuesObj = {
@@ -47,6 +49,7 @@ const EditIssues = ({ nextStep, prevStep }) => {
   }, []);
 
   const handleSubmit = (e) => {
+    e.preventDefault()
     postIssues()
   };
 
@@ -112,25 +115,33 @@ const EditIssues = ({ nextStep, prevStep }) => {
   };
 
   const postIssues = () => {
-    const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-issues`
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify(issuesObj)
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        nextStep()
+
+    if (!user) {
+      return false
+
+    } else {
+      console.log(databaseObj)
+      let id = databaseObj.id
+      const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-issues`
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(issuesObj)
       })
-      .catch(error => {
-        console.log(error)
-        return false
-      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          nextStep()
+        })
+        .catch(error => {
+          console.log(error)
+          return false
+        })
+    }
   }
 
   return (
@@ -186,8 +197,8 @@ const EditIssues = ({ nextStep, prevStep }) => {
             </form>
           </Pane>
         </Pane>
-      </Pane>
-    </Pane>
+      </Pane >
+    </Pane >
   );
 };
 

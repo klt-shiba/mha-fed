@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import EditUserType from "../components/EditUserType";
 import EditIssues from "../components/EditIssues";
 import EditTreatment from "../components/EditTreatment";
+import { useHistory } from "react-router";
 
 
 const GettingStarted = () => {
 
     const [step, setStep] = useState(1)
+    const history = useHistory()
 
 
 
@@ -42,10 +44,10 @@ const GettingStarted = () => {
                         nextStep={nextStep}
                         prevStep={prevStep} />
                 )
-            // case 4:
-            //     return (
-            //         <Success />
-            //     )
+            case 4:
+                return (
+                    history.push('/therapists')
+                )
             // never forget the default case, otherwise VS code would be mad!
             default:
             // do nothing
