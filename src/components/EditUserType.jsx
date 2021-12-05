@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { storeNames } from '../reducers/tempUserActions'
 import { createTherapist } from '../reducers/therapistActions'
 import { createClient } from '../reducers/clientActions'
-import { TextInputField, Textarea, Pane, Button, RadioGroup, Heading, Text, majorScale, Label, FilePicker } from "evergreen-ui";
+import { TextInputField, Textarea, Pane, Button, RadioGroup, majorScale, Label, FilePicker, Select, Option, SelectField } from "evergreen-ui";
 import Section from "./Section";
 import PageTitle from './PageTitle'
 import { UserContext } from "../UserContext";
@@ -18,15 +18,37 @@ const EditUserType = ({ nextStep }) => {
   const [lastName, setLastName] = useState('')
   const [short_summary, setShortSummary] = useState('')
   const [image, setImage] = useState('')
-  const [languages, setLanguages] = useState([])
+  const [state, setState] = useState('')
+  const [profession, setProfession] = useState('')
   const [options] = useState([
     { label: 'Im a Therapist', value: 'Therapist' },
     { label: 'Im a client', value: 'Client' }
   ])
   const [value, setValue] = useState('Therapist')
   const { id } = useParams()
+
+  const stateObject = [
+    { name: "Australian Capital Territory" },
+    { name: "New South Wales" },
+    { name: "Northern Territory" },
+    { name: "Queensland" },
+    { name: "Tasmania" },
+    { name: "South Australia" },
+    { name: "Western Australia" },
+    { name: "Victoria" }
+  ]
+
+  const professionObj = [
+    { name: "Psychotherapist" },
+    { name: "Counsellor" },
+    { name: "Social worker" },
+    { name: "Psychologist" }
+  ]
+
   const history = useHistory();
   const dispatch = useDispatch()
+
+
 
   const tempUserObj = {
     profile: {
@@ -34,7 +56,8 @@ const EditUserType = ({ nextStep }) => {
       last_name: lastName,
       short_summary: short_summary,
       long_summary: short_summary,
-      languages: languages,
+      state: state,
+      profession: profession,
       user_id: parseInt(id),
       avatar_img: image
     }
@@ -76,24 +99,70 @@ const EditUserType = ({ nextStep }) => {
       formData.append('last_name', lastName)
       formData.append('short_summary', short_summary)
       formData.append('long_summary', short_summary)
+      formData.append('state', state)
+      formData.append('profession', profession)
       formData.append('avatar_img', image)
       console.log("Therapist is true")
       console.log(formData)
       dispatch(createTherapist(formData))
-      const therapist_id = localStorage.getItem("therapist_id")
-      // history.push(`/therapists/${therapist_id}`)
     } else {
       formData.append('user_id', parseInt(id))
       formData.append('first_name', preferredName)
       formData.append('last_name', lastName)
-      formData.append('short_summary', short_summary)
-      formData.append('long_summary', short_summary)
       formData.append('avatar_img', image)
       console.log("Therapist is false")
       console.log(formData)
       dispatch(createClient(formData))
-      // history.push(`/therapists`)
     }
+  }
+
+  const renderSelectState = () => {
+    return (
+      <Pane
+        marginY={majorScale(3)}
+        className='form-group'>
+        <Label htmlFor="add_profile_image" marginBottom={8} display="block">
+          What state do you reside in?
+        </Label>
+        <Select
+          height={40}
+          width="100%"
+          onChange={e => setState(e.target.value)}>
+          {stateObject.map((el) => {
+            return (
+              <option value={el.name}>
+                {el.name}
+              </option>
+            )
+          })}
+        </Select>
+
+      </Pane>
+    )
+  }
+  const renderSelectProfession = () => {
+    return (
+      <Pane
+        marginY={majorScale(3)}
+        className='form-group'>
+        <Label htmlFor="add_profile_image" marginBottom={8} display="block">
+          What type of therapist are you?
+        </Label>
+        <Select
+          height={40}
+          width="100%"
+          onChange={e => setProfession(e.target.value)}>
+          {professionObj.map((el) => {
+            return (
+              <option value={el.name}>
+                {el.name}
+              </option>
+            )
+          })}
+        </Select>
+
+      </Pane>
+    )
   }
 
   return (
@@ -152,7 +221,7 @@ const EditUserType = ({ nextStep }) => {
                   <Pane
                     marginY={majorScale(1)}
                     className='form-group'>
-                    <Label htmlFor="add_profile_image" marginBottom={4} display="block">
+                    <Label htmlFor="add_profile_image" marginBottom={8} display="block">
                       Stand out with a smile!
                     </Label>
                     <FilePicker
@@ -186,18 +255,20 @@ const EditUserType = ({ nextStep }) => {
                     {' '}
                     {isTherapist ? (
                       <Pane>
-                        <Label htmlFor="therapist_about_myself" marginBottom={4} display="block">
+                        {renderSelectProfession()}
+                        <Label htmlFor="therapist_about_myself" marginBottom={8} display="block">
                           Tell us about yourself
                         </Label>
                         <Textarea
                           type='text'
                           className='form-control'
                           id='therapist_about_myself'
-                          placeholder='Counsellor specialising in Anxiety, Relationship Issues and Trauma and PTSD'
-                          rows='5'
+                          placeholder={`${profession} specialising in Anxiety, Relationship Issues and Trauma and PTSD`}
+                          rows='10'
                           onChange={e => setShortSummary(e.target.value)}
                           value={short_summary}
                         />
+                        {renderSelectState()}
                       </Pane>
                     ) : (
                       'No worries, were here to help you get in touch with someone right for you'

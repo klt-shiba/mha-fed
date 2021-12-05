@@ -16,7 +16,6 @@ const EditTreatment = ({ nextStep, prevStep }) => {
     const [therapistTreatments, setTherapistTreatments] = useState([]);
     const { user, setUser } = useContext(UserContext)
 
-
     const treatmentsObj = {
         therapist: {
             treatments: therapistTreatments
@@ -119,7 +118,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
             return false
         } else {
             console.log(databaseObj)
-            let id = databaseObj.id
+            let id = databaseObj.data.id
             const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-treatments`
             fetch(url, {
                 method: 'POST',
@@ -133,6 +132,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
+                    nextStep()
                     // nextStep()
                 })
                 .catch(error => {
@@ -190,7 +190,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                                     <Button onClick={previous} name="back_button" marginRight={16}>
                                         Back
                                     </Button>
-                                    <Button onClick={next} appearance="primary" type="submit">Complete</Button>
+                                    <Button appearance="primary" type="submit">Complete</Button>
                                 </Pane>
                             </Pane>
                         </form>
