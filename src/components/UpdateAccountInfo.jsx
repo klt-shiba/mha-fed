@@ -92,7 +92,9 @@ const UpdateAccountInfo = () => {
     }
     return (
         <Section
-            backgroundColour="#f2f2f2">
+            backgroundColour="#f2f2f2"
+            hasPaddingTop
+            hasPaddingBottom>
             <FormCard
                 formHeading="Update account details"
                 formSubheading="This is a subheading"
