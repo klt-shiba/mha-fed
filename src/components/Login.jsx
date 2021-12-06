@@ -17,7 +17,6 @@ const Login = () => {
   // Set and Get login form values
   const [email, setEmail] = useState(null);
   const [pword, setPWord] = useState(null);
-  const [loginErrors, setloginErrors] = useState("");
   const [hasError, setHasError] = useState({
     email: false,
     emailErrorMessage: false,
@@ -91,35 +90,6 @@ const Login = () => {
       return false
       console.log("Fields have been filled in")
     }
-  }
-
-  const renderFields = () => {
-
-    return (
-      <Pane>
-        <TextInputField
-          type="email"
-          className="form-control"
-          id="login_email"
-          label="Email"
-          aria-describedby="emailHelp"
-          placeholder="james@email.com"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          inputHeight={48}
-        />
-        <TextInputField
-          type="password"
-          label="Password"
-          className="form-control"
-          id="login_password"
-          placeholder="Shhhhhh..."
-          onChange={(e) => setPWord(e.target.value)}
-          value={pword}
-          inputHeight={48}
-        />
-      </Pane>
-    )
   }
 
   const renderAlert = () => {
