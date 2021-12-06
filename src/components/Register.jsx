@@ -24,6 +24,8 @@ const Register = () => {
     formAlertErrorMessage: false
   })
 
+  const token = localStorage.getItem('token')
+
   const databaseObj = useSelector(state => state.userReducer.user)
 
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ const Register = () => {
     } else {
       setIsLoading(true)
       dispatch(signUserUp(userObj));
-      setIsLoading(false)
+      checkIfUserCreated()
     }
   };
 
@@ -62,17 +64,24 @@ const Register = () => {
       })
       setIsLoading(false)
     } else {
+      return false
+    }
+  }
 
+
+  const redirectUserAfterUserCreated = () => {
+    console.log("running")
+    if (Object.keys(databaseObj).length === 0) {
+      return false
+    } else {
       console.log(databaseObj)
       const id = databaseObj.data.id
       setIsLoading(false)
       history.push(`/users/${id}/getting-started`)
-
     }
   }
-
   useEffect(() => {
-    checkIfUserCreated()
+    redirectUserAfterUserCreated()
   }, [databaseObj])
 
 
