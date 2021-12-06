@@ -1,23 +1,32 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { fetchUser } from "../reducers/userActions";
-import { useDispatch } from "react-redux";
-import { TextInputField, Pane, Button, majorScale } from "evergreen-ui";
+import { useDispatch, useSelector } from "react-redux";
+import { TextInputField, Pane, Button, Alert } from "evergreen-ui";
 import PageTitle from './PageTitle'
 import { Container } from "reactstrap";
 import Section from "./Section";
-import FormCard from "./FormCard"
+
 
 
 // Login component
 const Login = () => {
 
   const history = useHistory();
-
+  const databaseObj = useSelector(state => state.userReducer.user)
   // Set and Get login form values
-  const [email, setEmail] = useState("");
-  const [pword, setPWord] = useState("");
+  const [email, setEmail] = useState(null);
+  const [pword, setPWord] = useState(null);
   const [loginErrors, setloginErrors] = useState("");
+  const [hasError, setHasError] = useState({
+    email: false,
+    emailErrorMessage: false,
+    password: false,
+    passwordErrorMessage: false,
+    formAlert: false,
+    formAlertErrorMessage: false
+  })
+
 
   const dispatch = useDispatch();
 
@@ -31,10 +40,58 @@ const Login = () => {
   // Function to handle form submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(userObj)
-    dispatch(fetchUser(userObj));
-    history.push("/therapists")
+    checkIfFieldsAreFilled()
+    if (checkIfFieldsAreFilled()) {
+      console.log(hasError)
+    } else {
+
+      dispatch(fetchUser(userObj))
+
+      if (Object.keys(databaseObj).length === 0) {
+        setHasError({
+          ...hasError,
+          email: true,
+          password: true,
+          formAlert: true,
+          formAlertErrorMessage: "Oops! You have entered an incorrect email or password. Please try again."
+        })
+        return false
+      } else {
+        console.log(databaseObj)
+        history.push("/therapists")
+      }
+    }
   };
+
+  const checkIfFieldsAreFilled = () => {
+    if (!email && !pword) {
+      setHasError({
+        ...hasError,
+        email: true,
+        password: true,
+        emailErrorMessage: "This field is required",
+        passwordErrorMessage: "This field is required"
+      })
+      return true
+    } else if (!email) {
+      setHasError({
+        ...hasError,
+        email: true,
+        emailErrorMessage: "This field is required",
+      })
+      return true
+    } else if (!pword) {
+      setHasError({
+        ...hasError,
+        password: true,
+        passwordErrorMessage: "This field is required",
+      })
+      return true
+    } else {
+      return false
+      console.log("Fields have been filled in")
+    }
+  }
 
   const renderFields = () => {
 
@@ -65,6 +122,16 @@ const Login = () => {
     )
   }
 
+  const renderAlert = () => {
+    return (
+      <Alert intent="danger"
+        title={hasError.formAlertErrorMessage}
+        marginBottom={32}
+      >
+      </Alert>
+    )
+  }
+
   return (
     <>
       <PageTitle
@@ -87,9 +154,10 @@ const Login = () => {
             <Pane
               width="100%"
               maxWidth='720px'>
+              {hasError.formAlert ? renderAlert() : false}
               <form onSubmit={handleSubmit}>
-
                 <TextInputField
+                  isInvalid={hasError.email}
                   type="email"
                   className="form-control"
                   id="login_email"
@@ -99,8 +167,10 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   inputHeight={48}
+                  validationMessage={hasError.emailErrorMessage}
                 />
                 <TextInputField
+                  isInvalid={hasError.password}
                   type="password"
                   label="Password"
                   className="form-control"
@@ -109,6 +179,7 @@ const Login = () => {
                   onChange={(e) => setPWord(e.target.value)}
                   value={pword}
                   inputHeight={48}
+                  validationMessage={hasError.passwordErrorMessage}
                 />
                 <Pane display="flex">
                   <Pane flex={1} alignItems="center" display="flex">

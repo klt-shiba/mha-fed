@@ -10,10 +10,12 @@ export const logUserOut = () => (
 
 // Methods
 
-export const fetchUser = userInfo => dispatch => {
+export const fetchUser = userInfo => async dispatch => {
+
   console.log('accessing fetchUser correctly')
 
-  fetch(`http://127.0.0.1:3001/api/v1/auth`, {
+  const response = await fetch(`http://127.0.0.1:3001/api/v1/auth`, {
+
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -21,18 +23,16 @@ export const fetchUser = userInfo => dispatch => {
     },
     body: JSON.stringify(userInfo)
   })
-    .then(res => res.json())
-    .then(data => {
-      // data sent back will in the format of
-      // {
-      //     user: {},
-      //.    token: "aaaaa.bbbbb.bbbbb"
-      // }
-      console.log(data)
-      localStorage.setItem('token', data.jwt)
-      dispatch(setUser(data.user))
-    })
-    .catch(error => console.log(error))
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    localStorage.removeItem('token')
+    console.log(message)
+    return false
+  }
+  const data = await response.json()
+  console.log(data)
+  localStorage.setItem('token', data.jwt)
+  dispatch(setUser(data.user))
 }
 
 //   // Function to POST Register details details

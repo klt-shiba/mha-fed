@@ -35,12 +35,10 @@ const App = () => {
   const fastLogin = () => {
     console.log("Clicked")
     if (!token) {
-      console.log("Token")
       localStorage.removeItem("token")
       setUser(null)
       return false
     } else {
-      console.log("other")
       dispatch(autoLogin())
       setUser(databaseObj.data)
     }
