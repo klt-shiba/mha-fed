@@ -4,9 +4,9 @@ import CheckboxChip from "./CheckBoxChip";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import PageTitle from './PageTitle'
 
 // Edit Profile component
 const EditIssues = ({ nextStep, prevStep }) => {
@@ -145,60 +145,57 @@ const EditIssues = ({ nextStep, prevStep }) => {
   }
 
   return (
-    <Pane
-      display="flex"
-      flexDirection="column"
-      className="vbox">
+    <>
+      <PageTitle
+        isSmall
+        title="I can help with?"
+        summary="Check all the boxes that apply"
+        src="https://images.unsplash.com/photo-1559740451-b895701fa4b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
+      />
       <Pane
         display="flex"
-        alignItems="center"
-        justifyContent="center"
-        marginY={majorScale(4)}>
-
+        flexDirection="column"
+        className="vbox">
         <Pane
-          max-width="480px"
-          display="block"
-          textAlign="center">
-          <Pane>
-            <Heading
-              size={900}
-              is="h1"
-              textAlign="center"
-              marginY={majorScale(1)}>I can help with?</Heading>
-            <Text
-              size={600}
-              textAlign="center">
-              ToDo:
-            </Text>
-          </Pane>
-          <Pane
-            display="block"
-            alignItems="center"
-            justifyContent="center"
-            textAlign="left"
-            marginY={majorScale(3)}
-          >
-            <form onSubmit={handleSubmit}>
-              <div className="form-group" onChange={handleChange}>
-                {renderIssuesCheckboxes()}
-                <CheckboxChip></CheckboxChip>
-              </div>
-              <Pane display="flex">
-                <Pane flex={1} alignItems="center" display="flex">
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          marginY={majorScale(4)}>
 
+          <Pane
+            max-width="480px"
+            display="block"
+            textAlign="center">
+
+            <Pane
+              display="block"
+              alignItems="center"
+              justifyContent="center"
+              textAlign="left"
+              marginY={majorScale(3)}
+            >
+              <form onSubmit={handleSubmit}>
+                <div className="form-group" onChange={handleChange}>
+                  {renderIssuesCheckboxes()}
+                  <CheckboxChip></CheckboxChip>
+                </div>
+                <Pane display="flex">
+                  <Pane flex={1} alignItems="center" display="flex">
+
+                  </Pane>
+                  <Pane>
+                    <Button onClick={previous} name="back_button" marginRight={16} size="large">
+                      Back
+                    </Button>
+                    <Button appearance="primary" type="submit" size="large">Next</Button>
+                  </Pane>
                 </Pane>
-                <Pane>
-                  <Button onClick={previous} name="back_button" marginRight={16}>
-                    Back
-                  </Button>
-                  <Button appearance="primary" type="submit">Complete</Button>
-                </Pane>
-              </Pane>
-            </form>
+              </form>
+            </Pane>
           </Pane>
-        </Pane>
+        </Pane >
       </Pane >
-    </Pane >
+    </>
   );
 };
 
