@@ -90,46 +90,66 @@ const ProfilePage = () => {
                 title={returnName()}
                 summary="Review and update your details."
             />
-            <Container fluid="xl">
-                <Pane
-                    display="flex"
-                    flexDirection="column"
-                    className="vbox">
-                    <Section>
-                        <InfoBlock
-                            heading="Personal Information"
-                            content={JSON.stringify(userAttributes, null, 1)}
-                            links={
-                                <Link to={`/users/${id}/update-profile`}>
-                                    Update personal information
-                                </Link>}>
-                        </InfoBlock>
-                        <InfoBlock
-                            heading="Account details"
-                            content={JSON.stringify(user, null, 1)}
-                            links={
-                                <Link to={`/users/${id}/update-account`}>
-                                    Update account information
-                                </Link>}>
-                        </InfoBlock>
-                        {
-                            isTherapist ?
-                                <InfoBlock
-                                    heading="Therapist profile"
-                                    content={JSON.stringify(userAttributes, null, 1)}
-                                    links={
-                                        <Link to={`/users/${id}/update-account`}>
-                                            Update therapist information
-                                        </Link>}>
-                                </InfoBlock> :
-                                false
-                        }
-                    </Section>
-                    <Pane>
-                        <Button onClick={handleClick}>Log Out</Button>
-                    </Pane>
-                </Pane >
-            </Container >
+            <Section
+                backgroundColour="#fff"
+                hasPaddingTop
+                hasPaddingBottom>
+                <Container fluid="xl">
+                    <Pane
+                        display="flex"
+                        flexDirection="column"
+                        className="vbox"
+                        alignItems="center">
+                        <Pane
+                            width="100%"
+                            maxWidth='720px'>
+                            <InfoBlock
+                                heading="Personal Information"
+                                content={JSON.stringify(userAttributes, null, 1)}
+                                links={
+                                    <Link to={`/users/${id}/update-profile`}>
+                                        Update personal information
+                                    </Link>}>
+                            </InfoBlock>
+                            <InfoBlock
+                                heading="Account details"
+                                content={JSON.stringify(user, null, 1)}
+                                links={
+                                    <Link to={`/users/${id}/update-account`}>
+                                        Update account information
+                                    </Link>}>
+                            </InfoBlock>
+                            {
+                                isTherapist ?
+                                    <InfoBlock
+                                        heading="Therapist profile"
+                                        content={JSON.stringify(userAttributes, null, 1)}
+                                        links={
+                                            <Link to={`/users/${id}/update-account`}>
+                                                Update therapist information
+                                            </Link>}>
+                                    </InfoBlock> :
+                                    false
+                            }
+                            <Pane display="flex" alignItems="right" width="100%">
+                                <Pane flex={1} alignItems="center" display="flex">
+                                </Pane>
+                                <Pane
+                                    alignItems="right">
+                                    <Button
+                                        type="submit"
+                                        appearance="primary"
+                                        size="large"
+                                        onClick={handleClick}>
+                                        Log Out
+                                    </Button>
+                                </Pane>
+                            </Pane>
+                        </Pane>
+
+                    </Pane >
+                </Container >
+            </Section>
         </>
     )
 }
