@@ -256,6 +256,7 @@ const Therapist = () => {
         backgroundColour="#fafafa">
         {console.log(user)}
         <PrimaryBanner
+          hasIcon
           hasLocation={therapist ? therapist.state : false}
           hasDirection={false}
           hasImg={therapist ? therapist.avatar_img_url : false}

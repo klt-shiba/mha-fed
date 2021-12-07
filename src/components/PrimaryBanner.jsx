@@ -7,7 +7,7 @@ import { Button, MapMarkerIcon } from "evergreen-ui";
 import { Rating } from "@mui/material";
 
 const CustomSection = styled(Section)`
-  background: black;
+  background: ${props => props.hasBackgroundColour};
   padding: 0 0;
   width: 100%;
 `;
@@ -34,7 +34,7 @@ const CustomContainer = styled(Container)`
 
 const SplitContainer = styled.div`
   width: 100%;
-  background-color: black;
+  background-color: ${props => props.hasBackgroundColour};
   position: relative;
 
 
@@ -47,7 +47,7 @@ const SplitContainer = styled.div`
 const BannerWrapper = styled.div`
   display: flex;
   flex-direction: column-reverse;
-  background-color: black;
+  background-color: ${props => props.hasBackgroundColour};
 
   ${up("lg")} {
     flex-direction: ${(props) => (props.hasDirection ? "row" : "row-reverse")};
@@ -126,16 +126,16 @@ const ButtonWrapper = styled.div`
     
 `;
 
-const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection, hasImg, hasRating, isRating, hasLocation }) => {
+const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection, hasImg, hasRating, isRating, hasIcon, hasLocation, hasBackgroundColour }) => {
 
 
   return (
-    <CustomSection>
+    <CustomSection hasBackgroundColour={hasBackgroundColour}>
       <CustomContainer>
         <BannerWrapper hasDirection={hasDirection}>
           <SplitContainer>
             <ContentWrapper>
-              <div><MapMarkerIcon /> {hasLocation || "Australia"}</div>
+              <div>{hasIcon ? <MapMarkerIcon /> : false} {hasLocation}</div>
               <h2>{heading || "Rate my Therapist cat"}</h2>
               <div>
                 {subHeading ||

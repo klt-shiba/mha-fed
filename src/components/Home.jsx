@@ -50,8 +50,16 @@ const Home = () => {
         summary="Over 50,000 reviews of Psychologist, Counsellors and Social workers"
         searchBar={HomeSearchV2(issues)}
       />
-      <PrimaryBanner hasDirection={false} />
-      <PrimaryBanner hasDirection hasButton />
+      <PrimaryBanner
+        hasDirection={false}
+        hasBackgroundColour="#f2f2f2"
+        heading="Find help for issues"
+        subHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists Australia wide."
+        hasImg="https://images.unsplash.com/photo-1509909756405-be0199881695?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80" />
+      <PrimaryBanner
+        hasDirection
+        hasBackgroundColour="black"
+        hasImg="https://images.unsplash.com/photo-1624887009213-040347b804c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=4387&q=80" />
     </>
 
   );

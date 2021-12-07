@@ -398,7 +398,7 @@ const Therapists = props => {
   const noTherapists = (
     <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
       <h4>
-        Loading
+
       </h4>
     </div>
   );
