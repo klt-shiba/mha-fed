@@ -18,6 +18,7 @@ import { UserContext } from "../UserContext";
 import ProfilePage from "./ProfilePage";
 import UpdateUserType from "./UpdateUserType";
 import UpdateAccountInfo from "./UpdateAccountInfo";
+import ErrorPage from "./ErrorPage";
 
 
 const App = () => {
@@ -63,6 +64,7 @@ const App = () => {
             <Route path="/users/:id/profile" exact component={ProfilePage} />
             <Route path="/users/:id/update-profile" exact component={UpdateUserType} />
             <Route path="/users/:id/update-account" exact component={UpdateAccountInfo} />
+            <Route component={ErrorPage} />
           </Switch>
           <Footer></Footer>
         </UserContext.Provider>

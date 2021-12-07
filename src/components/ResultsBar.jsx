@@ -6,14 +6,30 @@ const Container = styled.div`
     width:100%;
     display:flex;
     justify-content: space-between;
+    display: ${props => props.isHidden ? "none" : "flex"};
 `
 
-const ResultsBar = ({ searchResult, hasClick, numberOfResults, totalTherapists }) => {
+const ResultsBar = ({ showingAllTherapists, searchResult, hasClick, numberOfResults, totalTherapists, isHidden, isIssue }) => {
     return (
-        <Container>
+        <Container isHidden={isHidden}>
             <div>
-                <h2>Showing all from {searchResult}</h2>
-                <p>Showing {numberOfResults} of {totalTherapists}</p>
+                {showingAllTherapists ?
+                    <div>
+                        <h2>Showing all therapists</h2>
+                    </div> :
+                    <div>
+                        {isIssue ?
+                            <>
+                                <h2>Showing therapists who help with {searchResult}</h2>
+                                <p>Showing {numberOfResults} of {totalTherapists}</p>
+                            </> :
+                            <>
+                                <h2>Showing all from {searchResult}</h2>
+                                <p>Showing {numberOfResults} of {totalTherapists}</p>
+                            </>
+                        }
+                    </div>
+                }
             </div>
             <div>
                 <Button

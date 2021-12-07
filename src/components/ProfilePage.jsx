@@ -3,7 +3,7 @@ import { Pane, Button } from "evergreen-ui";
 import { UserContext } from "../UserContext";
 import { logUserOut } from "../reducers/userActions";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import Section from "./Section";
@@ -17,6 +17,7 @@ const ProfilePage = () => {
     const { user, setUser } = useContext(UserContext)
     const dispatch = useDispatch()
     const history = useHistory()
+    const location = useLocation()
     const { id } = useParams();
     const [userAttributes, setUserAttributes] = useState(null)
     const [isTherapist, setIsTherapist] = useState(null)
@@ -37,6 +38,10 @@ const ProfilePage = () => {
     }, [user])
 
 
+    useEffect(() => {
+        redirectToCorrectPage()
+    }, [id])
+
     const checkUserType = () => {
         if (!user) {
             setUserAttributes(null)
@@ -51,6 +56,23 @@ const ProfilePage = () => {
         } else {
             setUserAttributes(null)
             setIsTherapist(null)
+            return false
+        }
+    }
+
+
+    const redirectToCorrectPage = () => {
+        const staticId = id
+        if (!user) {
+            console.log("false")
+            return false
+        } else if (staticId != user.id) {
+            console.log(id)
+            console.log(user.id)
+            history.push(`/users/${user.id}/profile`)
+        } else {
+            console.log(id)
+            console.log(user.id)
             return false
         }
     }

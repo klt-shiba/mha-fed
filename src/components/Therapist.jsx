@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Pane, Button, Paragraph, majorScale } from "evergreen-ui";
 import { Rating } from "@mui/material";
@@ -9,10 +9,11 @@ import Infoblock from "./InfoBlock"
 import Bullet from "./Bullets";
 import PrimaryBanner from "./PrimaryBanner";
 import TherapistRatingCard from "./TherapistRatingsCard";
-
+import { UserContext } from "../UserContext";
 
 const Therapist = () => {
 
+  const { user, setUser } = useContext(UserContext)
   const [therapist, setTherapist] = useState(null);
   const [therapistUser, setTherapistUser] = useState("");
   const [reviews, setReviews] = useState([]);
@@ -203,10 +204,33 @@ const Therapist = () => {
   }
 
 
+  const renderReviewButton = () => {
+    if (!user) {
+      return false
+    } else {
+      return (
+        <>
+          {
+            user.attributes.client ?
+              <Button
+                appearance="primary"
+                width="full"
+                onClick={handleClick}
+              >
+                Review Therapist
+              </Button>
+              : false
+          }
+        </>
+      )
+    }
+  }
+
   return (
     <>
       <Section
         backgroundColour="#fafafa">
+        {console.log(user)}
         <PrimaryBanner
           hasLocation={therapist ? therapist.state : false}
           hasDirection={false}
@@ -249,13 +273,7 @@ const Therapist = () => {
                         content={ShowReviews()} />
                     </Pane>
                     <Pane>
-                      <Button
-                        appearance="primary"
-                        width="full"
-                        onClick={handleClick}
-                      >
-                        Review Therapist
-                      </Button>
+                      {renderReviewButton()}
                     </Pane>
                   </Col>
                 </Row>

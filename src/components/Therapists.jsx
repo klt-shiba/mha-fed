@@ -24,6 +24,7 @@ const Therapists = props => {
   const [homepageSearch, setHomepageSearch] = useState(null)
   const [searchKey, setSearchKey] = useState(null)
   const [searchValue, setSearchValue] = useState(null)
+  const [resultsBar, setResultsBar] = useState(false)
 
   useEffect(() => {
     checkIfSearchResultExists()
@@ -438,6 +439,24 @@ const Therapists = props => {
     setFilteredTherapist(null)
   }
 
+  const renderResultsBar = () => {
+    return (
+      <>
+        <ResultsBar
+          showingAllTherapists={!filteredTherapist ? true : false}
+          isIssue={searchKey == "issue" ? true : false}
+          searchResult={homepageSearch ? searchValue : "Everything"}
+          numberOfResults={filteredTherapist ? filteredTherapist.length : therapists.length}
+          totalTherapists={therapists ? therapists.length : "18"}
+          hasClick={clearResults}></ResultsBar>
+      </>
+    )
+  }
+
+
+  useEffect(() => {
+    renderResultsBar()
+  }, [filterTherapists])
 
   const renderFilterBar = () => {
 
@@ -472,11 +491,7 @@ const Therapists = props => {
           hasPaddingTop
           hasPaddingBottom
         >
-          <ResultsBar
-            searchResult={homepageSearch ? searchValue : "Everything"}
-            numberOfResults={filteredTherapist ? filteredTherapist.length : "18"}
-            totalTherapists={therapists ? therapists.length : "18"}
-            hasClick={clearResults}></ResultsBar>
+          {renderResultsBar()}
           {therapists.length > 0 ? allTherapists() : noTherapists}
         </Section>
       </Container>
