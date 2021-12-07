@@ -206,21 +206,45 @@ const Therapist = () => {
 
   const renderReviewButton = () => {
     if (!user) {
-      return false
-    } else {
+      return (
+        <Button
+          appearance="primary"
+          width="100%"
+          size="large"
+          onClick={handleClick}
+        >
+          Review Therapist
+        </Button>
+      )
+    } else if (user.attributes.client || user) {
       return (
         <>
           {
             user.attributes.client ?
               <Button
                 appearance="primary"
-                width="full"
+                width="100%"
+                size="large"
                 onClick={handleClick}
               >
                 Review Therapist
               </Button>
               : false
           }
+        </>
+      )
+    } else if (Object.keys(user).length === 0) {
+      return (
+        <>
+
+          <Button
+            appearance="primary"
+            width="full"
+            onClick={handleClick}
+          >
+            Review Therapist
+          </Button>
+
         </>
       )
     }
@@ -240,48 +264,51 @@ const Therapist = () => {
           hasRating={true}
           isRating={therapistRating} />
       </Section>
-      <Container>
-        <Pane
-          display="flex"
-          flexDirection="column"
-          className="vbox">
-          <Section>
-            <Container>
-              <Pane marginY={majorScale(3)}>
-                <Row>
-                  <Col xs="12" lg="8">
-                    <Pane>
-                      <Infoblock
-                        heading="About me"
-                        content={therapist ? therapist.long_summary : false} />
-                    </Pane>
-                    <Pane marginY={majorScale(3)}>
-                      <Infoblock
-                        heading="What I can help with"
-                        content={ShowIssues()} />
-                    </Pane>
-                    <Pane marginY={majorScale(3)}>
-                      <Infoblock
-                        heading="Approaches I take"
-                        content={ShowTreatments()} />
-                    </Pane>
-                  </Col>
-                  <Col xs="12" lg="4">
-                    <Pane>
-                      <Infoblock
-                        heading="My reviews"
-                        content={ShowReviews()} />
-                    </Pane>
-                    <Pane>
-                      {renderReviewButton()}
-                    </Pane>
-                  </Col>
-                </Row>
-              </Pane>
-            </Container>
-          </Section>
-        </Pane >
-      </Container>
+      <Section
+        backgroundColour="#fff">
+        <Container>
+          <Pane
+            display="flex"
+            flexDirection="column"
+            className="vbox">
+            <Section>
+              <Container>
+                <Pane marginY={majorScale(3)}>
+                  <Row>
+                    <Col xs="12" lg="8">
+                      <Pane>
+                        <Infoblock
+                          heading="About me"
+                          content={therapist ? therapist.long_summary : false} />
+                      </Pane>
+                      <Pane marginY={majorScale(3)}>
+                        <Infoblock
+                          heading="What I can help with"
+                          content={ShowIssues()} />
+                      </Pane>
+                      <Pane marginY={majorScale(3)}>
+                        <Infoblock
+                          heading="Approaches I take"
+                          content={ShowTreatments()} />
+                      </Pane>
+                    </Col>
+                    <Col xs="12" lg="4">
+                      <Pane>
+                        <Infoblock
+                          heading="My reviews"
+                          content={ShowReviews()} />
+                      </Pane>
+                      <Pane>
+                        {renderReviewButton()}
+                      </Pane>
+                    </Col>
+                  </Row>
+                </Pane>
+              </Container>
+            </Section>
+          </Pane >
+        </Container>
+      </Section>
     </>
   );
 };

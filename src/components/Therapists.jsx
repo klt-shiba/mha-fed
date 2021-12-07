@@ -9,6 +9,7 @@ import Section from "./Section"
 import { Autocomplete, TextField } from "@mui/material";
 import ResultsBar from './ResultsBar'
 import HomeFilterSearchBar from './HomeFilterSearchBar'
+import LinearProgress from '@mui/material/LinearProgress';
 
 const Therapists = props => {
 
@@ -24,7 +25,7 @@ const Therapists = props => {
   const [homepageSearch, setHomepageSearch] = useState(null)
   const [searchKey, setSearchKey] = useState(null)
   const [searchValue, setSearchValue] = useState(null)
-  const [resultsBar, setResultsBar] = useState(false)
+  const [isLoading, setIsLoading] = useState((true))
 
   useEffect(() => {
     checkIfSearchResultExists()
@@ -180,6 +181,7 @@ const Therapists = props => {
       })
       .then((response) => {
         setTherapists(response.data);
+        setIsLoading(false)
         return response
       })
       .catch((error) => {
@@ -401,6 +403,7 @@ const Therapists = props => {
     </div>
   );
 
+
   const renderSubheading = (object) => {
     const specialization = object ? object.attributes.profession : null
     if (!object) {
@@ -486,15 +489,18 @@ const Therapists = props => {
         are available now."
         src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80"
         searchBar={renderFilterBar()} />
-      <Container fluid="xl">
-        <Section
-          hasPaddingTop
-          hasPaddingBottom
-        >
+      {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
+      <Section
+        hasPaddingTop
+        hasPaddingBottom
+        backgroundColour="#fff"
+      >
+        <Container fluid="xl">
           {renderResultsBar()}
           {therapists.length > 0 ? allTherapists() : noTherapists}
-        </Section>
-      </Container>
+        </Container>
+      </Section>
+
     </>
   );
 };

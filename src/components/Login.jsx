@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { fetchUser } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { TextInputField, Pane, Button, Alert } from "evergreen-ui";
 import PageTitle from './PageTitle'
 import { Container } from "reactstrap";
 import Section from "./Section";
+import { GoogleAPI, GoogleLogin, GoogleLogout } from 'react-google-oauth';
+
 
 
 
@@ -14,6 +16,7 @@ const Login = () => {
 
   const history = useHistory();
   const databaseObj = useSelector(state => state.userReducer.user)
+  const [isLoading, setIsLoading] = useState(false)
   // Set and Get login form values
   const [email, setEmail] = useState(null);
   const [pword, setPWord] = useState(null);
@@ -45,21 +48,67 @@ const Login = () => {
     } else {
 
       dispatch(fetchUser(userObj))
-
-      if (Object.keys(databaseObj).length === 0) {
-        setHasError({
-          ...hasError,
-          email: true,
-          password: true,
-          formAlert: true,
-          formAlertErrorMessage: "Oops! You have entered an incorrect email or password. Please try again."
-        })
-        return false
-      } else {
-        console.log(databaseObj)
-        history.push("/therapists")
-      }
+      checkIfUserCreated()
     }
+  };
+
+  const checkIfUserCreated = () => {
+    if (Object.keys(databaseObj).length === 0) {
+      setHasError({
+        ...hasError,
+        email: true,
+        password: true,
+        formAlert: true,
+        formAlertErrorMessage: "Oops something went wrong, please try again"
+      })
+      setIsLoading(false)
+    } else {
+      return false
+    }
+  }
+  const redirectUserAfterUserAuthenticated = () => {
+    console.log("running")
+    if (Object.keys(databaseObj).length === 0) {
+      return false
+    } else {
+      console.log(databaseObj)
+      const id = databaseObj.data.id
+      setIsLoading(false)
+      history.push(`/therapists`)
+    }
+  }
+  useEffect(() => {
+    redirectUserAfterUserAuthenticated()
+  }, [databaseObj])
+
+  // const responseGoogle = (response) => {
+  //   var token = google_response.Zi;
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Authorization': `Bearer ${google_response.Zi.accessToken}`,
+  //       'Content-Type': 'application/json',
+  //       'access_token': `${google_response.Zi.accessToken}`
+  //     },
+  //     body: JSON.stringify(token)
+  //   }
+
+  //   return fetch(`backend rails api url to google sign in path`, requestOptions)
+  //     .then(response => {
+  //       Cookie.set('accesstoken', response.headers.get('access-token'), {
+  //         expires: 7
+  //       });
+  //       Cookie.set('client', response.headers.get('client'), { expires: 7 });
+  //       Cookie.set('tokentype', response.headers.get('token-type'), { expires: 7 });
+  //       Cookie.set('expiry', response.headers.get('expiry'), { expires: 7 });
+  //       Cookie.set('uid', response.headers.get('uid'), { expires: 7 });
+  //     })
+  // };
+
+
+  const googleOAuth = () => {
+    window.location.href =
+      "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&response_type=code&redirect_uri=http://127.0.0.1:3001/auth/google_oauth2/callback&client_id=84038256684-s3gk4tqvv85r39v4af0tpqoiogqacgjv.apps.googleusercontent.com";
   };
 
   const checkIfFieldsAreFilled = () => {
@@ -168,9 +217,15 @@ const Login = () => {
               </form>
             </Pane>
           </Pane>
-          {/* <button type="" className="btn btn-primary" onClick={googleOAuth}>
-          Sign in with Google
-        */}
+          <button type="" className="btn btn-primary" onClick={googleOAuth}>
+            Sign in with Google
+          </button>
+
+          {/* <GoogleAPI className="GoogleLogin" clientId="Your client API Key">
+            <div>
+              <GoogleLogin height="10" width="500px" backgroundColor="#4285f4" access="offline" scope="email profile" onLoginSuccess={responseGoogle} onFailure={responseGoogle} />
+            </div>
+          </GoogleAPI> */}
         </Container>
       </Section>
     </>

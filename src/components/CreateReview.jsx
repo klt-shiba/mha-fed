@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import Rating from '@mui/material/Rating';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { styled } from '@mui/material/styles';
 import { Textarea, Pane, Button, Label, Heading, Text, majorScale } from "evergreen-ui";
 import { UserContext } from "../UserContext";
@@ -114,7 +114,8 @@ const CreateReview = () => {
           marginY={majorScale(4)}>
 
           <Pane
-            max-width="480px"
+            width="100%"
+            maxWidth='720px'
             display="block"
             textAlign="center">
 
@@ -152,15 +153,15 @@ const CreateReview = () => {
                       is="h2"
                       textAlign="center"
                       marginY={majorScale(1)}>How would you rate your therapist?</Heading>
-                    <StyledRating
+                    <Rating
                       label="How would you rate your Therapist?"
                       name="customized-color"
                       id="therapist_rating_input"
                       defaultValue={2}
                       getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
                       precision={1}
-                      icon={<FavoriteIcon fontSize="inherit" />}
-                      emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                      icon={<StarIcon fontSize="inherit" />}
+                      emptyIcon={<StarBorderIcon fontSize="inherit" />}
                       value={rating}
                       onChange={(e) => setRating(e.target.value)}
                       size="large" />
@@ -174,14 +175,24 @@ const CreateReview = () => {
                       className="form-control"
                       id="therapist_comment"
                       label="Add a comment"
-                      rows="3"
+                      rows="5"
                       onChange={(e) => setComment(e.target.value)}
                       value={comment}
                     />
                   </Pane>
-                  <Button type="submit" className="btn btn-primary">
-                    Add Review
-                  </Button>
+                  <Pane display="flex">
+                    <Pane flex={1} alignItems="center" display="flex">
+
+                    </Pane>
+                    <Pane>
+                      <Button
+                        type="submit"
+                        appearance="primary"
+                        size="large" >
+                        Post review
+                      </Button>
+                    </Pane>
+                  </Pane>
                 </form>
               ) : (
                 <div className="text-center">

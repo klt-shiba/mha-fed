@@ -150,10 +150,11 @@ const Register = () => {
         src="https://images.unsplash.com/photo-1564241809242-8f0386601ac0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3272&q=80"
       />
       {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
-      <Container fluid="xl">
-        <Section
-          hasPaddingTop
-          hasPaddingBottom>
+      <Section
+        hasPaddingTop
+        hasPaddingBottom
+        backgroundColour="#fafafa">
+        <Container fluid="xl">
           <Pane
             display="flex"
             alignItems="center"
@@ -207,12 +208,12 @@ const Register = () => {
               </form>
             </Pane>
           </Pane>
-        </Section>
-        {/* <button type="" className="btn btn-primary" onClick={googleOAuth}>
+          {/* <button type="" className="btn btn-primary" onClick={googleOAuth}>
             Sign in with Google
           </button> */}
+        </Container >
+      </Section>
 
-      </Container >
     </>
   );
 };

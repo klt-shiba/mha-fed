@@ -23,7 +23,7 @@ const HomeBannerContainer = styled.div`
         z-index: 0;
         opacity: 0.5;
         filter: blur(2px);
-        background-color: blue;
+        background-color: black;
 
         ${up("lg")} {
             object-fit: cover;

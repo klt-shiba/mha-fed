@@ -46,7 +46,9 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div style={{
+      height: "100vh", backgroundColor: "#fafafa"
+    }}>
       <Router>
         <UserContext.Provider value={providerValue}>
           <NavBar hasToken={fastLogin} />
@@ -70,7 +72,7 @@ const App = () => {
         </UserContext.Provider>
       </Router>
 
-    </div>
+    </div >
   );
 };
 
