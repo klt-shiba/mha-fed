@@ -27,15 +27,26 @@ const NavBar = ({ hasToken }) => {
 
     const renderLoginRegisterButtons = () => {
         return (
-            <Pane>
-                <Link
-                    to={`/login`}>
-                    <Button appearance="primary" onClick={handleChange}>Login</Button>
-                </Link>
-                <Link
-                    to={`/register`}>
-                    <Button appearance="secondary">Register</Button>
-                </Link>
+            <Pane
+                alignItems="right"
+                display="flex"
+                alignItems="center">
+                <Pane
+                    marginLeft="6px"
+                    marginRight="6px">
+                    <Link
+                        to={`/login`}>
+                        <Button appearance="secondary" onClick={handleChange}>Login</Button>
+                    </Link>
+                </Pane>
+                <Pane
+                    marginLeft="6px"
+                    marginRight="6px">
+                    <Link
+                        to={`/register`}>
+                        <Button appearance="primary">Sign up</Button>
+                    </Link>
+                </Pane>
             </Pane>
         )
     }

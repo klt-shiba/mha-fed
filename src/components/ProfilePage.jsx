@@ -130,7 +130,7 @@ const ProfilePage = () => {
                         <b>Based in:</b> {`${userAttributes.state}`}
                     </div>
                     <div>
-                        <b>About me</b> {`${userAttributes.long_summary}`}
+                        <b>About me:</b> {`${userAttributes.long_summary}`}
                     </div>
                 </>
             )
