@@ -52,7 +52,7 @@ const Home = () => {
       />
       <PrimaryBanner
         hasDirection={false}
-        hasBackgroundColour="#f2f2f2"
+        hasBackgroundColour="black"
         heading="Find help for issues"
         subHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists Australia wide."
         hasImg="https://images.unsplash.com/photo-1509909756405-be0199881695?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80" />
