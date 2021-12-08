@@ -83,6 +83,62 @@ const ProfilePage = () => {
         )
     }
 
+    const renderPersonalInformation = () => {
+        if (!userAttributes) {
+            return null
+        } else {
+            return (
+                <>
+                    <div>
+                        <b>Name:</b> {`${userAttributes.first_name} ${userAttributes.last_name}`}
+                    </div>
+                </>
+            )
+
+        }
+    }
+
+
+    const renderAccountInformation = () => {
+        if (!user) {
+            return null
+        } else {
+            return (
+                <>
+                    <div>
+                        <b>Email:</b> {`${user.attributes.email}`}
+                    </div>
+                    <div>
+                        <b>Password:</b> ************
+                    </div>
+                </>
+            )
+
+        }
+    }
+
+    const renderTherapistInformation = () => {
+        if (!userAttributes) {
+            return null
+        } else {
+            return (
+                <>
+                    <div>
+                        <b>Profession:</b> {`${userAttributes.profession}`}
+                    </div>
+                    <div>
+                        <b>Based in:</b> {`${userAttributes.state}`}
+                    </div>
+                    <div>
+                        <b>About me</b> {`${userAttributes.long_summary}`}
+                    </div>
+                </>
+            )
+
+        }
+    }
+
+
     return (
         <>
             <PageTitle
@@ -105,7 +161,7 @@ const ProfilePage = () => {
                             maxWidth='720px'>
                             <InfoBlock
                                 heading="Personal Information"
-                                content={JSON.stringify(userAttributes, null, 1)}
+                                content={renderPersonalInformation()}
                                 links={
                                     <Link to={`/users/${id}/update-profile`}>
                                         Update personal information
@@ -113,7 +169,7 @@ const ProfilePage = () => {
                             </InfoBlock>
                             <InfoBlock
                                 heading="Account details"
-                                content={JSON.stringify(user, null, 1)}
+                                content={renderAccountInformation()}
                                 links={
                                     <Link to={`/users/${id}/update-account`}>
                                         Update account information
@@ -123,7 +179,7 @@ const ProfilePage = () => {
                                 isTherapist ?
                                     <InfoBlock
                                         heading="Therapist profile"
-                                        content={JSON.stringify(userAttributes, null, 1)}
+                                        content={renderTherapistInformation()}
                                         links={
                                             <Link to={`/users/${id}/update-account`}>
                                                 Update therapist information

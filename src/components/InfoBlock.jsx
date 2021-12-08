@@ -8,6 +8,10 @@ const Container = styled.div`
     height: auto; 
     margin-bottom: 2.4rem;
 
+    & > div {
+        margin-bottom: 12px;
+    }
+
     ${up('md')} {
         margin-bottom: 3.2rem;
                
@@ -20,6 +24,8 @@ const Container = styled.div`
 
     & div.body-wrapper {
         font-size: 17px;
+        display: flex;
+        flex-direction: column;
     }
 
 `
@@ -39,7 +45,7 @@ const InfoBlock = ({ heading, content, links }) => {
             <div className="body-wrapper">
                 {content}
             </div>
-            <div>
+            <div className="link-wrapper">
                 {links}
             </div>
         </Container>
