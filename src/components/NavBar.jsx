@@ -7,10 +7,6 @@ import styled from 'styled-components'
 const NavBar = ({ hasToken }) => {
 
     const { user, setUser } = useContext(UserContext)
-    const token = localStorage.getItem("token")
-
-    const history = useHistory()
-
     const renderAvatar = () => {
         const id = user.id
         if (!user) {
@@ -50,14 +46,13 @@ const NavBar = ({ hasToken }) => {
 
     const renderMenuItems = () => {
 
-        if (user == undefined) {
+        if (!user) {
             hasToken()
             return (
                 <div>{renderLoginRegisterButtons()}</div>
             )
         } else {
             return (
-
                 <div>{renderAvatar()} </div>
             )
         }
@@ -72,38 +67,42 @@ const NavBar = ({ hasToken }) => {
         <Pane
             flexShrink={0}
             display="flex"
-            padding={16}
+            padding={12}
             background="white"
             borderRadius={3}
         >
             <Pane flex={1}
                 alignItems="left"
-                display="flex">
-                <Link
-                    to="/">
-                    <Heading
-                        size={600}
-                        color="black"
-                        textAlign="left"
-                    >
-                        Home
-                    </Heading>
-                </Link>
-            </Pane>
-            <Pane
-                flex={1}
-                alignItems="left"
-                display="flex">
-                <Link
-                    to="/therapists">
-                    <Heading
-                        size={600}
-                        color="black"
-                        textAlign="left"
-                    >
-                        Therapists
-                    </Heading>
-                </Link>
+                display="flex"
+                alignItems="center">
+                <Pane
+                    marginLeft="12px"
+                    marginRight="12px">
+                    <Link
+                        to="/">
+                        <Heading
+                            size={600}
+                            color="black"
+                            textAlign="left"
+                        >
+                            Home
+                        </Heading>
+                    </Link>
+                </Pane>
+                <Pane
+                    marginLeft="12px"
+                    marginRight="12px">
+                    <Link
+                        to="/therapists">
+                        <Heading
+                            size={600}
+                            color="black"
+                            textAlign="left"
+                        >
+                            Therapists
+                        </Heading>
+                    </Link>
+                </Pane>
             </Pane>
             <Pane
                 display="flex"

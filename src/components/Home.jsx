@@ -8,10 +8,17 @@ import HomeSearchV2 from "./HomeSearchV2";
 import {
   useState, useEffect
 } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
 
   const [issues, setIssues] = useState(null)
+  const {
+    user,
+    isAuthenticated,
+    loginWithRedirect,
+    logout,
+  } = useAuth0();
 
 
   const imgURL = "https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
@@ -50,6 +57,7 @@ const Home = () => {
         summary="Over 50,000 reviews of Psychologist, Counsellors and Social workers"
         searchBar={HomeSearchV2(issues)}
       />
+      {console.log(user)}
       <PrimaryBanner
         hasDirection={false}
         hasBackgroundColour="black"

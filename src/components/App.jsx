@@ -19,7 +19,7 @@ import ProfilePage from "./ProfilePage";
 import UpdateUserType from "./UpdateUserType";
 import UpdateAccountInfo from "./UpdateAccountInfo";
 import ErrorPage from "./ErrorPage";
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 const App = () => {
 
@@ -28,6 +28,7 @@ const App = () => {
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
   const databaseObj = useSelector((state) => state.userReducer.user);
   const token = localStorage.getItem("token");
+
 
   useEffect(() => {
     fastLogin()

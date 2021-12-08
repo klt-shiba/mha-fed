@@ -6,8 +6,7 @@ import { TextInputField, Pane, Button, Alert } from "evergreen-ui";
 import PageTitle from './PageTitle'
 import { Container } from "reactstrap";
 import Section from "./Section";
-import { GoogleAPI, GoogleLogin, GoogleLogout } from 'react-google-oauth';
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 
@@ -29,6 +28,12 @@ const Login = () => {
     formAlertErrorMessage: false
   })
 
+  const {
+    user,
+    isAuthenticated,
+    loginWithRedirect,
+    logout,
+  } = useAuth0();
 
   const dispatch = useDispatch();
 
@@ -46,7 +51,6 @@ const Login = () => {
     if (checkIfFieldsAreFilled()) {
       console.log(hasError)
     } else {
-
       dispatch(fetchUser(userObj))
       checkIfUserCreated()
     }
@@ -66,13 +70,14 @@ const Login = () => {
       return false
     }
   }
+
+
   const redirectUserAfterUserAuthenticated = () => {
     console.log("running")
     if (Object.keys(databaseObj).length === 0) {
       return false
     } else {
       console.log(databaseObj)
-      const id = databaseObj.data.id
       setIsLoading(false)
       history.push(`/therapists`)
     }
@@ -80,36 +85,6 @@ const Login = () => {
   useEffect(() => {
     redirectUserAfterUserAuthenticated()
   }, [databaseObj])
-
-  // const responseGoogle = (response) => {
-  //   var token = google_response.Zi;
-  //   const requestOptions = {
-  //     method: 'POST',
-  //     headers: {
-  //       'Authorization': `Bearer ${google_response.Zi.accessToken}`,
-  //       'Content-Type': 'application/json',
-  //       'access_token': `${google_response.Zi.accessToken}`
-  //     },
-  //     body: JSON.stringify(token)
-  //   }
-
-  //   return fetch(`backend rails api url to google sign in path`, requestOptions)
-  //     .then(response => {
-  //       Cookie.set('accesstoken', response.headers.get('access-token'), {
-  //         expires: 7
-  //       });
-  //       Cookie.set('client', response.headers.get('client'), { expires: 7 });
-  //       Cookie.set('tokentype', response.headers.get('token-type'), { expires: 7 });
-  //       Cookie.set('expiry', response.headers.get('expiry'), { expires: 7 });
-  //       Cookie.set('uid', response.headers.get('uid'), { expires: 7 });
-  //     })
-  // };
-
-
-  const googleOAuth = () => {
-    window.location.href =
-      "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&response_type=code&redirect_uri=http://127.0.0.1:3001/auth/google_oauth2/callback&client_id=84038256684-s3gk4tqvv85r39v4af0tpqoiogqacgjv.apps.googleusercontent.com";
-  };
 
   const checkIfFieldsAreFilled = () => {
     if (!email && !pword) {
@@ -159,6 +134,7 @@ const Login = () => {
         summary="Take that first step and find professionals who are available now"
         src="https://images.unsplash.com/photo-1559740451-b895701fa4b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
       />
+      {console.log(user)}
       <Section
         backgroundColour="#fafafa"
         hasPaddingTop
@@ -217,15 +193,13 @@ const Login = () => {
               </form>
             </Pane>
           </Pane>
-          <button type="" className="btn btn-primary" onClick={googleOAuth}>
+          <button type="" className="btn btn-primary" onClick={() => loginWithRedirect()}>
             Sign in with Google
           </button>
 
-          {/* <GoogleAPI className="GoogleLogin" clientId="Your client API Key">
-            <div>
-              <GoogleLogin height="10" width="500px" backgroundColor="#4285f4" access="offline" scope="email profile" onLoginSuccess={responseGoogle} onFailure={responseGoogle} />
-            </div>
-          </GoogleAPI> */}
+          <button type="" className="btn btn-primary" onClick={() => logout()}>
+            Logout
+          </button>
         </Container>
       </Section>
     </>
