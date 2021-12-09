@@ -75,7 +75,7 @@ const ContentWrapper = styled.div`
   display: block;
   position: relative;
   padding: 32px 16px 32px 16px;
-  color: white;
+  color: ${props => props.hasFontColour};
   width: 100%;
 
   ${up("md")} {
@@ -126,7 +126,7 @@ const ButtonWrapper = styled.div`
     
 `;
 
-const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection, hasImg, hasRating, isRating, hasIcon, hasLocation, hasBackgroundColour }) => {
+const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection, hasImg, hasRating, isRating, hasIcon, hasLocation, hasBackgroundColour, hasFontColour }) => {
 
 
   return (
@@ -134,7 +134,7 @@ const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirecti
       <CustomContainer>
         <BannerWrapper hasDirection={hasDirection}>
           <SplitContainer>
-            <ContentWrapper>
+            <ContentWrapper hasFontColour={hasFontColour}>
               <div>{hasIcon ? <MapMarkerIcon /> : false} {hasLocation}</div>
               <h2>{heading || "Rate my Therapist cat"}</h2>
               <div>

@@ -1,9 +1,6 @@
-import { formLabelClasses } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
 import PrimaryBanner from "./PrimaryBanner";
 import PageTitle from "./PageTitle";
-import { SearchInput } from "evergreen-ui";
 import HomeSearchV2 from "./HomeSearchV2";
 import {
   useState, useEffect
@@ -54,6 +51,7 @@ const Home = () => {
     <>
       <PageTitle
         src={imgURL}
+        hasBackgroundColour="#BCD3F2"
         title="Real reviews that help you choose"
         summary="Over 50,000 reviews of Psychologist, Counsellors and Social workers"
         searchBar={HomeSearchV2(issues)}

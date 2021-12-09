@@ -3,23 +3,25 @@ import styled, { css } from 'styled-components'
 
 const Container = styled.span`
     width:auto;
-    font-size: 1.2rem;
+    font-size: 15px;
     border-radius: 24px;
-    font-weight: 600;
-    color: #666;
+    color: #222;
     margin: 0 8px 8px 0;
+    font-weight: 500;
     white-space: nowrap;
     display: inline-flex;
 
     ${props => {
         if (props.hasColour === "blue") {
             return (props.hasColour && css`
-         background-color: #dff7ff;
+                color: #540d6e;
+                background-color: #f8e6ff;
         `)
         }
         else if (props.hasColour === "green") {
             return (props.hasColour && css`
-          background-color: #cff8cf;
+            color: #006d77;
+          background-color: #d7f9fc;
           `
             )
         } else {
@@ -34,7 +36,7 @@ const Container = styled.span`
         if (props.hasSize === "small") {
             return (props.hasSize && css`
                 padding: 8px 12px;
-                font-size: 1rem;
+                font-size: 14px;
         `)
         }
         else if (props.hasSize === "large") {
@@ -45,7 +47,7 @@ const Container = styled.span`
         } else {
             return (props.hasSize && css`
                 padding: 12px 16px;
-                font-size: 1.2rem;
+                font-size: 15px;
 
           `
             )

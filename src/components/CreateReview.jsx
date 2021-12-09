@@ -3,7 +3,6 @@ import { useParams, useHistory } from "react-router-dom";
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { styled } from '@mui/material/styles';
 import { Textarea, Pane, Button, Label, Heading, Text, majorScale } from "evergreen-ui";
 import { UserContext } from "../UserContext";
 import PageTitle from "./PageTitle";
@@ -12,20 +11,12 @@ const CreateReview = () => {
 
   const { user, setUser } = useContext(UserContext)
   const [rating, setRating] = useState(" ");
+  const [therapist, setTherapist] = useState(null)
   const [comment, setComment] = useState("");
   const token = localStorage.getItem("token");
   const { id } = useParams();
   const history = useHistory();
   const [userAttributes, setUserAttributes] = useState(null)
-
-  const StyledRating = styled(Rating)({
-    '& .MuiRating-iconFilled': {
-      color: '#ff6d75',
-    },
-    '& .MuiRating-iconHover': {
-      color: '#ff3d47',
-    },
-  });
 
 
   useEffect(() => {
@@ -56,11 +47,26 @@ const CreateReview = () => {
     }
   }
 
+  const fetchTherapist = () => {
+    const url = `http://127.0.0.1:3001/api/v1/therapists/${id}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setTherapist(data)
+        console.log(data)
+      })
+      .catch(error => console.log(error))
+  }
+
   const clientId = () => {
     return (
       userAttributes ? userAttributes.id : false
     )
   }
+
+  useEffect(() => {
+    fetchTherapist()
+  }, [])
 
   useEffect(() => {
     checkUserType()
@@ -95,13 +101,23 @@ const CreateReview = () => {
     createReview();
   };
 
+  const renderTherapistInformationInPageTitle = () => {
+    if (!therapist) {
+      return false
+    } else {
+      return (`How was your experience with ${therapist.data.attributes.first_name}?`
+      )
+    }
+  }
+
   return (
     <>
       <PageTitle
         isSmall
+        hasBackgroundColour="#BCD3F2"
         title="Write a review"
-        summary={`Let others know how you went with ${user}`}
-        src="https://images.unsplash.com/photo-1564241809242-8f0386601ac0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3272&q=80"
+        summary="Let others know how you went"
+        src="https://images.unsplash.com/photo-1581888227599-779811939961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3174&q=80"
       />
       <Pane
         display="flex"
@@ -152,7 +168,7 @@ const CreateReview = () => {
                       size={600}
                       is="h2"
                       textAlign="center"
-                      marginY={majorScale(1)}>How would you rate your therapist?</Heading>
+                      marginY={majorScale(1)}>{renderTherapistInformationInPageTitle()}</Heading>
                     <Rating
                       label="How would you rate your Therapist?"
                       name="customized-color"

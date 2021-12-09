@@ -43,6 +43,7 @@ const ProfilePage = () => {
     }, [id])
 
     const checkUserType = () => {
+        console.log(user)
         if (!user) {
             setUserAttributes(null)
             setIsTherapist(null)
@@ -144,6 +145,7 @@ const ProfilePage = () => {
             <PageTitle
                 isSmall
                 title={returnName()}
+                hasBackgroundColour="#BCD3F2"
                 summary="Review and update your details."
             />
             <Section

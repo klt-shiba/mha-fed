@@ -1,8 +1,7 @@
 import { Heading, Pane, Avatar, Button } from "evergreen-ui";
 import React, { useContext, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
-import styled from 'styled-components'
 
 const NavBar = ({ hasToken }) => {
 
@@ -29,14 +28,13 @@ const NavBar = ({ hasToken }) => {
         return (
             <Pane
                 alignItems="right"
-                display="flex"
-                alignItems="center">
+                display="flex">
                 <Pane
                     marginLeft="6px"
                     marginRight="6px">
                     <Link
                         to={`/login`}>
-                        <Button appearance="secondary" onClick={handleChange}>Login</Button>
+                        <Button appearance="default" onClick={handleChange}>Login</Button>
                     </Link>
                 </Pane>
                 <Pane

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { storeNames } from '../reducers/tempUserActions'
 import { createTherapist } from '../reducers/therapistActions'
 import { createClient } from '../reducers/clientActions'
-import { TextInputField, Textarea, Pane, Button, RadioGroup, majorScale, Label, FilePicker, Select, Option, SelectField } from "evergreen-ui";
+import { TextInputField, Textarea, Pane, Button, RadioGroup, majorScale, Label, FilePicker, Select } from "evergreen-ui";
 import Section from "./Section";
 import PageTitle from './PageTitle'
 import { UserContext } from "../UserContext";

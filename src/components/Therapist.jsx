@@ -212,6 +212,8 @@ const Therapist = () => {
           width="100%"
           size="large"
           onClick={handleClick}
+          height={48}
+          fontSize="16px"
         >
           Review Therapist
         </Button>
@@ -257,7 +259,7 @@ const Therapist = () => {
         {console.log(user)}
         <PrimaryBanner
           hasIcon
-          hasBackgroundColour="black"
+          hasBackgroundColour="#fafafa"
           hasLocation={therapist ? therapist.state : false}
           hasDirection={false}
           hasImg={therapist ? therapist.avatar_img_url : false}

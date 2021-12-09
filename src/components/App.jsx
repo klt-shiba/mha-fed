@@ -69,7 +69,7 @@ const App = () => {
             <Route path="/users/:id/update-account" exact component={UpdateAccountInfo} />
             <Route component={ErrorPage} />
           </Switch>
-          <Footer></Footer>
+          {/* <Footer></Footer> */}
         </UserContext.Provider>
       </Router>
 

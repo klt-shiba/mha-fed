@@ -49,6 +49,8 @@ const ActionStrip = ({ hasBackgroundColour, hasHeading, hasSubHeading, hasOnClic
                         type="submit"
                         appearance="primary"
                         size="large"
+                        height={48}
+                        fontSize="17px"
                         onClick={hasOnClick} >
                         {hasButtonLabel}
                     </Button> : false}

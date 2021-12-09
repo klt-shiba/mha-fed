@@ -144,6 +144,7 @@ const Register = () => {
     <>
       <PageTitle
         isSmall
+        hasBackgroundColour="#BCD3F2"
         title="Create an account"
         summary="Take that first step and book with these professional therapists who
         are available now."

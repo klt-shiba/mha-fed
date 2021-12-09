@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Pane, Button, Heading, Text, majorScale } from "evergreen-ui";
+import { Pane, Button, majorScale } from "evergreen-ui";
 import CheckboxChip from "./CheckBoxChip";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { UserContext } from "../UserContext";
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import PageTitle from './PageTitle'
 
 // Edit Profile component

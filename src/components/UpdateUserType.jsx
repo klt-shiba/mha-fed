@@ -4,7 +4,7 @@ import { Pane, majorScale, TextInputField, FilePicker, Label } from "evergreen-u
 import { useParams, useHistory } from "react-router";
 import FormCard from './FormCard';
 import Section from './Section'
-
+import PageTitle from "./PageTitle";
 
 const UpdateUserType = () => {
 
@@ -152,23 +152,31 @@ const UpdateUserType = () => {
     }
 
     return (
-        <Section
-            backgroundColour="#f2f2f2"
-            hasPaddingTop
-            hasPaddingBottom>
-            {console.log(user)}
-            <FormCard
-                formHeading="Update personal details"
-                formSubheading="This is a subheading"
-                inputBody={renderFields()}
-                secondaryLabel="Cancel"
-                onSecondaryClick={handleClick}
-                secondaryValue={"Cancel"}
-                primaryLabel="Update personal details"
-                onPrimaryClick={handleClick}
-                primaryValue={"Submit"}
-            />
-        </Section>
+        <>
+            <PageTitle
+                isSmall
+                title="Update personal details"
+                hasBackgroundColour="#BCD3F2"
+                summary="Review and update your details.">
+            </PageTitle>
+            <Section
+                backgroundColour="#f2f2f2"
+                hasPaddingTop
+                hasPaddingBottom>
+                {console.log(user)}
+                <FormCard
+                    formHeading="Update personal details"
+                    formSubheading="This is a subheading"
+                    inputBody={renderFields()}
+                    secondaryLabel="Cancel"
+                    onSecondaryClick={handleClick}
+                    secondaryValue={"Cancel"}
+                    primaryLabel="Update personal details"
+                    onPrimaryClick={handleClick}
+                    primaryValue={"Submit"}
+                />
+            </Section>
+        </>
     )
 }
 
