@@ -156,7 +156,7 @@ const UpdateUserType = () => {
             <PageTitle
                 isSmall
                 title="Update personal details"
-                hasBackgroundColour="#8e94f2"
+                hasBackgroundColour="#f2f2f2"
                 summary="Review and update your personal details."
             />
             <Section

@@ -38,26 +38,26 @@ const HomeBannerContainer = styled.div`
     vertical-align: baseline;
     align-items: center;
     justify-content: center;
-    padding: 4.0rem 0;
+    padding: 72px 0;
 
-    & > *:last-child {
-        margin-top: 32px;
+    & > * {
+        margin-top: 24px;
     }
 }
 `
 const Heading = styled.h1`
-display: block;
-font-size: 54px;
-font-weight: 800;
-margin: 0.8rem;
-text-align: center;
+    display: block;
+    font-size: 48px;
+    font-weight: 800;
+    margin: 0rem;
+    text-align: center;
 `
 
 const Summary = styled.span`
-display: block;
-font-size: 24px;
-margin: 0.8rem;
-text-align: center;
+    display: block;
+    font-size: 24px;
+    margin: 0rem;
+    text-align: center;
 `
 
 const PageTitle = (props) => {

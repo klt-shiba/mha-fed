@@ -34,9 +34,9 @@ const ResultsBar = ({ showingAllTherapists, searchResult, hasClick, numberOfResu
             <div>
                 <Button
                     type="submit"
-                    height={56}
+                    height={48}
                     marginLeft={16}
-                    width={120}
+                    width={100}
                     onClick={hasClick}>
                     Clear
                 </Button>

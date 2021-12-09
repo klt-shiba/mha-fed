@@ -3,24 +3,25 @@ import PrimaryBanner from "./PrimaryBanner";
 import PageTitle from "./PageTitle";
 import HomeSearchV2 from "./HomeSearchV2";
 import {
-  useState, useEffect
+  useState, useEffect, useContext
 } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import ActionStrip from "./ActionStrip";
 import Footer from "./Footer";
 import Section from './Section'
 import { useHistory } from "react-router";
+import { UserContext } from "../UserContext";
+
 
 const Home = () => {
-
   const [issues, setIssues] = useState(null)
   const {
-    user,
     isAuthenticated,
     loginWithRedirect,
     logout,
   } = useAuth0();
   const history = useHistory()
+  const { user, setUser } = useContext(UserContext)
 
   const imgURL = "https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
 
@@ -49,12 +50,23 @@ const Home = () => {
     fetchIssues()
   }, [])
 
+  const routeToCreateAccount = () => {
+    history.push(`/register`)
+  }
+
+  const routeToTherapists = () => {
+    history.push(`/therapists`)
+  }
+
   const onClick = (e) => {
     e.preventDefault()
-    const routeToCreateAccount = () => {
-      history.push(`/register`)
+
+    if (!user) {
+      console.log("What")
+      routeToCreateAccount()
+    } else {
+      routeToTherapists()
     }
-    routeToCreateAccount()
   }
 
 

@@ -60,7 +60,7 @@ const UpdateAccountInfo = () => {
             <PageTitle
                 isSmall
                 title="Update account details"
-                hasBackgroundColour="#8e94f2"
+                hasBackgroundColour="#f2f2f2"
                 summary="Review and update your account details."
 
             />

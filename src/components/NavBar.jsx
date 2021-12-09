@@ -94,9 +94,9 @@ const NavBar = ({ hasToken }) => {
         <Pane
             flexShrink={0}
             display="flex"
-            padding={12}
+            padding={16}
             background="white"
-            borderRadius={3}
+            borderRadius={0}
         >
             <Pane flex={1}
                 alignItems="left"
@@ -107,7 +107,7 @@ const NavBar = ({ hasToken }) => {
                     marginRight="17px">
                     <Link
                         to="/"
-                        style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "23px", fontWeight: "600" }}
+                        style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "500" }}
                         activeStyle={{ backgroundColour: "#6d23b6", color: "black" }}
                         activeClassName="active">
                         <Pane
@@ -120,7 +120,6 @@ const NavBar = ({ hasToken }) => {
                                 marginRight="8px"
                                 color="#6d23b6" />
                             Home
-
                         </Pane>
                     </Link>
                 </Pane>
@@ -130,7 +129,7 @@ const NavBar = ({ hasToken }) => {
 
                     <Link
                         to="/therapists"
-                        style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "23px", fontWeight: "500" }}
+                        style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "500" }}
                     >
                         <Pane
                             display="flex"

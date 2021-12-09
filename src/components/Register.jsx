@@ -148,7 +148,6 @@ const Register = () => {
         title="Create an account"
         summary="Take that first step and book with these professional therapists who
         are available now."
-        src="https://images.unsplash.com/photo-1564241809242-8f0386601ac0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3272&q=80"
       />
       {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
       <Section
@@ -200,7 +199,9 @@ const Register = () => {
                     <Button
                       type="submit"
                       appearance="primary"
-                      size="large" >
+                      size="large"
+                      height={48}
+                      fontSize="17px">
                       Create account
                     </Button>
                   </Pane>

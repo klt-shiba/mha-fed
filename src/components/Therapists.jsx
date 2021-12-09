@@ -488,7 +488,7 @@ const Therapists = props => {
         hasBackgroundColour="#BCD3F2"
         summary="Take that first step and book with these professional who
         are available now."
-        src="https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80"
+        src="https://images.unsplash.com/photo-1566373477478-716624ecd9f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80"
         searchBar={renderFilterBar()} />
       {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
       <Section
