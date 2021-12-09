@@ -145,11 +145,11 @@ const ProfilePage = () => {
             <PageTitle
                 isSmall
                 title={returnName()}
-                hasBackgroundColour="#BCD3F2"
+                hasBackgroundColour="#8e94f2"
                 summary="Review and update your details."
             />
             <Section
-                backgroundColour="#fff"
+                backgroundColour="#fafafa"
                 hasPaddingTop
                 hasPaddingBottom>
                 <Container fluid="xl">
@@ -199,8 +199,10 @@ const ProfilePage = () => {
                                     alignItems="right">
                                     <Button
                                         type="submit"
-                                        appearance="primary"
+                                        appearance="default"
                                         size="large"
+                                        height={48}
+                                        fontSize="17px"
                                         onClick={handleClick}>
                                         Log Out
                                     </Button>

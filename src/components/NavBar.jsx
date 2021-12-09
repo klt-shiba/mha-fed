@@ -1,11 +1,13 @@
-import { Heading, Pane, Avatar, Button } from "evergreen-ui";
-import React, { useContext, useEffect } from "react";
+import { Heading, Pane, Avatar, Button, HeartIcon, HomeIcon } from "evergreen-ui";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 const NavBar = ({ hasToken }) => {
 
     const { user, setUser } = useContext(UserContext)
+    const [userAttributes, setUserAttributes] = useState(null)
+
     const renderAvatar = () => {
         const id = user.id
         if (!user) {
@@ -23,6 +25,21 @@ const NavBar = ({ hasToken }) => {
             )
         }
     }
+
+    const checkUserType = () => {
+        if (!user) {
+            setUserAttributes(null)
+            return false
+        } else if (user.attributes.client === null) {
+            setUserAttributes(user.attributes.therapist)
+        } else if (user.attributes.therapist === null) {
+            setUserAttributes(user.attributes.client)
+        } else {
+            setUserAttributes(null)
+            return false
+        }
+    }
+
 
     const renderLoginRegisterButtons = () => {
         return (
@@ -42,7 +59,8 @@ const NavBar = ({ hasToken }) => {
                     marginRight="6px">
                     <Link
                         to={`/register`}>
-                        <Button appearance="primary">Sign up</Button>
+                        <Button appearance="primary">
+                            Sign up</Button>
                     </Link>
                 </Pane>
             </Pane>
@@ -86,33 +104,48 @@ const NavBar = ({ hasToken }) => {
                 alignItems="center">
                 <Pane
                     marginLeft="12px"
-                    marginRight="12px">
+                    marginRight="17px">
                     <Link
-                        to="/">
-                        <Heading
-                            size={600}
-                            color="black"
-                            textAlign="left"
-                        >
+                        to="/"
+                        style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "23px", fontWeight: "600" }}
+                        activeStyle={{ backgroundColour: "#6d23b6", color: "black" }}
+                        activeClassName="active">
+                        <Pane
+                            display="flex"
+                            flexDirection="row"
+                            justifyContent="center"
+                            alignItems="center">
+                            <HomeIcon
+                                size={24}
+                                marginRight="8px"
+                                color="#6d23b6" />
                             Home
-                        </Heading>
+
+                        </Pane>
                     </Link>
                 </Pane>
                 <Pane
                     marginLeft="12px"
-                    marginRight="12px">
+                    marginRight="16px">
+
                     <Link
-                        to="/therapists">
-                        <Heading
-                            size={600}
-                            color="black"
-                            textAlign="left"
-                        >
+                        to="/therapists"
+                        style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "23px", fontWeight: "500" }}
+                    >
+                        <Pane
+                            display="flex"
+                            flexDirection="row"
+                            justifyContent="center"
+                            alignItems="center">
+                            <HeartIcon
+                                size={24}
+                                marginRight="8px"
+                                color="#6d23b6" />
                             Therapists
-                        </Heading>
+                        </Pane>
                     </Link>
                 </Pane>
-            </Pane>
+            </Pane >
             <Pane
                 display="flex"
                 alignItems="center">

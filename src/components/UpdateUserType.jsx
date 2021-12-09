@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../UserContext";
-import { Pane, majorScale, TextInputField, FilePicker, Label } from "evergreen-ui";
+import { Pane, majorScale, TextInputField, FilePicker, Label, Button } from "evergreen-ui";
 import { useParams, useHistory } from "react-router";
-import FormCard from './FormCard';
 import Section from './Section'
 import PageTitle from "./PageTitle";
+import { Container } from "reactstrap";
 
 const UpdateUserType = () => {
 
@@ -156,25 +156,102 @@ const UpdateUserType = () => {
             <PageTitle
                 isSmall
                 title="Update personal details"
-                hasBackgroundColour="#BCD3F2"
-                summary="Review and update your details.">
-            </PageTitle>
+                hasBackgroundColour="#8e94f2"
+                summary="Review and update your personal details."
+            />
             <Section
-                backgroundColour="#f2f2f2"
+                backgroundColour="#fafafa"
                 hasPaddingTop
                 hasPaddingBottom>
                 {console.log(user)}
-                <FormCard
-                    formHeading="Update personal details"
-                    formSubheading="This is a subheading"
-                    inputBody={renderFields()}
-                    secondaryLabel="Cancel"
-                    onSecondaryClick={handleClick}
-                    secondaryValue={"Cancel"}
-                    primaryLabel="Update personal details"
-                    onPrimaryClick={handleClick}
-                    primaryValue={"Submit"}
-                />
+                <Container fluid="xl">
+                    <Pane
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        textAlign="left">
+                        <Pane
+                            width="100%"
+                            maxWidth='720px'>
+                            <Pane
+                                marginBottom={40}>
+                                <TextInputField
+                                    type='text'
+                                    className='form-control'
+                                    label="Preferred name"
+                                    id='therapist_first_name'
+                                    aria-describedby='therapist_first_name'
+                                    placeholder='Preferred name'
+                                    inputHeight={48}
+                                    onChange={e => setForm({
+                                        ...form,
+                                        first_name: e.target.value
+                                    })}
+                                    value={form.first_name}
+                                />
+                                <TextInputField
+                                    type='text'
+                                    label="Last name"
+                                    className='form-control'
+                                    id='therapist_last_name'
+                                    placeholder='Last name'
+                                    inputHeight={48}
+                                    onChange={e => setForm({
+                                        ...form,
+                                        last_name: e.target.value
+                                    })}
+                                    value={form.last_name}
+                                />
+                                <Pane
+                                    marginY={majorScale(1)}
+                                    className='form-group'>
+                                    <Label htmlFor="edit_profile_image" marginBottom={4} display="block">
+                                        Stand out with a smile!
+                                    </Label>
+                                    <FilePicker
+                                        single
+                                        id="edit_profile_image"
+                                        width={250}
+                                        inputHeight={48}
+                                        onChange={file => setForm({
+                                            ...form,
+                                            avatar_img: file[0]
+                                        })
+                                        }
+                                        placeholder="Select the file here!"
+                                    />
+                                </Pane>
+                            </Pane>
+                            <Pane display="flex">
+                                <Pane flex={1} alignItems="center" display="flex">
+
+                                </Pane>
+                                <Pane>
+                                    <Button
+                                        type="submit"
+                                        appearance="default"
+                                        size="large"
+                                        height={48}
+                                        fontSize="17px"
+                                        marginRight={16}
+                                        value="Cancel"
+                                        onClick={handleClick}>
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        type="submit"
+                                        appearance="primary"
+                                        size="large"
+                                        value="Submit"
+                                        height={48}
+                                        fontSize="17px">
+                                        Update account
+                                    </Button>
+                                </Pane>
+                            </Pane>
+                        </Pane>
+                    </Pane>
+                </Container>
             </Section>
         </>
     )

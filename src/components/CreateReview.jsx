@@ -204,6 +204,8 @@ const CreateReview = () => {
                       <Button
                         type="submit"
                         appearance="primary"
+                        height={48}
+                        fontSize="17px"
                         size="large" >
                         Post review
                       </Button>

@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { up } from "styled-breakpoints";
 import Section from "./Section";
 import { Container } from "reactstrap";

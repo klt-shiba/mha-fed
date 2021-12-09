@@ -226,7 +226,9 @@ const Therapist = () => {
               <Button
                 appearance="primary"
                 width="100%"
+                height={48}
                 size="large"
+                fontSize="17px"
                 onClick={handleClick}
               >
                 Review Therapist
@@ -242,6 +244,9 @@ const Therapist = () => {
           <Button
             appearance="primary"
             width="full"
+            height={48}
+            size="large"
+            fontSize="17px"
             onClick={handleClick}
           >
             Review Therapist
