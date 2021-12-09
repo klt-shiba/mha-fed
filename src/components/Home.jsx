@@ -7,6 +7,7 @@ import {
 } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import ActionStrip from "./ActionStrip";
+import Footer from "./Footer";
 
 const Home = () => {
 
@@ -57,25 +58,29 @@ const Home = () => {
         searchBar={HomeSearchV2(issues)}
       />
       <ActionStrip
-        hasHeading="Sign up today"
-        hasSubHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists Australia wide." />
-      {console.log(user)}
-      <PrimaryBanner
-        hasDirection={false}
-        hasBackgroundColour="black"
-        heading="Find help for issues"
-        subHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists Australia wide."
-        hasImg="https://images.unsplash.com/photo-1509909756405-be0199881695?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80" />
-      <ActionStrip
         hasBackgroundColour="##E7E4F9"
         hasHeading="Sign up today"
         hasSubHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists Australia wide."
         hasButton
         hasButtonLabel="Sign up today!" />
       <PrimaryBanner
+        hasDirection={false}
+        hasBackgroundColour="#BCD3F2"
+        heading="Find help for issues"
+        subHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists Australia wide."
+        hasImg="https://images.unsplash.com/photo-1509909756405-be0199881695?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80" />
+      <ActionStrip
+        hasHeading="Honest experiences"
+        hasSubHeading="Reviews are open to anyone. Select your therapist, share your experience and help others." />
+      {console.log(user)}
+      <PrimaryBanner
         hasDirection
-        hasBackgroundColour="black"
-        hasImg="https://images.unsplash.com/photo-1624887009213-040347b804c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=4387&q=80" />
+        heading="Feel confident"
+        subHeading="We take care to verify each review ensuring it is written by a real person and tied to a genuine session."
+        hasBackgroundColour="#fff5c7"
+        hasImg="https://images.unsplash.com/photo-1624887009213-040347b804c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=4387&q=80"
+      />
+      <Footer></Footer>
     </>
 
   );

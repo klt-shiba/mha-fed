@@ -9,7 +9,6 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import EditUserType from "../components/EditUserType";
 import EditIssues from "./EditIssues";
-import Footer from "./Footer";
 import CreateReview from "../components/CreateReview";
 import NavBar from "./NavBar";
 import GettingStarted from "../Container/GettingStarted"
@@ -69,7 +68,6 @@ const App = () => {
             <Route path="/users/:id/update-account" exact component={UpdateAccountInfo} />
             <Route component={ErrorPage} />
           </Switch>
-          {/* <Footer></Footer> */}
         </UserContext.Provider>
       </Router>
 

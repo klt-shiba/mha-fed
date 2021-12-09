@@ -164,17 +164,19 @@ const ProfilePage = () => {
                             <InfoBlock
                                 heading="Personal Information"
                                 content={renderPersonalInformation()}
+                                hasUpdateLink
                                 links={
                                     <Link to={`/users/${id}/update-profile`}>
-                                        Update personal information
+                                        Update
                                     </Link>}>
                             </InfoBlock>
                             <InfoBlock
                                 heading="Account details"
                                 content={renderAccountInformation()}
+                                hasUpdateLink
                                 links={
                                     <Link to={`/users/${id}/update-account`}>
-                                        Update account information
+                                        Update
                                     </Link>}>
                             </InfoBlock>
                             {
@@ -182,9 +184,10 @@ const ProfilePage = () => {
                                     <InfoBlock
                                         heading="Therapist profile"
                                         content={renderTherapistInformation()}
+                                        hasUpdateLink
                                         links={
                                             <Link to={`/users/${id}/update-account`}>
-                                                Update therapist information
+                                                Update
                                             </Link>}>
                                     </InfoBlock> :
                                     false

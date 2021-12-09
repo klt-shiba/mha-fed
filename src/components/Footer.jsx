@@ -8,7 +8,7 @@ class ApplicationFooter extends React.Component {
             <Pane marginTop="auto" display="flex" flexShrink={0} padding={16} background="purpleTint">
                 <Pane flex={1} alignItems="center" display="flex" flexDirection="row">
                     <Heading size={100}>
-                        Footer (tbc)
+
                     </Heading>
                 </Pane>
 

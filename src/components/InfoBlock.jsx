@@ -1,7 +1,9 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { up } from 'styled-breakpoints'
-import { Rating } from '@mui/material'
+import { EditIcon } from 'evergreen-ui'
+
+
 
 const Container = styled.div`
     width:100%;
@@ -17,9 +19,11 @@ const Container = styled.div`
                
     }
     & div.header-wrapper {
-        display: block;
+        display: flex;
+        flex-direction:row ;
         border-bottom: 1px solid #aaa;
         margin: 1.2rem 0;
+        justify-content: space-between;
     }
 
     & div.body-wrapper {
@@ -36,18 +40,18 @@ const Heading = styled.h2`
     margin: 0 0 1.2rem 0;
 `
 
-const InfoBlock = ({ heading, content, links }) => {
+const InfoBlock = ({ heading, content, links, hasUpdateLink }) => {
     return (
         <Container>
             <div className="header-wrapper">
-                <Heading>{heading}</Heading>
+                <Heading>{heading}</Heading> {hasUpdateLink ? <span><EditIcon color="info" marginRight={8} />{links}</span> : false}
             </div>
             <div className="body-wrapper">
                 {content}
             </div>
-            <div className="link-wrapper">
-                {links}
-            </div>
+            {/* <div className="link-wrapper">
+                <span><EditIcon color="info" marginRight={8} />{links}</span>
+            </div> */}
         </Container>
     )
 }

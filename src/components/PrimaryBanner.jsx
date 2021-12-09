@@ -10,6 +10,7 @@ const CustomSection = styled(Section)`
   background: ${props => props.hasBackgroundColour};
   padding: 0 0;
   width: 100%;
+  font-size: 20px;
 `;
 
 const CustomContainer = styled(Container)`
@@ -116,7 +117,6 @@ const ButtonWrapper = styled.div`
         font-size: 17px;
         width: 100%;
         padding: 24px 24px;
-        border-radius: 24px;
 
         ${up("md")} {
             width: auto;
@@ -126,7 +126,7 @@ const ButtonWrapper = styled.div`
     
 `;
 
-const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection, hasImg, hasRating, isRating, hasIcon, hasLocation, hasBackgroundColour, hasFontColour }) => {
+const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirection, hasImg, hasRating, isRating, hasIcon, hasLocation, hasBackgroundColour, hasFontColour, hasOnClick }) => {
 
 
   return (
@@ -143,7 +143,7 @@ const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirecti
               </div>
               {hasRating ? <Rating name="read-only" value={isRating} readOnly size="large" /> : false}
               <ButtonWrapper hasButton={hasButton}>
-                <Button appearance="primary">
+                <Button appearance="default" onClick={hasOnClick}>
                   {buttonLabel || "Find Therapist"}
                 </Button>
               </ButtonWrapper>

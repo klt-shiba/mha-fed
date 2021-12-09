@@ -55,7 +55,7 @@ text-align: center;
 
 const Summary = styled.span`
 display: block;
-font-size: 20px;
+font-size: 24px;
 margin: 0.8rem;
 text-align: center;
 `
