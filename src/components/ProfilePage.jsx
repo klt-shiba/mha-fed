@@ -61,6 +61,11 @@ const ProfilePage = () => {
         }
     }
 
+    const formatDate = (dateString) => {
+        const options = { year: "numeric", month: "long", day: "numeric" }
+        return new Date(dateString).toLocaleDateString(undefined, options)
+    }
+
 
     const redirectToCorrectPage = () => {
         const staticId = id
@@ -101,20 +106,23 @@ const ProfilePage = () => {
 
 
     const renderAccountInformation = () => {
-        if (!user) {
+        if (!user && !userAttributes) {
             return null
         } else {
             return (
                 <>
-                    <div>
+                    <div style={{ marginBottom: "12px" }}>
                         <b>Email:</b> {`${user.attributes.email}`}
                     </div>
-                    <div>
+                    <div style={{ marginBottom: "12px" }}>
                         <b>Password:</b> ************
+                    </div>
+                    <div>
+                        {userAttributes ?
+                            <><b>Account created:</b> {formatDate(userAttributes.created_at)}</> : false}
                     </div>
                 </>
             )
-
         }
     }
 
@@ -184,7 +192,6 @@ const ProfilePage = () => {
                                     <InfoBlock
                                         heading="Therapist profile"
                                         content={renderTherapistInformation()}
-                                        hasUpdateLink
                                         links={
                                             <Link to={`/users/${id}/update-account`}>
                                                 Update

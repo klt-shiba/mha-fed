@@ -9,6 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import ActionStrip from "./ActionStrip";
 import Footer from "./Footer";
 import Section from './Section'
+import { useHistory } from "react-router";
 
 const Home = () => {
 
@@ -19,7 +20,7 @@ const Home = () => {
     loginWithRedirect,
     logout,
   } = useAuth0();
-
+  const history = useHistory()
 
   const imgURL = "https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
 
@@ -48,6 +49,14 @@ const Home = () => {
     fetchIssues()
   }, [])
 
+  const onClick = (e) => {
+    e.preventDefault()
+    const routeToCreateAccount = () => {
+      history.push(`/register`)
+    }
+    routeToCreateAccount()
+  }
+
 
   return (
     <>
@@ -62,6 +71,7 @@ const Home = () => {
         hasBackgroundColour="##E7E4F9"
         hasHeading="Sign up today"
         hasSubHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists Australia wide."
+        hasOnClick={onClick}
         hasButton
         hasButtonLabel="Sign up today!" />
       <Section
