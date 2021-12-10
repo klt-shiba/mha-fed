@@ -10,6 +10,8 @@ import Bullet from "./Bullets";
 import PrimaryBanner from "./PrimaryBanner";
 import TherapistRatingCard from "./TherapistRatingsCard";
 import { UserContext } from "../UserContext";
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 const Therapist = () => {
 
@@ -22,6 +24,8 @@ const Therapist = () => {
   const { id } = useParams();
   const history = useHistory();
   const [therapistRating, setTherapistRating] = useState(null)
+  const [isLoading, setIsLoading] = useState((true))
+
 
   const fetchTherapist = () => {
     const url = `http://127.0.0.1:3001/api/v1/therapists/${id}`;
@@ -41,6 +45,7 @@ const Therapist = () => {
         setIssues(data.attributes.issues)
         setTreatments(data.attributes.treatments)
         getRatings(data.attributes)
+        setIsLoading(false)
       })
       .catch((error) => {
         console.log(error);
@@ -259,6 +264,7 @@ const Therapist = () => {
 
   return (
     <>
+      {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
       <Section
         backgroundColour="#fafafa">
         {console.log(user)}
