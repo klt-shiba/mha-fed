@@ -2,6 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components'
 import { Heading, Text, MapMarkerIcon } from 'evergreen-ui';
 import { up } from 'styled-breakpoints';
+import Bullet from './Bullets';
+
 
 const CardContainer = styled.a`
     
@@ -71,6 +73,8 @@ const CardContainer = styled.a`
 `;
 
 
+
+
 const ImgContainer = styled.div`
 
 ${props => {
@@ -110,6 +114,13 @@ ${props => {
     background: #f2f2f2;
     border-radius: 8px;
 
+    & div.bullet_wrapper {
+        position: absolute;
+        display:flex;
+        justify-content: right;
+        margin-top:8px
+    }
+
     ${up('md')} {
         height: 20.0rem;
     }
@@ -142,6 +153,7 @@ const CardV2 = (props) => {
             <div>
                 <ImgContainer
                     isLoading={props.isLoading}>
+                    {props.isPopular ? <div className="bullet_wrapper"><Bullet label="Popular" hasColour hasSize="small"></Bullet></div> : false}
                     <img loading="lazy"
                         src={props.imgSrc}
                         alt={props.altTag} />
@@ -161,7 +173,7 @@ const CardV2 = (props) => {
                 <div >
                     {props.rating}
                 </div>
-            </div>
+            </div >
         </CardContainer >
     )
 }

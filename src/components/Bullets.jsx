@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components'
 
 const Container = styled.span`
     width:auto;
-    font-size: 15px;
     border-radius: 24px;
     color: #222;
     margin: 0 8px 8px 0;
@@ -26,7 +25,8 @@ const Container = styled.span`
             )
         } else {
             return (props.hasColour && css`
-          background-color: #f2f2f2;
+            background-color: black;
+            color: white;
           `
             )
         }
@@ -36,7 +36,7 @@ const Container = styled.span`
         if (props.hasSize === "small") {
             return (props.hasSize && css`
                 padding: 8px 12px;
-                font-size: 14px;
+                font-size: 12px;
         `)
         }
         else if (props.hasSize === "large") {
@@ -48,7 +48,6 @@ const Container = styled.span`
             return (props.hasSize && css`
                 padding: 12px 16px;
                 font-size: 15px;
-
           `
             )
         }
