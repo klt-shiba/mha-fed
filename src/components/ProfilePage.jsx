@@ -154,7 +154,7 @@ const ProfilePage = () => {
                 isSmall
                 title={returnName()}
                 hasBackgroundColour="#f2f2f2"
-                summary="Review and update your details."
+                summary="Review and update your details"
             />
             <Section
                 backgroundColour="#fafafa"
@@ -172,18 +172,10 @@ const ProfilePage = () => {
                             <InfoBlock
                                 heading="Personal Information"
                                 content={renderPersonalInformation()}
+                                hasIcon
                                 hasUpdateLink
                                 links={
                                     <Link to={`/users/${id}/update-profile`}>
-                                        Update
-                                    </Link>}>
-                            </InfoBlock>
-                            <InfoBlock
-                                heading="Account details"
-                                content={renderAccountInformation()}
-                                hasUpdateLink
-                                links={
-                                    <Link to={`/users/${id}/update-account`}>
                                         Update
                                     </Link>}>
                             </InfoBlock>
@@ -192,13 +184,24 @@ const ProfilePage = () => {
                                     <InfoBlock
                                         heading="Therapist profile"
                                         content={renderTherapistInformation()}
+                                        hasUpdateLink
                                         links={
-                                            <Link to={`/users/${id}/update-account`}>
-                                                Update
+                                            <Link to={`/therapists/${userAttributes.id}`}>
+                                                Check out my profile
                                             </Link>}>
                                     </InfoBlock> :
                                     false
                             }
+                            <InfoBlock
+                                heading="Account details"
+                                content={renderAccountInformation()}
+                                hasUpdateLink
+                                hasIcon
+                                links={
+                                    <Link to={`/users/${id}/update-account`}>
+                                        Update
+                                    </Link>}>
+                            </InfoBlock>
                             <Pane display="flex" alignItems="right" width="100%">
                                 <Pane flex={1} alignItems="center" display="flex">
                                 </Pane>

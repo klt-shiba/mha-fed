@@ -40,11 +40,11 @@ const Heading = styled.h2`
     margin: 0 0 1.2rem 0;
 `
 
-const InfoBlock = ({ heading, content, links, hasUpdateLink }) => {
+const InfoBlock = ({ heading, content, links, hasUpdateLink, hasIcon }) => {
     return (
         <Container>
             <div className="header-wrapper">
-                <Heading>{heading}</Heading> {hasUpdateLink ? <span><EditIcon color="info" marginRight={8} />{links}</span> : false}
+                <Heading>{heading}</Heading> {hasUpdateLink ? <span> {hasIcon ? <EditIcon color="info" marginRight={8} /> : false}{links}</span> : false}
             </div>
             <div className="body-wrapper">
                 {content}
