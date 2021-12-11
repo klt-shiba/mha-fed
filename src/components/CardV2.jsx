@@ -40,7 +40,8 @@ const CardContainer = styled.a`
     }
 
     &:hover img {
-        opacity:0.9;
+        transform:scale(1.1);
+        transition: all 0.5s ease-in-out
     }
 
     &:hover h2 {
@@ -118,7 +119,8 @@ ${props => {
         position: absolute;
         display:flex;
         justify-content: right;
-        margin-top:8px
+        margin-top:8px;
+        z-index: 1;
     }
 
     ${up('md')} {
@@ -129,6 +131,9 @@ ${props => {
         width: 100%;
         height: 22.0rem;
         object-fit: cover;
+        transform: scale(1);
+        transition: all 0.5s ease-in-out;
+        z-index: 0;
 
         ${up('md')} {
             height: 20.0rem;

@@ -5,6 +5,7 @@ import { useParams, useHistory } from "react-router";
 import Section from './Section'
 import PageTitle from "./PageTitle";
 import { Container } from "reactstrap";
+import LinearProgress from '@mui/material/LinearProgress';
 
 const UpdateUserType = () => {
 
@@ -17,7 +18,7 @@ const UpdateUserType = () => {
         avatar_img: "",
         user_id: ""
     })
-
+    const [isLoading, setIsLoading] = useState(false)
     const userId = user ? user.id : null
     let urlId = ""
 
@@ -62,7 +63,22 @@ const UpdateUserType = () => {
                 routeToProfile()
                 break;
             case "Submit":
+                setIsLoading(true)
                 patchDetails()
+                break;
+            default:
+                console.log("Not working")
+        }
+    }
+
+
+    const handleSuccessOrFailure = (value) => {
+        switch (value) {
+            case "Fail":
+                console.log("Failure")
+                break;
+            case "Success":
+                routeToProfile()
                 break;
             default:
                 console.log("Not working")
@@ -71,9 +87,7 @@ const UpdateUserType = () => {
 
     const formData = new FormData()
 
-
     const patchDetails = () => {
-
         formData.append('user_id', userId)
         formData.append('first_name', form.first_name)
         formData.append('last_name', form.last_name)
@@ -94,62 +108,16 @@ const UpdateUserType = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data)
+                setTimeout(() => {
+                    setIsLoading(false)
+                    handleSuccessOrFailure("Success")
+                }, 2000)
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                console.log(error)
+                handleSuccessOrFailure("Fail")
+            });
     };
-
-    const renderFields = () => {
-        return (
-            <Pane>
-                <TextInputField
-                    type='text'
-                    className='form-control'
-                    label="Preferred name"
-                    id='therapist_first_name'
-                    aria-describedby='therapist_first_name'
-                    placeholder='Preferred name'
-                    inputHeight={48}
-                    onChange={e => setForm({
-                        ...form,
-                        first_name: e.target.value
-                    })}
-                    value={form.first_name}
-                />
-                <TextInputField
-                    type='text'
-                    label="Last name"
-                    className='form-control'
-                    id='therapist_last_name'
-                    placeholder='Last name'
-                    inputHeight={48}
-                    onChange={e => setForm({
-                        ...form,
-                        last_name: e.target.value
-                    })}
-                    value={form.last_name}
-                />
-                <Pane
-                    marginY={majorScale(1)}
-                    className='form-group'>
-                    <Label htmlFor="edit_profile_image" marginBottom={4} display="block">
-                        Stand out with a smile!
-                    </Label>
-                    <FilePicker
-                        single
-                        id="edit_profile_image"
-                        width={250}
-                        inputHeight={48}
-                        onChange={file => setForm({
-                            ...form,
-                            avatar_img: file[0]
-                        })
-                        }
-                        placeholder="Select the file here!"
-                    />
-                </Pane>
-            </Pane>
-        )
-    }
 
     return (
         <>
@@ -159,6 +127,7 @@ const UpdateUserType = () => {
                 hasBackgroundColour="#f2f2f2"
                 summary="Review and update your personal details."
             />
+            {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
             <Section
                 backgroundColour="#fafafa"
                 hasPaddingTop
@@ -243,6 +212,7 @@ const UpdateUserType = () => {
                                         appearance="primary"
                                         size="large"
                                         value="Submit"
+                                        onClick={handleClick}
                                         height={48}
                                         fontSize="17px">
                                         Update account
