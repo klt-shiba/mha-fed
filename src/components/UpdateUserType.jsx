@@ -115,6 +115,7 @@ const UpdateUserType = () => {
             })
             .catch((error) => {
                 console.log(error)
+                setIsLoading(false)
                 handleSuccessOrFailure("Fail")
             });
     };

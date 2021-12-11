@@ -5,7 +5,7 @@ import { useParams, useHistory } from "react-router";
 import Section from './Section'
 import PageTitle from "./PageTitle";
 import { Container } from "reactstrap";
-
+import LinearProgress from '@mui/material/LinearProgress';
 
 const UpdateAccountInfo = () => {
 
@@ -17,6 +17,7 @@ const UpdateAccountInfo = () => {
         password: "",
         password_confirmation: ""
     })
+    const [isLoading, setIsLoading] = useState(false)
     const history = useHistory()
 
     const handleClick = (e) => {
@@ -34,7 +35,22 @@ const UpdateAccountInfo = () => {
         }
     }
 
+    const handleSuccessOrFailure = (value) => {
+        switch (value) {
+            case "Fail":
+                console.log("Failure")
+                break;
+            case "Success":
+                routeToProfile()
+                break;
+            default:
+                console.log("Not working")
+        }
+    }
+
+
     const updateAccount = () => {
+        setIsLoading(true)
         const url = `http://127.0.0.1:3001/api/v1/users/${id}/update`;
         fetch(url, {
             method: "PATCH",
@@ -47,9 +63,16 @@ const UpdateAccountInfo = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                setUser(data)
+                setTimeout(() => {
+                    setIsLoading(false)
+                    handleSuccessOrFailure("Success")
+                }, 2000)
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                console.log(error)
+                setIsLoading(false)
+                handleSuccessOrFailure("Fail")
+            });
     };
 
     const routeToProfile = () => {
@@ -64,6 +87,7 @@ const UpdateAccountInfo = () => {
                 summary="Review and update your account details."
 
             />
+            {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
             <Section
                 backgroundColour="#fafafa"
                 hasPaddingTop
@@ -128,7 +152,8 @@ const UpdateAccountInfo = () => {
                                         size="large"
                                         value="Submit"
                                         height={48}
-                                        fontSize="17px">
+                                        fontSize="17px"
+                                        onClick={handleClick}>
                                         Update account
                                     </Button>
                                 </Pane>
