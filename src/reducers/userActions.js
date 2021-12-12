@@ -14,7 +14,7 @@ export const fetchUser = userInfo => async dispatch => {
 
   console.log('accessing fetchUser correctly')
 
-  const response = await fetch(`http://127.0.0.1:3001/api/v1/auth`, {
+  const response = await fetch(`https://damp-journey-90616.herokuapp.com/api/v1/auth`, {
 
     method: 'POST',
     headers: {
@@ -40,7 +40,7 @@ export const fetchUser = userInfo => async dispatch => {
 export const signUserUp = userInfo => dispatch => {
   console.log('accessing userAction correctly')
 
-  fetch(`http://127.0.0.1:3001/api/v1/users`, {
+  fetch(`https://damp-journey-90616.herokuapp.com/api/v1/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -73,8 +73,11 @@ export const signUserUp = userInfo => dispatch => {
 export const autoLogin = () => async dispatch => {
 
   console.log('accessing autoLogin correctly')
+  console.log(localStorage.getItem('token'))
+  // const url = `https://damp-journey-90616.herokuapp.com/api/v1/auto-auth`
+  const url = `http://localhost:3001/api/v1/auto-auth`
 
-  const response = await fetch(`http://127.0.0.1:3001/api/v1/auto-auth`, {
+  const response = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -83,8 +86,8 @@ export const autoLogin = () => async dispatch => {
   })
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
-    localStorage.removeItem('token')
     console.log(message)
+    localStorage.removeItem('token')
   }
   const data = await response.json()
   console.log(data)

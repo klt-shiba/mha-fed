@@ -10,6 +10,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import ResultsBar from './ResultsBar'
 import HomeFilterSearchBar from './HomeFilterSearchBar'
 import LinearProgress from '@mui/material/LinearProgress';
+import Footer from './Footer'
 
 const Therapists = props => {
 
@@ -171,7 +172,7 @@ const Therapists = props => {
   }
 
   const fetchTherapists = () => {
-    const url = "http://127.0.0.1:3001/api/v1/therapists";
+    const url = "https://damp-journey-90616.herokuapp.com/api/v1/therapists";
     fetch(url)
       .then((response) => {
         if (response.ok) {
@@ -192,7 +193,7 @@ const Therapists = props => {
 
   const fetchIssues = async () => {
     try {
-      const url = "http://127.0.0.1:3001/api/v1/issues"
+      const url = "https://damp-journey-90616.herokuapp.com/api/v1/issues"
       const res = await fetch(url);
       const data = await res.json();
 
@@ -502,7 +503,7 @@ const Therapists = props => {
           {therapists.length > 0 ? allTherapists() : noTherapists}
         </Container>
       </Section>
-
+      <Footer />
     </>
   );
 };

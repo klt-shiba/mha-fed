@@ -48,7 +48,6 @@ const UpdateAccountInfo = () => {
         }
     }
 
-
     const updateAccount = () => {
         setIsLoading(true)
         const url = `http://127.0.0.1:3001/api/v1/users/${id}/update`;

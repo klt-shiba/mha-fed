@@ -11,7 +11,7 @@ import PrimaryBanner from "./PrimaryBanner";
 import TherapistRatingCard from "./TherapistRatingsCard";
 import { UserContext } from "../UserContext";
 import LinearProgress from '@mui/material/LinearProgress';
-
+import Footer from './Footer'
 
 const Therapist = () => {
 
@@ -270,9 +270,9 @@ const Therapist = () => {
         {console.log(user)}
         <PrimaryBanner
           hasIcon
+          hasDirection
           hasBackgroundColour="#fafafa"
           hasLocation={therapist ? therapist.state : false}
-          hasDirection={false}
           hasImg={therapist ? therapist.avatar_img_url : false}
           heading={therapist ? `${therapist.first_name} ` + ` ${therapist.last_name} ` : false}
           subHeading={renderSubheading(therapist)}
@@ -324,6 +324,7 @@ const Therapist = () => {
           </Pane >
         </Container>
       </Section>
+      <Footer />
     </>
   );
 };
