@@ -38,26 +38,46 @@ const HomeBannerContainer = styled.div`
     vertical-align: baseline;
     align-items: center;
     justify-content: center;
-    padding: 72px 0;
+    padding: 32px 0;
 
+    ${up("md")} {
+        padding: 72px 0;
+        }
     & > * {
-        margin-top: 24px;
+        margin-bottom: 12px;
+
+        ${up("md")} {
+            margin-bottom: 24px;
+        }   
+    }
+
+    & > *:last-child {
+        margin-bottom: 0px;
     }
 }
 `
 const Heading = styled.h1`
     display: block;
-    font-size: 48px;
+    font-size: 28px;
+    line-height: 36px;
     font-weight: 800;
     margin: 0rem;
     text-align: center;
+
+    ${up("md")} {
+        font-size: 48px;
+        }   
 `
 
 const Summary = styled.span`
     display: block;
-    font-size: 24px;
+    font-size: 20px;
     margin: 0rem;
     text-align: center;
+
+    ${up("md")} {
+        font-size: 24px;
+        } 
 `
 
 const PageTitle = (props) => {

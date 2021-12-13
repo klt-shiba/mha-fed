@@ -378,6 +378,7 @@ const Therapists = props => {
           {
             therapists.map((therapist, index) => (
               <CardV2
+                isPopular={(getRatings(therapist) >= 5) ? true : false}
                 imgSrc={therapist.attributes.avatar_img_url}
                 hasLocation={therapist.attributes.state}
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}

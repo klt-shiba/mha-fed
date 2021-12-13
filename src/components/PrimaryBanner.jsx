@@ -136,22 +136,21 @@ const PrimaryBanner = ({ heading, subHeading, hasButton, buttonLabel, hasDirecti
           <SplitContainer>
             <ContentWrapper hasFontColour={hasFontColour}>
               <div>{hasIcon ? <MapMarkerIcon /> : false} {hasLocation}</div>
-              <h2>{heading || "Rate my Therapist cat"}</h2>
+              <h2>{heading}</h2>
               <div>
-                {subHeading ||
-                  "Something about finding a therapist! Some about finding a therapist!"}
+                {subHeading}
               </div>
               {hasRating ? <Rating name="read-only" value={isRating} readOnly size="large" /> : false}
               <ButtonWrapper hasButton={hasButton}>
                 <Button appearance="default" onClick={hasOnClick}>
-                  {buttonLabel || "Find Therapist"}
+                  {buttonLabel}
                 </Button>
               </ButtonWrapper>
             </ContentWrapper>
           </SplitContainer>
           <SplitContainer>
             <BannerImgWrapper>
-              <img src={hasImg || "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*"}></img>
+              <img src={hasImg || "https://images.unsplash.com/photo-1491147334573-44cbb4602074?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"}></img>
             </BannerImgWrapper>
           </SplitContainer>
         </BannerWrapper>

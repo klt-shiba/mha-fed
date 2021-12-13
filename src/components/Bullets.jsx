@@ -25,7 +25,7 @@ const Container = styled.span`
             )
         } else {
             return (props.hasColour && css`
-            background-color: black;
+            background-color: #E54F6D;
             color: white;
           `
             )
@@ -37,6 +37,7 @@ const Container = styled.span`
             return (props.hasSize && css`
                 padding: 8px 12px;
                 font-size: 12px;
+                line-height: 20px
         `)
         }
         else if (props.hasSize === "large") {

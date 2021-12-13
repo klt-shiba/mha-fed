@@ -195,13 +195,13 @@ const Login = () => {
               </form>
             </Pane>
           </Pane>
-          <button type="" className="btn btn-primary" onClick={() => loginWithRedirect()}>
+          {/* <button type="" className="btn btn-primary" onClick={() => loginWithRedirect()}>
             Sign in with Google
           </button>
 
           <button type="" className="btn btn-primary" onClick={() => logout()}>
             Logout
-          </button>
+          </button> */}
         </Container>
       </Section>
     </>
