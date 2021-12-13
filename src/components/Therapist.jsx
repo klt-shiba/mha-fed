@@ -28,7 +28,8 @@ const Therapist = () => {
 
 
   const fetchTherapist = () => {
-    const url = `http://127.0.0.1:3001/api/v1/therapists/${id}`;
+    const url = `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${id}`
+    // const url = `http://127.0.0.1:3001/api/v1/therapists/${id}`;
     fetch(url)
       .then((response) => {
         if (response.ok) {
@@ -270,7 +271,6 @@ const Therapist = () => {
         {console.log(user)}
         <PrimaryBanner
           hasIcon
-          hasDirection
           hasBackgroundColour="#fafafa"
           hasLocation={therapist ? therapist.state : false}
           hasImg={therapist ? therapist.avatar_img_url : false}

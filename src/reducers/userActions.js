@@ -74,8 +74,8 @@ export const autoLogin = () => async dispatch => {
 
   console.log('accessing autoLogin correctly')
   console.log(localStorage.getItem('token'))
-  // const url = `https://damp-journey-90616.herokuapp.com/api/v1/auto-auth`
-  const url = `http://localhost:3001/api/v1/auto-auth`
+  const url = `https://damp-journey-90616.herokuapp.com/api/v1/auto-auth`
+  // const url = `http://localhost:3001/api/v1/auto-auth`
 
   const response = await fetch(url, {
     headers: {

@@ -27,6 +27,7 @@ const Therapists = props => {
   const [searchKey, setSearchKey] = useState(null)
   const [searchValue, setSearchValue] = useState(null)
   const [isLoading, setIsLoading] = useState((true))
+  const [isPopular, setIsPopular] = useState((false))
 
   useEffect(() => {
     checkIfSearchResultExists()
@@ -377,7 +378,6 @@ const Therapists = props => {
           {
             therapists.map((therapist, index) => (
               <CardV2
-                isPopular
                 imgSrc={therapist.attributes.avatar_img_url}
                 hasLocation={therapist.attributes.state}
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
@@ -393,9 +393,18 @@ const Therapists = props => {
     }
   }
   const updateRatings = (value) => {
-    return (
-      <Rating name="read-only" value={value} readOnly size="large" />
-    )
+
+    if (!value) {
+      return false
+    } else {
+
+      if (value === 5) {
+
+      }
+      return (
+        <Rating name="read-only" value={value} readOnly size="large" />
+      )
+    }
   }
   const noTherapists = (
     <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">

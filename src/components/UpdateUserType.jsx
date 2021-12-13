@@ -93,9 +93,13 @@ const UpdateUserType = () => {
         formData.append('last_name', form.last_name)
         formData.append('avatar_img', form.avatar_img)
 
+        // const url = isTherapist ?
+        //     `http://127.0.0.1:3001/api/v1/therapists/${urlId}/update` :
+        //     `http://127.0.0.1:3001/api/v1/clients/${urlId}/update`
+
         const url = isTherapist ?
-            `http://127.0.0.1:3001/api/v1/therapists/${urlId}/update` :
-            `http://127.0.0.1:3001/api/v1/clients/${urlId}/update`
+            `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${urlId}/update` :
+            `https://damp-journey-90616.herokuapp.com/api/v1/clients/${urlId}/update`
 
         fetch(url, {
             method: "PATCH",
@@ -108,10 +112,8 @@ const UpdateUserType = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data)
-                setTimeout(() => {
-                    setIsLoading(false)
-                    handleSuccessOrFailure("Success")
-                }, 2000)
+                setIsLoading(false)
+                handleSuccessOrFailure("Success")
             })
             .catch((error) => {
                 console.log(error)
