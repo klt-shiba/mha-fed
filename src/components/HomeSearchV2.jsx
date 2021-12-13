@@ -44,7 +44,7 @@ const HomeSearchV2 = (issuesArray) => {
     };
 
     const fetchTherapists = (query) => {
-        const url = "http://127.0.0.1:3001/api/v1/therapists";
+        const url = "https://damp-journey-90616.herokuapp.com/api/v1/therapists";
         fetch(url)
             .then((response) => {
                 if (response.ok) {

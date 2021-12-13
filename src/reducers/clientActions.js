@@ -7,7 +7,7 @@ export const createClient = (userInfo) => (dispatch) => {
 
   console.log("accessing createClient correctly");
 
-  fetch(`http://127.0.0.1:3001/api/v1/clients`, {
+  fetch(`https://damp-journey-90616.herokuapp.com/api/v1/clients`, {
     method: "POST",
     headers: {
       "Accept": "application/json",

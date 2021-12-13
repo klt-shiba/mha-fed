@@ -122,7 +122,7 @@ const EditIssues = ({ nextStep, prevStep }) => {
     } else {
       console.log(databaseObj)
       let id = databaseObj.data.id
-      const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-issues`
+      const url = `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${id}/add-issues`
       fetch(url, {
         method: 'POST',
         headers: {

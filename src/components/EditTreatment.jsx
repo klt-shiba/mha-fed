@@ -23,7 +23,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
     }
 
     const fetchTreatments = () => {
-        fetch("http://127.0.0.1:3001/api/v1/treatments")
+        fetch("https://damp-journey-90616.herokuapp.com/api/v1/treatments")
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -119,7 +119,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
         } else {
             console.log(databaseObj)
             let id = databaseObj.data.id
-            const url = `http://127.0.0.1:3001/api/v1/therapists/${id}/add-treatments`
+            const url = `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${id}/add-treatments`
             fetch(url, {
                 method: 'POST',
                 headers: {

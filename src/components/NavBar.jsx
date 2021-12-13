@@ -26,21 +26,6 @@ const NavBar = ({ hasToken }) => {
         }
     }
 
-    const checkUserType = () => {
-        if (!user) {
-            setUserAttributes(null)
-            return false
-        } else if (user.attributes.client === null) {
-            setUserAttributes(user.attributes.therapist)
-        } else if (user.attributes.therapist === null) {
-            setUserAttributes(user.attributes.client)
-        } else {
-            setUserAttributes(null)
-            return false
-        }
-    }
-
-
     const renderLoginRegisterButtons = () => {
         return (
             <Pane

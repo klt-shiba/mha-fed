@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { up } from 'styled-breakpoints'
 import { EditIcon } from 'evergreen-ui'
 
-
-
 const Container = styled.div`
     width:100%;
     height: auto; 

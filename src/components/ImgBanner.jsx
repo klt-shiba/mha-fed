@@ -6,12 +6,6 @@ import { Rating } from '@mui/material'
 const ImgContainer = styled.div`
     width:auto;
     height: 100%;
-
-    /* & div.heading-aligner {
-        margin: -3.6rem 0;
-        background-color: rgba(0,0,0,0.9);
-        z-index: ;
-    } */
 `
 
 const Img = styled.img`

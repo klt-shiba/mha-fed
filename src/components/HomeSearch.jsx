@@ -44,7 +44,7 @@ const HomeSearch = (issuesArray) => {
 
     const onClick = (e) => {
         if (searchBy === "Location" || searchBy === "Profession") {
-            fetch(`http://127.0.0.1:3001/api/v1/therapists/search?q=${queries}`, {
+            fetch(`https://damp-journey-90616.herokuapp.com/api/v1/therapists/search?q=${queries}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
