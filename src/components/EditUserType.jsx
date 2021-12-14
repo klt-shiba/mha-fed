@@ -133,7 +133,7 @@ const EditUserType = ({ nextStep }) => {
         marginY={majorScale(3)}
         className='form-group'>
         <Label htmlFor="add_profile_image" marginBottom={8} display="block">
-          What state do you reside in?
+          What city do you reside in?
         </Label>
         <Select
           height={40}

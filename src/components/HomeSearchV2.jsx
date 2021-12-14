@@ -124,7 +124,7 @@ const HomeSearchV2 = (issuesArray) => {
 
     const onClick = (e) => {
 
-        if (searchBy === "State" || searchBy === "Profession") {
+        if (searchBy === "City" || searchBy === "Profession") {
 
             fetchTherapists(queries)
 
@@ -176,7 +176,7 @@ const HomeSearchV2 = (issuesArray) => {
     const handleArray = (array) => {
         if (!array) {
             return false
-        } else if (searchBy === 'State') {
+        } else if (searchBy === 'City') {
             return locationArray
         } else if (searchBy === 'Profession') {
             return professionArray
@@ -188,7 +188,7 @@ const HomeSearchV2 = (issuesArray) => {
     const history = useHistory()
 
     const renderSelectOptions = () => {
-        if (searchBy === 'State') {
+        if (searchBy === 'City') {
             return (
                 locationArray.map((el) => {
                     return (
@@ -227,7 +227,7 @@ const HomeSearchV2 = (issuesArray) => {
                                 onChange={handleChange}
                             >
                                 <MenuItem value="Issue">Issue</MenuItem>
-                                <MenuItem value="State">State</MenuItem>
+                                <MenuItem value="City">City</MenuItem>
                                 <MenuItem value="Profession">Profession</MenuItem>
                             </Select>
                         </CustomFormControl>

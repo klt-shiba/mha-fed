@@ -28,6 +28,12 @@ const Container = styled.div`
         font-size: 17px;
         display: flex;
         flex-direction: column;
+
+        ${up('md')} {
+            font-size: 19px;
+            line-height: 28px
+               
+        }
     }
 
 `

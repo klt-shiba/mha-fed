@@ -221,7 +221,7 @@ const Therapist = () => {
           height={48}
           fontSize="16px"
         >
-          Review Therapist
+          🤩 Review Therapist
         </Button>
       )
     } else if (user.attributes.client || user) {
@@ -237,7 +237,7 @@ const Therapist = () => {
                 fontSize="17px"
                 onClick={handleClick}
               >
-                Review Therapist
+                🤩 Review Therapist
               </Button>
               : false
           }
@@ -272,7 +272,7 @@ const Therapist = () => {
         <PrimaryBanner
           hasIcon
           hasBackgroundColour="#fafafa"
-          hasLocation={therapist ? therapist.state : false}
+          hasLocation={therapist ? therapist.city : false}
           hasImg={therapist ? therapist.avatar_img_url : false}
           heading={therapist ? `${therapist.first_name} ` + ` ${therapist.last_name} ` : false}
           subHeading={renderSubheading(therapist)}

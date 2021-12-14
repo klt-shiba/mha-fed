@@ -115,10 +115,8 @@ const CreateReview = () => {
     <>
       <PageTitle
         isSmall
-        hasBackgroundColour="#BCD3F2"
         title="Write a review"
         summary="Let others know how you went"
-        src="https://images.unsplash.com/photo-1581888227599-779811939961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3174&q=80"
       />
       <Section
         backgroundColour="#fafafa"

@@ -361,7 +361,7 @@ const Therapists = props => {
             filteredTherapist.map((therapist, index) => (
               <CardV2
                 imgSrc={therapist.attributes.avatar_img_url}
-                hasLocation={therapist.attributes.state}
+                hasLocation={therapist.attributes.city}
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
                 href={`/therapists/${therapist.id}`}
                 id={therapist.id}
@@ -380,7 +380,7 @@ const Therapists = props => {
               <CardV2
                 isPopular={(getRatings(therapist) >= 5) ? true : false}
                 imgSrc={therapist.attributes.avatar_img_url}
-                hasLocation={therapist.attributes.state}
+                hasLocation={therapist.attributes.city}
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
                 href={`/therapists/${therapist.id}`}
                 id={therapist.id}

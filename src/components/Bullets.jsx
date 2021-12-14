@@ -6,7 +6,7 @@ const Container = styled.span`
     border-radius: 24px;
     color: #222;
     margin: 0 8px 8px 0;
-    font-weight: 500;
+    font-weight: 600;
     white-space: nowrap;
     display: inline-flex;
 
@@ -36,8 +36,8 @@ const Container = styled.span`
         if (props.hasSize === "small") {
             return (props.hasSize && css`
                 padding: 8px 12px;
-                font-size: 12px;
-                line-height: 20px
+                font-size: 18px;
+                line-height: 20px;
         `)
         }
         else if (props.hasSize === "large") {

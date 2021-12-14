@@ -104,7 +104,7 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
         setQueries(event.target.value);
     };
     const onClick = (e) => {
-        if (searchBy === "Profession" || searchBy === "State") {
+        if (searchBy === "Profession" || searchBy === "City") {
             console.log("No Therapists")
             history.push({
                 path: `/therapists`,
@@ -166,7 +166,7 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
     const handleArray = (array) => {
         if (!array) {
             return false
-        } else if (searchBy === 'State') {
+        } else if (searchBy === 'City') {
             return locationArray
         } else if (searchBy === 'Profession') {
             return professionArray
@@ -176,7 +176,7 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
     }
 
     const renderSelectOptions = () => {
-        if (searchBy === 'State') {
+        if (searchBy === 'City') {
             return (
                 locationArray.map((el) => {
                     return (
@@ -273,7 +273,7 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
                                 onChange={handleChange}
                             >
                                 <MenuItem value="Issue">Issue</MenuItem>
-                                <MenuItem value="State">State</MenuItem>
+                                <MenuItem value="City">City</MenuItem>
                                 <MenuItem value="Profession">Profession</MenuItem>
                             </Select>
                         </CustomFormControl>
