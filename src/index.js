@@ -18,6 +18,8 @@ import rootReducer from './reducers/rootReducer';
 import { Auth0Provider } from "@auth0/auth0-react";
 import history from "./utils/history";
 import { getConfig } from "./config";
+import './index.css';
+
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
