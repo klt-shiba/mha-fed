@@ -1,6 +1,7 @@
 const defaultState = {
     loggedIn: false,
     user: {},
+    error: {},
     type: {}
 }
 
@@ -10,6 +11,11 @@ const userReducer = (state = defaultState, action) => {
             return {
                 loggedIn: true,
                 user: { ...action.payload }
+            }
+        case "SET_USER_ERROR":
+            return {
+                loggedIn: false,
+                error: { ...action.payload }
             }
         case "SET_USER_TYPE":
             return {

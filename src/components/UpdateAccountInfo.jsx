@@ -50,7 +50,7 @@ const UpdateAccountInfo = () => {
 
     const updateAccount = () => {
         setIsLoading(true)
-        const url = `http://127.0.0.1:3001/api/v1/users/${id}/update`;
+        const url = `https://damp-journey-90616.herokuapp.com/api/v1/users/${id}/update`;
         fetch(url, {
             method: "PATCH",
             headers: {
@@ -82,7 +82,7 @@ const UpdateAccountInfo = () => {
             <PageTitle
                 isSmall
                 title="Update account details"
-                hasBackgroundColour="#f2f2f2"
+                hasBackgroundColour="#bba4dc"
                 summary="Review and update your account details."
 
             />

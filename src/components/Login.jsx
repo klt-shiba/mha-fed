@@ -15,6 +15,7 @@ const Login = () => {
 
   const history = useHistory();
   const databaseObj = useSelector(state => state.userReducer.user)
+  const errorObj = useSelector(state => state.userReducer.error)
   const [isLoading, setIsLoading] = useState(false)
   // Set and Get login form values
   const [email, setEmail] = useState(null);
@@ -57,7 +58,7 @@ const Login = () => {
   };
 
   const checkIfUserCreated = () => {
-    if (Object.keys(databaseObj).length === 0) {
+    if (Object.keys(errorObj).length >= 1) {
       setHasError({
         ...hasError,
         email: true,
@@ -130,7 +131,7 @@ const Login = () => {
     <>
       <PageTitle
         isSmall
-        hasBackgroundColour="#BCD3F2"
+        hasBackgroundColour="#bba4dc"
         title="Log in"
         summary="Take that first step and find professionals who are available now"
       />

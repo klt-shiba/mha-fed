@@ -74,7 +74,7 @@ const Home = () => {
     <>
       <PageTitle
         src={imgURL}
-        hasBackgroundColour="#BCD3F2"
+        // hasBackgroundColour="#BCD3F2"
         title="Real reviews that help you choose"
         summary="Over 50,000 reviews of Psychologist, Counsellors and Social workers"
         searchBar={HomeSearchV2(issues)}
@@ -89,12 +89,12 @@ const Home = () => {
       <Section
         hasPaddingTop
         hasPaddingBottom
-        backgroundColour="#BCD3F2">
+        backgroundColour="#fafafa">
         <PrimaryBanner
           hasDirection={false}
-          hasBackgroundColour="#BCD3F2"
+          hasBackgroundColour="#fafafa"
           heading="Find help for issues"
-          subHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists Australia wide."
+          subHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists New Zealand wide."
           hasImg="https://images.unsplash.com/photo-1509909756405-be0199881695?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80" />
       </Section>
       <ActionStrip
@@ -104,12 +104,12 @@ const Home = () => {
       <Section
         hasPaddingTop
         hasPaddingBottom
-        backgroundColour="#d8f3dc">
+        backgroundColour="#fafafa">
         <PrimaryBanner
           hasDirection
           heading="Feel confident"
           subHeading="We take care to verify each review ensuring it is written by a real person and tied to a genuine session."
-          hasBackgroundColour="#d8f3dc"
+          hasBackgroundColour="#fafafa"
           hasImg="https://images.unsplash.com/photo-1624887009213-040347b804c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=4387&q=80"
         />
       </Section>

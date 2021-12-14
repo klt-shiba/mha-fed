@@ -497,7 +497,7 @@ const Therapists = props => {
       <PageTitle
         isSmall
         title="Real reviews"
-        hasBackgroundColour="#BCD3F2"
+        // hasBackgroundColour="#BCD3F2"
         summary="Take that first step and book with these professional who
         are available now."
         src="https://images.unsplash.com/photo-1566373477478-716624ecd9f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80"

@@ -24,7 +24,7 @@ const EditIssues = ({ nextStep, prevStep }) => {
   }
 
   const fetchIssues = () => {
-    fetch("http://127.0.0.1:3001/api/v1/issues")
+    fetch("https://damp-journey-90616.herokuapp.com/api/v1/issues")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -150,7 +150,7 @@ const EditIssues = ({ nextStep, prevStep }) => {
         isSmall
         title="I can help with?"
         summary="Check all the boxes that apply"
-        src="https://images.unsplash.com/photo-1559740451-b895701fa4b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
+        hasBackgroundColour="#bba4dc"
       />
       <Pane
         display="flex"

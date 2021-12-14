@@ -66,6 +66,7 @@ const CardContainer = styled.a`
     & div.location-wrapper {
         display:flex;
         align-items: center;
+
         & span {
             padding-left: 8px;
         }

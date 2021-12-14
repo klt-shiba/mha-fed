@@ -1,6 +1,6 @@
 // Action Creators
 const setUser = payload => ({ type: 'SET_USER', payload })
-const setUserType = payload => ({ type: 'SET_USER_TYPE', payload })
+const setUserError = payload => ({ type: 'SET_USER_ERROR', payload })
 
 export const logUserOut = () => (
   {
@@ -26,7 +26,8 @@ export const fetchUser = userInfo => async dispatch => {
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
     localStorage.removeItem('token')
-    console.log(message)
+    dispatch(setUserError(response))
+    console.log(response)
     return false
   }
   const data = await response.json()
@@ -55,11 +56,6 @@ export const signUserUp = userInfo => dispatch => {
       if (data.error) {
         return false
       }
-      // data sent back will in the format of
-      // {
-      //     user: {},
-      //.    token: "aaaaa.bbbbb.bbbbb"
-      // }
       localStorage.setItem('token', data.jwt)
       dispatch(setUser(data.user))
     })

@@ -153,7 +153,7 @@ const ProfilePage = () => {
             <PageTitle
                 isSmall
                 title={returnName()}
-                hasBackgroundColour="#f2f2f2"
+                hasBackgroundColour="#bba4dc"
                 summary="Review and update your details"
             />
             <Section

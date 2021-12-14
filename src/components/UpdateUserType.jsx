@@ -127,7 +127,7 @@ const UpdateUserType = () => {
             <PageTitle
                 isSmall
                 title="Update personal details"
-                hasBackgroundColour="#f2f2f2"
+                hasBackgroundColour="#bba4dc"
                 summary="Review and update your personal details."
             />
             {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}

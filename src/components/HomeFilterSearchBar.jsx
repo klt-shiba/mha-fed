@@ -74,30 +74,21 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
         }
     }
     const locationArray = [
-        {
-            name: 'Australian Capital Territory'
-        },
-        {
-            name: 'New South Wales'
-        },
-        {
-            name: 'Victoria'
-        },
-        {
-            name: 'Queensland'
-        },
-        {
-            name: 'South Australia'
-        },
-        {
-            name: 'Western Australia'
-        },
-        {
-            name: 'Tasmania'
-        },
-        {
-            name: 'Northern Territory'
-        }
+        { name: "Auckland" },
+        { name: "Wellington" },
+        { name: "Christchurch" },
+        { name: "Hamilton" },
+        { name: "Tauranga" },
+        { name: "Napier-Hastings" },
+        { name: "Dunedin" },
+        { name: "Palmerston North" },
+        { name: "Nelson" },
+        { name: "Rotorua" },
+        { name: "Whangārei" },
+        { name: "New Plymouth" },
+        { name: "Invercargill" },
+        { name: "Whanganui" },
+        { name: "Gisborne" }
     ]
     const professionArray = [
         {

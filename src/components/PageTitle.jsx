@@ -21,8 +21,8 @@ const HomeBannerContainer = styled.div`
     top: 0;
     left: 0;
     z-index: 0;
-    opacity: 0.6;
-    filter: blur(4px);
+    opacity: 0.35;
+    filter: blur(2px);
     background-color: ${props => props.hasBackgroundColour};
 
         ${up("lg")} {
@@ -63,6 +63,7 @@ const Heading = styled.h1`
     font-weight: 800;
     margin: 0rem;
     text-align: center;
+    color: #412d5a;
 
     ${up("md")} {
         font-size: 48px;
@@ -82,8 +83,8 @@ const Summary = styled.span`
 
 const PageTitle = (props) => {
     return (
-        <div>
-            <HomeBannerContainer isSmall={props.isSmall} hasBackgroundColour={props.hasBackgroundColour}>
+        <>
+            <HomeBannerContainer isSmall={props.isSmall} hasBackgroundColour={props.hasBackgroundColour || "#bba4dc"}>
                 <img src={props.src}></img>
                 <Container fluid="xl" >
                     <div className="content_aligner">
@@ -94,7 +95,7 @@ const PageTitle = (props) => {
                 </Container>
             </HomeBannerContainer>
 
-        </div>
+        </>
     )
 }
 

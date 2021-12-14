@@ -8,6 +8,7 @@ import { TextInputField, Textarea, Pane, Button, RadioGroup, majorScale, Label, 
 import Section from "./Section";
 import PageTitle from './PageTitle'
 import { UserContext } from "../UserContext";
+import LinearProgress from '@mui/material/LinearProgress';
 
 // Edit Profile component
 const EditUserType = ({ nextStep }) => {
@@ -19,23 +20,31 @@ const EditUserType = ({ nextStep }) => {
   const [short_summary, setShortSummary] = useState('')
   const [image, setImage] = useState('')
   const [state, setState] = useState('')
-  const [profession, setProfession] = useState('')
+  const [profession, setProfession] = useState('Counsellor')
   const [options] = useState([
     { label: 'Im a Therapist', value: 'Therapist' },
     { label: 'Im a client', value: 'Client' }
   ])
   const [value, setValue] = useState('Therapist')
   const { id } = useParams()
+  const [isLoading, setIsLoading] = useState(false)
 
   const stateObject = [
-    { name: "Australian Capital Territory" },
-    { name: "New South Wales" },
-    { name: "Northern Territory" },
-    { name: "Queensland" },
-    { name: "Tasmania" },
-    { name: "South Australia" },
-    { name: "Western Australia" },
-    { name: "Victoria" }
+    { name: "Auckland" },
+    { name: "Wellington" },
+    { name: "Christchurch" },
+    { name: "Hamilton" },
+    { name: "Tauranga" },
+    { name: "Napier-Hastings" },
+    { name: "Dunedin" },
+    { name: "Palmerston North" },
+    { name: "Nelson" },
+    { name: "Rotorua" },
+    { name: "Whangārei" },
+    { name: "New Plymouth" },
+    { name: "Invercargill" },
+    { name: "Whanganui" },
+    { name: "Gisborne" }
   ]
 
   const professionObj = [
@@ -71,6 +80,7 @@ const EditUserType = ({ nextStep }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
+    setIsLoading(true)
     console.log(tempUserObj)
     dispatch(storeNames(tempUserObj))
     therapistOrClient()
@@ -114,6 +124,7 @@ const EditUserType = ({ nextStep }) => {
       console.log(formData)
       dispatch(createClient(formData))
     }
+    setIsLoading(false)
   }
 
   const renderSelectState = () => {
@@ -171,8 +182,9 @@ const EditUserType = ({ nextStep }) => {
         isSmall
         title="Create your profile"
         summary="Tell us about yourself and why you are here"
-        hasBackgroundColour="#8e94f2"
+        hasBackgroundColour="#bba4dc"
       />
+      {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
       <Section
         backgroundColour="#fafafa"
         hasPaddingBottom

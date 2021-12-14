@@ -76,66 +76,69 @@ const NavBar = ({ hasToken }) => {
     }, [user])
 
     return (
-        <Pane
-            flexShrink={0}
-            display="flex"
-            padding={16}
-            background="white"
-            borderRadius={0}
-        >
-            <Pane flex={1}
-                alignItems="left"
+        <><Pane
+            display="absolute">
+            <Pane
+                flexShrink={0}
                 display="flex"
-                alignItems="center">
-                <Pane
-                    marginLeft="12px"
-                    marginRight="17px">
-                    <Link
-                        to="/"
-                        style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "500" }}
-                        activeStyle={{ backgroundColour: "#6d23b6", color: "black" }}
-                        activeClassName="active">
-                        <Pane
-                            display="flex"
-                            flexDirection="row"
-                            justifyContent="center"
-                            alignItems="center">
-                            <HomeIcon
-                                size={24}
-                                marginRight="8px"
-                                color="#6d23b6" />
-                            Home
-                        </Pane>
-                    </Link>
-                </Pane>
-                <Pane
-                    marginLeft="12px"
-                    marginRight="16px">
+                padding={16}
+                borderRadius={0}
+            >
+                <Pane flex={1}
+                    alignItems="left"
+                    display="flex"
+                    alignItems="center">
+                    <Pane
+                        marginLeft="12px"
+                        marginRight="17px">
+                        <Link
+                            to="/"
+                            style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "500" }}
+                            activeStyle={{ backgroundColour: "#6d23b6", color: "black" }}
+                            activeClassName="active">
+                            <Pane
+                                display="flex"
+                                flexDirection="row"
+                                justifyContent="center"
+                                alignItems="center">
+                                <HomeIcon
+                                    size={24}
+                                    marginRight="8px"
+                                    color="#6d23b6" />
+                                Home
+                            </Pane>
+                        </Link>
+                    </Pane>
+                    <Pane
+                        marginLeft="12px"
+                        marginRight="16px">
 
-                    <Link
-                        to="/therapists"
-                        style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "500" }}
-                    >
-                        <Pane
-                            display="flex"
-                            flexDirection="row"
-                            justifyContent="center"
-                            alignItems="center">
-                            <HeartIcon
-                                size={24}
-                                marginRight="8px"
-                                color="#6d23b6" />
-                            Therapists
-                        </Pane>
-                    </Link>
+                        <Link
+                            to="/therapists"
+                            style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "500" }}
+                        >
+                            <Pane
+                                display="flex"
+                                flexDirection="row"
+                                justifyContent="center"
+                                alignItems="center">
+                                <HeartIcon
+                                    size={24}
+                                    marginRight="8px"
+                                    color="#6d23b6" />
+                                Therapists
+                            </Pane>
+                        </Link>
+                    </Pane>
+                </Pane >
+                <Pane
+                    display="flex"
+                    alignItems="center">
+                    {renderMenuItems()}
                 </Pane>
             </Pane >
-            <Pane
-                display="flex"
-                alignItems="center">
-                {renderMenuItems()}
-            </Pane>
-        </Pane >
+        </Pane>
+        </>
     );
 }
 

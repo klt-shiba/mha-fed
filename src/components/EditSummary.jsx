@@ -17,7 +17,6 @@ const EditSummary = () => {
         alignItems="center"
         justifyContent="center"
         marginY={majorScale(4)}>
-
         <Pane
           maxWidth="546px"
           display="block"
