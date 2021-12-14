@@ -89,11 +89,11 @@ const NavBar = ({ hasToken }) => {
                     display="flex"
                     alignItems="center">
                     <Pane
-                        marginLeft="12px"
-                        marginRight="17px">
+                        marginLeft="0px"
+                        marginRight="8px">
                         <Link
                             to="/"
-                            style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "500" }}
+                            style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "800" }}
                             activeStyle={{ backgroundColour: "#6d23b6", color: "black" }}
                             activeClassName="active">
                             <Pane
@@ -101,31 +101,31 @@ const NavBar = ({ hasToken }) => {
                                 flexDirection="row"
                                 justifyContent="center"
                                 alignItems="center">
-                                <HomeIcon
+                                {/* <HomeIcon
                                     size={24}
                                     marginRight="8px"
-                                    color="#6d23b6" />
+                                    color="#6d23b6" /> */}
                                 Home
                             </Pane>
                         </Link>
                     </Pane>
                     <Pane
-                        marginLeft="12px"
-                        marginRight="16px">
+                        marginLeft="8px"
+                        marginRight="12px">
 
                         <Link
                             to="/therapists"
-                            style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "500" }}
+                            style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "800" }}
                         >
                             <Pane
                                 display="flex"
                                 flexDirection="row"
                                 justifyContent="center"
                                 alignItems="center">
-                                <HeartIcon
+                                {/* <HeartIcon
                                     size={24}
                                     marginRight="8px"
-                                    color="#6d23b6" />
+                                    color="#6d23b6" /> */}
                                 Therapists
                             </Pane>
                         </Link>

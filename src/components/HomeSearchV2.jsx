@@ -3,6 +3,8 @@ import { Autocomplete, TextField, FormControl, Select, InputLabel, MenuItem } fr
 import { Button } from "evergreen-ui";
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
+import { up } from 'styled-breakpoints'
+
 
 const SearchContainer = styled.div`
     background-color: white;
@@ -13,18 +15,73 @@ const SearchContainer = styled.div`
     max-width: 920px;
     margin: 0 auto;
 
-    & > div {
+    & > div.content-wrapper {
         display: flex;
+        flex-direction: column;
+
+        ${up("md")} {
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between
+        }   
+
+        & > div {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 8px;
+
+            ${up("md")} {
+                width: 100%;
+                flex-direction: row;
+                margin-bottom: 0px;
+                margin-right: 16px;
+            }   
+
+            & > div {
+                margin-bottom: 8px;
+
+                ${up("md")} {
+                    margin-bottom: 0px;
+                }   
+            }
+
+            & > div:last-of-type {
+                
+                ${up("md")} {
+                    width: 75%;
+                }   
+        }
     }
-    & > div {
+
+    & div.button-wrapper {
         display: flex;
+
+        & button {
+            width:100%;
+
+            ${up("md")} {
+                width: 120px;
+            }   
+        }
+
+
+        ${up("md")} {
+                width: 120px;
+                margin-right: 0px;
+        }   
+
     }
 `
 
 
 const CustomFormControl = styled(FormControl)`
-    width: 25% !important;
+    width: 100% !important;
     margin-right: 16px !important;
+
+    ${up("md")} {
+        width: 25% !important;
+    }   
+
 `
 
 
@@ -32,7 +89,6 @@ const HomeSearchV2 = (issuesArray) => {
 
     const [searchBy, setSearchBy] = useState('Issue');
     const [queries, setQueries] = useState([]);
-    const [multipleQueries, setMultipleQueries] = useState([]);
 
     const handleChange = (event) => {
         setSearchBy(event.target.value);
@@ -152,51 +208,6 @@ const HomeSearchV2 = (issuesArray) => {
             return false
         }
     }
-
-    const handleChipChange = (e) => {
-        e.preventDefault()
-        console.log(e)
-        console.log(multipleQueries)
-        setMultipleQueries(e.target.text)
-    }
-
-    // const chooseSearchFieldType = () => {
-
-    //     if (searchBy === 'Issue') {
-    //         return (
-    //             <Autocomplete
-    //                 fullWidth
-    //                 multiple
-    //                 limitTags={2}
-    //                 id="autocomplete"
-    //                 options={handleArray(issuesArray)}
-    //                 getOptionLabel={(option) => option.name}
-    //                 onChange={(event, newValue) => {
-    //                     setMultipleQueries(newValue)
-    //                 }}
-    //                 onInputChange={handleInputChange}
-    //                 renderInput={(params) => (
-    //                     <TextField {...params} label={`Search by ${searchBy}`} inputValue={"value"} onChange={handleChipChange} placeholder={searchBy[0].name} />
-    //                 )}
-    //             />
-    //         )
-    //     } else {
-    //         return (
-    //             <FormControl fullWidth>
-    //                 <InputLabel id="select_options_label">{`Search by ${searchBy}`}</InputLabel>
-    //                 <Select
-    //                     labelId="select_options"
-    //                     id="select_options_id"
-    //                     value={queries}
-    //                     label={`Search by ${searchBy}`}
-    //                     onChange={handleSecondChange}
-    //                 >
-    //                     {renderSelectOptions()}
-    //                 </Select>
-    //             </FormControl>
-    //         )
-    //     }
-    // }
     const handleInputChange = (e) => {
         console.log(e)
     }
@@ -204,61 +215,61 @@ const HomeSearchV2 = (issuesArray) => {
     return (
         <>
             <SearchContainer>
-                <div>
-                    <CustomFormControl fullWidth>
-                        <InputLabel id="therapist_filter_label">Filter by</InputLabel>
-                        <Select
-                            labelId="therapist_filter_label"
-                            id="therapist_filter"
-                            value={searchBy}
-                            label="Search by"
-                            onChange={handleChange}
-                        >
-                            <MenuItem value="Issue">Issue</MenuItem>
-                            <MenuItem value="State">State</MenuItem>
-                            <MenuItem value="Profession">Profession</MenuItem>
-                        </Select>
-                    </CustomFormControl>
-                    {(searchBy === 'Issue') ?
-                        <Autocomplete
-                            fullWidth
-                            multiple
-                            limitTags={3}
-                            id="autocomplete"
-                            options={handleArray(issuesArray)}
-                            getOptionLabel={(option) => option.name}
-                            onChange={(event, newValue) => {
-                                setQueries(newValue)
-                            }}
-                            onInputChange={handleInputChange}
-                            renderInput={(params) => (
-                                <TextField {...params} label={`Search by ${searchBy}`} inputValue={"value"} placeholder={searchBy[0].name} />
-                            )}
-                        /> :
-                        <FormControl fullWidth>
-                            <InputLabel id="select_options_label">{`Search by ${searchBy}`}</InputLabel>
+                <div className="content-wrapper">
+                    <div>
+                        <CustomFormControl fullWidth>
+                            <InputLabel id="therapist_filter_label">Filter by</InputLabel>
                             <Select
-                                labelId="select_options"
-                                id="select_options_id"
-                                value={queries}
-                                label={`Search by ${searchBy}`}
-                                onChange={handleSecondChange}
+                                labelId="therapist_filter_label"
+                                id="therapist_filter"
+                                value={searchBy}
+                                label="Search by"
+                                onChange={handleChange}
                             >
-                                {renderSelectOptions()}
+                                <MenuItem value="Issue">Issue</MenuItem>
+                                <MenuItem value="State">State</MenuItem>
+                                <MenuItem value="Profession">Profession</MenuItem>
                             </Select>
-                        </FormControl>
-                    }
-                    {/* {chooseSearchFieldType()} */}
-                    <Button
-                        type="submit"
-                        height={56}
-                        marginLeft={16}
-                        appearance="primary"
-                        width={120}
-                        onClick={onClick}>
-                        Search
-                    </Button>
-
+                        </CustomFormControl>
+                        {(searchBy === 'Issue') ?
+                            <Autocomplete
+                                fullWidth
+                                multiple
+                                limitTags={3}
+                                id="autocomplete"
+                                options={handleArray(issuesArray)}
+                                getOptionLabel={(option) => option.name}
+                                onChange={(event, newValue) => {
+                                    setQueries(newValue)
+                                }}
+                                onInputChange={handleInputChange}
+                                renderInput={(params) => (
+                                    <TextField {...params} label={`Search by ${searchBy}`} inputValue={"value"} placeholder={searchBy[0].name} />
+                                )}
+                            /> :
+                            <FormControl fullWidth>
+                                <InputLabel id="select_options_label">{`Search by ${searchBy}`}</InputLabel>
+                                <Select
+                                    labelId="select_options"
+                                    id="select_options_id"
+                                    value={queries}
+                                    label={`Search by ${searchBy}`}
+                                    onChange={handleSecondChange}
+                                >
+                                    {renderSelectOptions()}
+                                </Select>
+                            </FormControl>
+                        }
+                    </div>
+                    <div className="button-wrapper">
+                        <Button
+                            type="submit"
+                            height={56}
+                            appearance="primary"
+                            onClick={onClick}>
+                            Search
+                        </Button>
+                    </div>
                 </div>
             </SearchContainer>
         </>

@@ -1,8 +1,8 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import Section from './Section'
 import { Button } from 'evergreen-ui'
-
+import { up } from 'styled-breakpoints'
 
 
 const Wrapper = styled.div`
@@ -12,6 +12,7 @@ const Wrapper = styled.div`
     text-align: center;
     justify-content: center;
     align-items: center;
+    padding: 0 16px;
 
     & div.heading-wrapper {
         margin-bottom: 24px;
@@ -20,16 +21,16 @@ const Wrapper = styled.div`
     }
 
     & h2 {
-        font-size: 40px;
+        font-size: 28px;
         font-weight: 800;
+
+        ${up("md")} {
+            font-size: 40px;
+        }   
     }
 
     & div.subheading-wrapper {
         font-size: 20px;
-    }
-
-    & div.heading-wrapper > * {
-        margin-bottom: 16px;
     }
 `
 

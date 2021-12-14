@@ -7,11 +7,15 @@ const HomeBannerContainer = styled.div`
     width: 100%;
     background-repeat: no-repeat;
     background-color:${props => props.hasBackgroundColour};
-    height: ${props => props.isSmall ? "auto" : "800px"};
+    height: ${props => props.isSmall ? "auto" : "520px"};
     position: relative;
     overflow: hidden;
     align-items: center;
     display: flex;
+
+    ${up("md")} {
+        height: ${props => props.isSmall ? "auto" : "800px"};
+        }   
 
     & img {
     object-fit: cover;
@@ -58,26 +62,30 @@ const HomeBannerContainer = styled.div`
 `
 const Heading = styled.h1`
     display: block;
-    font-size: 28px;
+    font-size: 32px;
     line-height: 36px;
-    font-weight: 800;
+    font-weight: 900;
     margin: 0rem;
     text-align: center;
     color: #412d5a;
 
     ${up("md")} {
-        font-size: 48px;
-        }   
+        font-size: 54px;
+        line-height: 56px;
+    }   
 `
 
 const Summary = styled.span`
     display: block;
     font-size: 20px;
+    line-height: 24px;
+    font-weight: 600;
     margin: 0rem;
     text-align: center;
 
     ${up("md")} {
         font-size: 24px;
+        line-height: 32px;
         } 
 `
 

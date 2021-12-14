@@ -3,6 +3,8 @@ import { Autocomplete, TextField, FormControl, Select, InputLabel, MenuItem } fr
 import { Button } from "evergreen-ui";
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
+import { up } from 'styled-breakpoints'
+
 
 const SearchContainer = styled.div`
     background-color: white;
@@ -13,18 +15,75 @@ const SearchContainer = styled.div`
     max-width: 920px;
     margin: 0 auto;
 
-    & > div {
+    & > div.content-wrapper {
         display: flex;
+        flex-direction: column;
+
+        ${up("md")} {
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between
+        }   
+
+        & > div {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 8px;
+
+            ${up("md")} {
+                width: 100%;
+                flex-direction: row;
+                margin-bottom: 0px;
+                margin-right: 16px;
+            }   
+
+            & > div {
+                margin-bottom: 8px;
+
+                ${up("md")} {
+                    margin-bottom: 0px;
+                }   
+            }
+
+            & > div:last-of-type {
+                
+                ${up("md")} {
+                    width: 75%;
+                }   
+        }
     }
-    & > div {
+
+    & div.button-wrapper {
         display: flex;
+        margin-bottom: 0px;
+
+        & button {
+            width:100%;
+
+            ${up("md")} {
+                width: 120px;
+                margin-bottom: 0px;
+            }   
+        }
+
+
+        ${up("md")} {
+                width: 120px;
+                margin-right: 0px;
+        }   
+
     }
 `
 
 
 const CustomFormControl = styled(FormControl)`
-    width: 25% !important;
+    width: 100% !important;
     margin-right: 16px !important;
+
+    ${up("md")} {
+        width: 25% !important;
+    }   
+
 `
 
 
@@ -202,32 +261,33 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
     return (
         <>
             <SearchContainer>
-                <div>
-                    <CustomFormControl fullWidth>
-                        <InputLabel id="therapist_filter_label">Filter by</InputLabel>
-                        <Select
-                            labelId="therapist_filter_label"
-                            id="therapist_filter"
-                            value={searchBy}
-                            label="Search by"
-                            onChange={handleChange}
-                        >
-                            <MenuItem value="Issue">Issue</MenuItem>
-                            <MenuItem value="State">State</MenuItem>
-                            <MenuItem value="Profession">Profession</MenuItem>
-                        </Select>
-                    </CustomFormControl>
-                    {chooseSearchFieldType()}
-                    <Button
-                        type="submit"
-                        height={56}
-                        marginLeft={16}
-                        appearance="primary"
-                        width={120}
-                        onClick={onClick}>
-                        Search
-                    </Button>
-
+                <div className="content-wrapper">
+                    <div>
+                        <CustomFormControl fullWidth>
+                            <InputLabel id="therapist_filter_label">Filter by</InputLabel>
+                            <Select
+                                labelId="therapist_filter_label"
+                                id="therapist_filter"
+                                value={searchBy}
+                                label="Search by"
+                                onChange={handleChange}
+                            >
+                                <MenuItem value="Issue">Issue</MenuItem>
+                                <MenuItem value="State">State</MenuItem>
+                                <MenuItem value="Profession">Profession</MenuItem>
+                            </Select>
+                        </CustomFormControl>
+                        {chooseSearchFieldType()}
+                    </div>
+                    <div className="button-wrapper">
+                        <Button
+                            type="submit"
+                            height={56}
+                            appearance="primary"
+                            onClick={onClick}>
+                            Search
+                        </Button>
+                    </div>
                 </div>
             </SearchContainer>
         </>
