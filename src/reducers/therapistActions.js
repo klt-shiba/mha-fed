@@ -28,7 +28,7 @@ export const createTherapist = (userInfo) => (dispatch) => {
 };
 
 
-export const postIssues = (userInfo, id) => (dispatch) => {
+export const postIssues = (issues, id) => (dispatch) => {
 
   console.log("accessing postIssues correctly");
 
@@ -42,7 +42,7 @@ export const postIssues = (userInfo, id) => (dispatch) => {
       Accept: 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(userInfo)
+    body: JSON.stringify(issues)
   })
     .then(res => res.json())
     .then(data => {
@@ -57,7 +57,7 @@ export const postIssues = (userInfo, id) => (dispatch) => {
     })
 }
 
-export const postTreatments = (userInfo, id) => (dispatch) => {
+export const postTreatments = (treatments, id) => (dispatch) => {
 
   console.log("accessing postTreatments correctly");
 
@@ -69,7 +69,7 @@ export const postTreatments = (userInfo, id) => (dispatch) => {
       Accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`
     },
-    body: JSON.stringify(userInfo)
+    body: JSON.stringify(treatments)
   })
     .then(res => res.json())
     .then(data => {
