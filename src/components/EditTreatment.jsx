@@ -5,16 +5,20 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { UserContext } from "../UserContext";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { postTreatments } from '../reducers/therapistActions'
+import LinearProgress from '@mui/material/LinearProgress';
 import PageTitle from './PageTitle'
 
 // Edit Profile component
 const EditTreatment = ({ nextStep, prevStep }) => {
-    const databaseObj = useSelector(state => state.therapistReducer.isTherapist)
+    const therapistStore = useSelector(state => state.therapistReducer)
     // Set and Get profile form values
     const [treatments, setTreatments] = useState([]);
     const [therapistTreatments, setTherapistTreatments] = useState([]);
     const { user, setUser } = useContext(UserContext)
+    const dispatch = useDispatch()
+    const [isLoading, setIsLoading] = useState(false)
 
     const treatmentsObj = {
         therapist: {
@@ -44,9 +48,33 @@ const EditTreatment = ({ nextStep, prevStep }) => {
         prevStep()
     }
 
-    const next = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        nextStep()
+        setIsLoading(true)
+        let id = therapistStore.therapist.id
+        dispatch(postTreatments(treatmentsObj, id))
+    };
+
+    useEffect(() => {
+        redirectWhenUserReturned()
+        console.log(therapistStore)
+    }, [therapistStore]);
+
+    const redirectWhenUserReturned = () => {
+
+        if (!user && !therapistStore) {
+            return false
+        } else {
+            if (therapistStore.hasTreatment) {
+                console.log(therapistStore)
+                setIsLoading(false)
+                nextStep()
+            } else {
+                setIsLoading(false)
+                return false
+            }
+        }
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -59,6 +87,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
         console.log(idValue[0]);
         updateTherapistIssueArray(idValue[0])
     };
+
     const updateTherapistIssueArray = (value) => {
 
         if (therapistTreatments.includes(value)) {
@@ -111,38 +140,6 @@ const EditTreatment = ({ nextStep, prevStep }) => {
         }
     };
 
-    const postTreatments = (e) => {
-        e.preventDefault()
-
-        if (!user) {
-            return false
-        } else {
-            console.log(databaseObj)
-            let id = databaseObj.data.id
-            const url = `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${id}/add-treatments`
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(treatmentsObj)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    nextStep()
-                    // nextStep()
-                })
-                .catch(error => {
-                    console.log(error)
-                    console.log(JSON.stringify(treatmentsObj))
-                    return false
-                })
-        }
-    }
-
     return (
         <>
             <PageTitle
@@ -151,6 +148,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                 summary="Check all the boxes that apply"
                 hasBackgroundColour="#bba4dc"
             />
+            {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
             <Pane
                 display="flex"
                 flexDirection="column"
@@ -172,7 +170,7 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                             textAlign="left"
                             marginY={majorScale(3)}
                         >
-                            <form onSubmit={e => postTreatments(e)}>
+                            <form onSubmit={e => handleSubmit(e)}>
                                 <div className="form-group" onChange={handleChange}>
                                     {renderTreatmentsCheckboxes()}
                                     <CheckboxChip></CheckboxChip>

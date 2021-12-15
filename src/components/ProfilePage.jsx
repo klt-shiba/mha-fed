@@ -2,18 +2,19 @@ import React, { useContext, useState, useEffect } from "react";
 import { Pane, Button } from "evergreen-ui";
 import { UserContext } from "../UserContext";
 import { logUserOut } from "../reducers/userActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import Section from "./Section";
 import InfoBlock from "./InfoBlock";
 import PageTitle from "./PageTitle";
-
+import ButtonWrapper from "./ButtonWrapper";
 
 
 const ProfilePage = () => {
 
+    const userStore = useSelector(state => state.userReducer.user)
     const { user, setUser } = useContext(UserContext)
     const dispatch = useDispatch()
     const history = useHistory()
@@ -25,7 +26,6 @@ const ProfilePage = () => {
     const handleClick = (e) => {
         e.preventDefault()
         dispatch(logUserOut())
-
         if (user) {
             history.push('')
         } else {
@@ -42,12 +42,20 @@ const ProfilePage = () => {
         redirectToCorrectPage()
     }, [id])
 
+    useEffect(() => {
+        redirectIfNoUser()
+    }, [user, userStore])
+
+
     const checkUserType = () => {
         console.log(user)
         if (!user) {
             setUserAttributes(null)
             setIsTherapist(null)
             return false
+        } else if (user.attributes.therapist === null && user.attributes.client === null) {
+            setUserAttributes(null)
+            setIsTherapist(null)
         } else if (user.attributes.client === null) {
             setUserAttributes(user.attributes.therapist)
             setIsTherapist(true)
@@ -66,8 +74,8 @@ const ProfilePage = () => {
         return new Date(dateString).toLocaleDateString(undefined, options)
     }
 
-
     const redirectToCorrectPage = () => {
+
         const staticId = id
         if (!user) {
             console.log("false")
@@ -79,6 +87,15 @@ const ProfilePage = () => {
         } else {
             console.log(id)
             console.log(user.id)
+            return false
+        }
+    }
+
+
+    const redirectIfNoUser = () => {
+        if (!user && !userStore.loggedIn) {
+            history.push(`/`)
+        } else {
             return false
         }
     }
@@ -186,7 +203,7 @@ const ProfilePage = () => {
                                         content={renderTherapistInformation()}
                                         hasUpdateLink
                                         links={
-                                            <Link to={`/therapists/${userAttributes.id}`}>
+                                            <Link to={!userAttributes ? `/therapists` : `/therapists/${userAttributes.id}`}>
                                                 Check out my profile
                                             </Link>}>
                                     </InfoBlock> :
@@ -203,10 +220,7 @@ const ProfilePage = () => {
                                     </Link>}>
                             </InfoBlock>
                             <Pane display="flex" alignItems="right" width="100%">
-                                <Pane flex={1} alignItems="center" display="flex">
-                                </Pane>
-                                <Pane
-                                    alignItems="right">
+                                <ButtonWrapper>
                                     <Button
                                         type="submit"
                                         appearance="default"
@@ -216,10 +230,9 @@ const ProfilePage = () => {
                                         onClick={handleClick}>
                                         Log Out
                                     </Button>
-                                </Pane>
+                                </ButtonWrapper>
                             </Pane>
-                        </Pane>
-
+                        </Pane >
                     </Pane >
                 </Container >
             </Section>

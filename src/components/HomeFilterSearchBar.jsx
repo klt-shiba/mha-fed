@@ -70,6 +70,7 @@ const SearchContainer = styled.div`
         ${up("md")} {
                 width: 120px;
                 margin-right: 0px;
+                margin-bottom: 0px;
         }   
 
     }
@@ -284,7 +285,8 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
                             type="submit"
                             height={56}
                             appearance="primary"
-                            onClick={onClick}>
+                            onClick={onClick}
+                            fontSize="17px">
                             Search
                         </Button>
                     </div>

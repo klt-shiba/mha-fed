@@ -1,12 +1,15 @@
 const defaultState = {
-    isClient: {}
+    isClient: false,
+    client: {}
+
 }
 
 const clientReducer = (state = defaultState, action) => {
-    switch(action.type){
+    switch (action.type) {
         case "SET_CLIENT":
             return {
-                isClient: {...action.payload}
+                isClient: true,
+                client: { ...action.payload }
             }
         default: return state
     }

@@ -18,7 +18,7 @@ export const createClient = (userInfo) => (dispatch) => {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      dispatch(setClient(data));
+      dispatch(setClient(data.data));
       localStorage.setItem("client_id", data.data.id)
     })
     .catch(error => console.log(error));

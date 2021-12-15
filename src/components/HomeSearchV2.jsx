@@ -55,6 +55,7 @@ const SearchContainer = styled.div`
 
     & div.button-wrapper {
         display: flex;
+        margin-bottom: 0px;
 
         & button {
             width:100%;
@@ -266,7 +267,8 @@ const HomeSearchV2 = (issuesArray) => {
                             type="submit"
                             height={56}
                             appearance="primary"
-                            onClick={onClick}>
+                            onClick={onClick}
+                            fontSize="17px">
                             Search
                         </Button>
                     </div>

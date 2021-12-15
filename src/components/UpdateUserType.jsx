@@ -93,10 +93,6 @@ const UpdateUserType = () => {
         formData.append('last_name', form.last_name)
         formData.append('avatar_img', form.avatar_img)
 
-        // const url = isTherapist ?
-        //     `http://127.0.0.1:3001/api/v1/therapists/${urlId}/update` :
-        //     `http://127.0.0.1:3001/api/v1/clients/${urlId}/update`
-
         const url = isTherapist ?
             `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${urlId}/update` :
             `https://damp-journey-90616.herokuapp.com/api/v1/clients/${urlId}/update`

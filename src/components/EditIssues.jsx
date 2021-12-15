@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Pane, Button, Heading, Text, majorScale } from "evergreen-ui";
+import { Pane, Button, majorScale } from "evergreen-ui";
 import CheckboxChip from "./CheckBoxChip";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { UserContext } from "../UserContext";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { postIssues } from '../reducers/therapistActions'
 import PageTitle from './PageTitle'
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 // Edit Profile component
 const EditIssues = ({ nextStep, prevStep }) => {
@@ -14,7 +17,9 @@ const EditIssues = ({ nextStep, prevStep }) => {
   const [issues, setIssues] = useState([]);
   const { user, setUser } = useContext(UserContext)
   const [therapistIssues, setTherapistIssues] = useState([]);
-  const databaseObj = useSelector(state => state.therapistReducer.isTherapist)
+  const therapistStore = useSelector(state => state.therapistReducer)
+  const dispatch = useDispatch()
+  const [isLoading, setIsLoading] = useState(false)
 
 
   const issuesObj = {
@@ -50,7 +55,9 @@ const EditIssues = ({ nextStep, prevStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    postIssues()
+    setIsLoading(true)
+    let id = therapistStore.therapist.id
+    dispatch(postIssues(issuesObj, id))
   };
 
   const handleChange = (e) => {
@@ -114,33 +121,25 @@ const EditIssues = ({ nextStep, prevStep }) => {
     }
   };
 
-  const postIssues = () => {
+  useEffect(() => {
+    redirectWhenUserReturned()
 
-    if (!user) {
+  }, [therapistStore]);
+
+
+  const redirectWhenUserReturned = () => {
+
+    if (!user && !therapistStore) {
       return false
-
     } else {
-      console.log(databaseObj)
-      let id = databaseObj.data.id
-      const url = `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${id}/add-issues`
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify(issuesObj)
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          nextStep()
-        })
-        .catch(error => {
-          console.log(error)
-          return false
-        })
+      if (therapistStore.hasIssues) {
+        console.log(therapistStore)
+        setIsLoading(false)
+        nextStep()
+      } else {
+        setIsLoading(false)
+        return false
+      }
     }
   }
 
@@ -152,6 +151,7 @@ const EditIssues = ({ nextStep, prevStep }) => {
         summary="Check all the boxes that apply"
         hasBackgroundColour="#bba4dc"
       />
+      {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
       <Pane
         display="flex"
         flexDirection="column"

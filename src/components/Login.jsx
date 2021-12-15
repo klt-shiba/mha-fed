@@ -6,7 +6,7 @@ import { TextInputField, Pane, Button, Alert } from "evergreen-ui";
 import PageTitle from './PageTitle'
 import { Container } from "reactstrap";
 import Section from "./Section";
-import { useAuth0 } from "@auth0/auth0-react";
+import ButtonWrapper from "./ButtonWrapper";
 
 
 
@@ -28,13 +28,6 @@ const Login = () => {
     formAlert: false,
     formAlertErrorMessage: false
   })
-
-  const {
-    user,
-    isAuthenticated,
-    loginWithRedirect,
-    logout,
-  } = useAuth0();
 
   const dispatch = useDispatch();
 
@@ -135,13 +128,11 @@ const Login = () => {
         title="Log in"
         summary="Take that first step and find professionals who are available now"
       />
-      {console.log(user)}
       <Section
         backgroundColour="#fafafa"
         hasPaddingTop
         hasPaddingBottom>
         <Container fluid="xl">
-
           <Pane
             display="flex"
             alignItems="center"
@@ -178,10 +169,7 @@ const Login = () => {
                   validationMessage={hasError.passwordErrorMessage}
                 />
                 <Pane display="flex">
-                  <Pane flex={1} alignItems="center" display="flex">
-
-                  </Pane>
-                  <Pane>
+                  <ButtonWrapper>
                     <Button
                       type="submit"
                       appearance="primary"
@@ -190,21 +178,13 @@ const Login = () => {
                       fontSize="17px">
                       Login
                     </Button>
-                  </Pane>
+                  </ButtonWrapper>
                 </Pane>
-
               </form>
             </Pane>
           </Pane>
-          {/* <button type="" className="btn btn-primary" onClick={() => loginWithRedirect()}>
-            Sign in with Google
-          </button>
-
-          <button type="" className="btn btn-primary" onClick={() => logout()}>
-            Logout
-          </button> */}
         </Container>
-      </Section>
+      </Section >
     </>
   );
 };

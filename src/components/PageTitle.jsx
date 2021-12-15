@@ -7,7 +7,7 @@ const HomeBannerContainer = styled.div`
     width: 100%;
     background-repeat: no-repeat;
     background-color:${props => props.hasBackgroundColour};
-    height: ${props => props.isSmall ? "auto" : "520px"};
+    height: ${props => props.isSmall ? "auto" : "560px"};
     position: relative;
     overflow: hidden;
     align-items: center;
@@ -18,16 +18,16 @@ const HomeBannerContainer = styled.div`
         }   
 
     & img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    opacity: 0.35;
-    filter: blur(2px);
-    background-color: ${props => props.hasBackgroundColour};
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        opacity: 0.35;
+        filter: blur(2px);
+        background-color: ${props => props.hasBackgroundColour};
 
         ${up("lg")} {
         object-fit: cover;
@@ -36,13 +36,13 @@ const HomeBannerContainer = styled.div`
 }
 
     & div.content_aligner {
-    z-index: 2;
-    position: relative;
-    color: ${props => props.hasFontColour};;
-    vertical-align: baseline;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 0;
+        z-index: 2;
+        position: relative;
+        color: ${props => props.hasFontColour};;
+        vertical-align: baseline;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
 
     ${up("md")} {
         padding: 72px 0;

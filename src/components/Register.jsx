@@ -7,8 +7,7 @@ import PageTitle from "./PageTitle";
 import { Container } from "reactstrap";
 import Section from "./Section";
 import LinearProgress from '@mui/material/LinearProgress';
-
-
+import ButtonWrapper from "./ButtonWrapper";
 
 const Register = () => {
   // SET and GET Register form variables
@@ -23,8 +22,6 @@ const Register = () => {
     formAlert: false,
     formAlertErrorMessage: false
   })
-
-  const token = localStorage.getItem('token')
 
   const databaseObj = useSelector(state => state.userReducer.user)
 
@@ -166,7 +163,6 @@ const Register = () => {
                   className="form-control"
                   id="register_email"
                   aria-describedby="register_email"
-                  // description="This is a description."
                   placeholder="Enter email"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
@@ -185,10 +181,7 @@ const Register = () => {
                   inputHeight={48}
                 />
                 <Pane display="flex">
-                  <Pane flex={1} alignItems="center" display="flex">
-
-                  </Pane>
-                  <Pane>
+                  <ButtonWrapper>
                     <Button
                       type="submit"
                       appearance="primary"
@@ -197,15 +190,11 @@ const Register = () => {
                       fontSize="17px">
                       Create account
                     </Button>
-                  </Pane>
+                  </ButtonWrapper>
                 </Pane>
-
               </form>
             </Pane>
           </Pane>
-          {/* <button type="" className="btn btn-primary" onClick={googleOAuth}>
-            Sign in with Google
-          </button> */}
         </Container >
       </Section>
 
