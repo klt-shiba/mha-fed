@@ -72,6 +72,9 @@ const CardContainer = styled.a`
         }
 
     }
+    & div.rating-wrapper span{
+        font-size:24px;
+    }
 `;
 
 
@@ -118,10 +121,14 @@ ${props => {
 
     & div.bullet_wrapper {
         position: absolute;
-        display:flex;
+        display: flex;
         justify-content: right;
+        width: 100%;
         margin-top:8px;
+        margin-left:8px;
+        margin-right:8px;
         z-index: 1;
+        padding-right: 8px
     }
 
     ${up('md')} {
@@ -176,7 +183,7 @@ const CardV2 = (props) => {
                 <div className="summary-card-container">
                     <Text size={400} variant="body2" gutterBottom>{props.body}</Text>
                 </div>
-                <div >
+                <div className="rating-wrapper">
                     {props.rating}
                 </div>
             </div >
