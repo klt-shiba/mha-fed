@@ -30,7 +30,7 @@ const Container = styled.div`
         flex-direction: column;
 
         ${up('md')} {
-            font-size: 19px;
+            font-size: 20px;
             line-height: 28px
                
         }
