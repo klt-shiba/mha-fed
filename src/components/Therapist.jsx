@@ -39,7 +39,6 @@ const Therapist = () => {
       })
       .then((response) => {
         const data = response.data
-        console.log(data)
         setTherapist(data.attributes);
         setTherapistUser(data);
         setReviews(data.attributes.reviews)
@@ -57,8 +56,6 @@ const Therapist = () => {
   const getRatings = (object) => {
 
     const ratingArray = object.reviews
-
-    console.log(ratingArray)
 
     if (!ratingArray) {
       return false
@@ -91,8 +88,6 @@ const Therapist = () => {
     if (reviews.length === 0) {
       return <div>Write a review</div>;
     } else {
-      console.log(reviews);
-
       const formatDate = (dateString) => {
         const options = { year: "numeric", month: "long", day: "numeric" }
         return new Date(dateString).toLocaleDateString(undefined, options)
@@ -101,7 +96,6 @@ const Therapist = () => {
       return (
         <div>
           {reviews.map((review) => {
-            console.log(review);
 
             let dateString = review.created_at
             return (
@@ -157,7 +151,6 @@ const Therapist = () => {
   }, [therapist, therapistRating])
 
   const handleClick = (e) => {
-    console.log(e.target);
     history.push("");
     redirectUser(token);
   };
@@ -268,7 +261,6 @@ const Therapist = () => {
       {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
       <Section
         backgroundColour="#fafafa">
-        {console.log(user)}
         <PrimaryBanner
           hasIcon
           hasBackgroundColour="#fafafa"

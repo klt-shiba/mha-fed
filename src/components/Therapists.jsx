@@ -57,10 +57,8 @@ const Therapists = props => {
 
   const checkSearchParameter = (searchParameter) => {
     if (!searchParameter) {
-      console.log("Search parameter doesn't exist")
       return false
     } else {
-      console.log("Has Search Parameter")
       return searchParameter
     }
   }
@@ -68,7 +66,6 @@ const Therapists = props => {
   const trimSearchParameter = (string) => {
 
     if (!string) {
-      console.log("No string")
       return false
     } else {
 
@@ -77,7 +74,6 @@ const Therapists = props => {
 
       if (resultsArray[0] === 'Issue') {
         let trimmedArray = resultsArray[1].split(",")
-        console.log(trimmedArray)
         setSearchValue(trimmedArray)
       } else {
         setSearchValue(trimmedValue)
@@ -89,15 +85,11 @@ const Therapists = props => {
   const checkIfSearchResulstAndValueExist = () => {
 
     if (!searchKey && !searchValue) {
-      console.log("No Search Result exists")
       return false
     } else if (Array.isArray(searchValue)) {
-      console.log("Search and Key exists and it's an Array")
       filterTherapistsByKeyAndArray(searchKey, searchValue)
     } else {
-      console.log("Search and Key exists and it's a string")
       filterTherapistsByKeyAndValue(searchKey, searchValue)
-
     }
   }
 
@@ -145,10 +137,6 @@ const Therapists = props => {
           therapistIssuesNameArray.push(el.name)
         })
 
-        console.log(therapistIssuesNameArray)
-        console.log(searchedIssuesArray)
-
-
         // Array of issues
         if (searchedIssuesArray.every((issue) => therapistIssuesNameArray.includes(issue))) {
           results.push(therapist)
@@ -162,14 +150,11 @@ const Therapists = props => {
 
   const checkIfSearchResultExists = () => {
     if (!homepageSearch) {
-      console.log("Fetch run")
       setHomepageSearch(null)
       fetchTherapists();
     } else {
       console.log("Searhed run")
-      console.log(homepageSearch)
     }
-    console.log(therapists)
   }
 
   const fetchTherapists = () => {
@@ -447,7 +432,6 @@ const Therapists = props => {
       search: "",
       state: ""
     })
-    console.log(filteredTherapist)
     setHomepageSearch(null)
     setSearchValue(null)
     setSearchKey(null)
