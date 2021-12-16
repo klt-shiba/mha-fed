@@ -24,6 +24,7 @@ const Register = () => {
   })
 
   const databaseObj = useSelector(state => state.userReducer.user)
+  const userStore = useSelector(state => state.userReducer)
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,48 +39,50 @@ const Register = () => {
 
   // Function to handle form submit
   const handleSubmit = (e) => {
-    e.preventDefault();
-    checkIfFieldsAreFilled()
+    e.preventDefault()
     if (checkIfFieldsAreFilled()) {
-      console.log("failing")
+      console.log(hasError)
     } else {
       setIsLoading(true)
       dispatch(signUserUp(userObj));
       checkIfUserCreated()
     }
   };
-
-
   const checkIfUserCreated = () => {
-    if (Object.keys(databaseObj).length === 0) {
-      setHasError({
-        ...hasError,
-        email: true,
-        password: true,
-        formAlert: true,
-        formAlertErrorMessage: "Oops something went wrong, please try again"
-      })
-      setIsLoading(false)
-    } else {
+    if (!userStore) {
       return false
+    } else {
+      if (userStore.hasError) {
+        setHasError({
+          ...hasError,
+          email: true,
+          password: true,
+          formAlert: true,
+          formAlertErrorMessage: "Oops something went wrong, please try again"
+        })
+        setIsLoading(false)
+      } else {
+        return false
+      }
     }
   }
 
 
   const redirectUserAfterUserCreated = () => {
     console.log("running")
-    if (Object.keys(databaseObj).length === 0) {
+    if (!userStore.loggedIn) {
       return false
     } else {
-      console.log(databaseObj)
       const id = databaseObj.data.id
       setIsLoading(false)
       history.push(`/users/${id}/getting-started`)
     }
   }
+
   useEffect(() => {
+    checkIfUserCreated()
     redirectUserAfterUserCreated()
-  }, [databaseObj])
+  }, [databaseObj, userStore])
 
 
   const checkIfFieldsAreFilled = () => {

@@ -7,7 +7,7 @@ import PageTitle from './PageTitle'
 import { Container } from "reactstrap";
 import Section from "./Section";
 import ButtonWrapper from "./ButtonWrapper";
-
+import LinearProgress from '@mui/material/LinearProgress';
 
 
 // Login component
@@ -75,15 +75,14 @@ const Login = () => {
     if (!userStore.loggedIn) {
       return false
     } else {
-      console.log(databaseObj)
       setIsLoading(false)
       history.push(`/therapists`)
     }
   }
+
   useEffect(() => {
     checkIfUserCreated()
     redirectUserAfterUserAuthenticated()
-    console.log(userStore)
   }, [userStore])
 
   const checkIfFieldsAreFilled = () => {
@@ -134,6 +133,7 @@ const Login = () => {
         title="Log in"
         summary="Take that first step and find professionals who are available now"
       />
+      {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
       <Section
         backgroundColour="#fafafa"
         hasPaddingTop

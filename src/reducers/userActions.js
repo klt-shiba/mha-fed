@@ -24,7 +24,6 @@ export const fetchUser = userInfo => async dispatch => {
     body: JSON.stringify(userInfo)
   })
   if (!response.ok) {
-    const message = `An error has occured: ${response.status}`;
     localStorage.removeItem('token')
     dispatch(setUserError(response))
     return false
@@ -36,11 +35,10 @@ export const fetchUser = userInfo => async dispatch => {
 }
 
 //   // Function to POST Register details details
-
-export const signUserUp = userInfo => dispatch => {
+export const signUserUp = userInfo => async dispatch => {
   console.log('accessing userAction correctly')
 
-  fetch(`https://damp-journey-90616.herokuapp.com/api/v1/users`, {
+  const response = await fetch(`https://damp-journey-90616.herokuapp.com/api/v1/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -48,21 +46,15 @@ export const signUserUp = userInfo => dispatch => {
     },
     body: JSON.stringify(userInfo)
   })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-
-      if (data.error) {
-        return false
-      }
-      localStorage.setItem('token', data.jwt)
-      dispatch(setUser(data.user))
-    })
-    .catch(error => {
-      console.log(error)
-      localStorage.removeItem('token')
-      return false
-    })
+  if (!response.ok) {
+    localStorage.removeItem('token')
+    dispatch(setUserError(response))
+    return false
+  }
+  const data = await response.json()
+  console.log(data)
+  localStorage.setItem('token', data.jwt)
+  dispatch(setUser(data.user))
 }
 
 export const autoLogin = () => async dispatch => {

@@ -12,6 +12,8 @@ const userReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 loggedIn: true,
+                hasError: false,
+                error: {},
                 user: { ...action.payload }
             }
         case "SET_USER_ERROR":
