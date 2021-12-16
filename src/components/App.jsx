@@ -34,9 +34,7 @@ const App = () => {
   }, [token])
 
   const fastLogin = () => {
-    console.log("Clicked")
     if (!token) {
-      localStorage.removeItem("token")
       setUser(null)
       return false
     } else {

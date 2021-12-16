@@ -67,9 +67,7 @@ const Register = () => {
     }
   }
 
-
   const redirectUserAfterUserCreated = () => {
-    console.log("running")
     if (!userStore.loggedIn) {
       return false
     } else {
@@ -118,7 +116,6 @@ const Register = () => {
       })
       return true
     } else {
-      console.log("Fields have been filled in")
       return false
     }
   }

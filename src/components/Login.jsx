@@ -71,7 +71,6 @@ const Login = () => {
 
 
   const redirectUserAfterUserAuthenticated = () => {
-    console.log("running")
     if (!userStore.loggedIn) {
       return false
     } else {

@@ -82,9 +82,7 @@ const EditUserType = ({ nextStep }) => {
   const handleSubmit = e => {
     e.preventDefault()
     setIsLoading(true)
-    console.log(tempUserObj)
     therapistOrClient()
-    console.log(user)
   }
 
   useEffect(() => {
@@ -132,16 +130,12 @@ const EditUserType = ({ nextStep }) => {
       formData.append('city', state)
       formData.append('profession', profession)
       formData.append('avatar_img', image)
-      console.log("Therapist is true")
-      console.log(formData)
       dispatch(createTherapist(formData))
     } else {
       formData.append('user_id', parseInt(id))
       formData.append('first_name', preferredName)
       formData.append('last_name', lastName)
       formData.append('avatar_img', image)
-      console.log("Therapist is false")
-      console.log(formData)
       dispatch(createClient(formData))
     }
   }
@@ -259,8 +253,6 @@ const EditUserType = ({ nextStep }) => {
                       inputHeight={48}
                       onChange={file => {
                         setImage(file[0])
-                        console.log(file[0])
-
                       }}
                       placeholder="Select the file here!"
                     />
