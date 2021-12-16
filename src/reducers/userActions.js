@@ -27,7 +27,6 @@ export const fetchUser = userInfo => async dispatch => {
     const message = `An error has occured: ${response.status}`;
     localStorage.removeItem('token')
     dispatch(setUserError(response))
-    console.log(response)
     return false
   }
   const data = await response.json()

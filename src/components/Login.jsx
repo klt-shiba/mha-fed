@@ -15,7 +15,7 @@ const Login = () => {
 
   const history = useHistory();
   const databaseObj = useSelector(state => state.userReducer.user)
-  const errorObj = useSelector(state => state.userReducer.error)
+  const userStore = useSelector(state => state.userReducer)
   const [isLoading, setIsLoading] = useState(false)
   // Set and Get login form values
   const [email, setEmail] = useState(null);
@@ -41,34 +41,38 @@ const Login = () => {
   // Function to handle form submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    checkIfFieldsAreFilled()
     if (checkIfFieldsAreFilled()) {
       console.log(hasError)
     } else {
+      setIsLoading(true)
       dispatch(fetchUser(userObj))
       checkIfUserCreated()
     }
   };
 
   const checkIfUserCreated = () => {
-    if (Object.keys(errorObj).length >= 1) {
-      setHasError({
-        ...hasError,
-        email: true,
-        password: true,
-        formAlert: true,
-        formAlertErrorMessage: "Oops something went wrong, please try again"
-      })
-      setIsLoading(false)
-    } else {
+    if (!userStore) {
       return false
+    } else {
+      if (userStore.hasError) {
+        setHasError({
+          ...hasError,
+          email: true,
+          password: true,
+          formAlert: true,
+          formAlertErrorMessage: "Oops something went wrong, please try again"
+        })
+        setIsLoading(false)
+      } else {
+        return false
+      }
     }
   }
 
 
   const redirectUserAfterUserAuthenticated = () => {
     console.log("running")
-    if (Object.keys(databaseObj).length === 0) {
+    if (!userStore.loggedIn) {
       return false
     } else {
       console.log(databaseObj)
@@ -77,8 +81,10 @@ const Login = () => {
     }
   }
   useEffect(() => {
+    checkIfUserCreated()
     redirectUserAfterUserAuthenticated()
-  }, [databaseObj])
+    console.log(userStore)
+  }, [userStore])
 
   const checkIfFieldsAreFilled = () => {
     if (!email && !pword) {

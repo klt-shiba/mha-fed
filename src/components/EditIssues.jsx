@@ -123,7 +123,6 @@ const EditIssues = ({ nextStep, prevStep }) => {
 
   useEffect(() => {
     redirectWhenUserReturned()
-
   }, [therapistStore]);
 
 

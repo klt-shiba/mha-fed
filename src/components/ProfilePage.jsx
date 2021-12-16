@@ -46,7 +46,6 @@ const ProfilePage = () => {
         redirectIfNoUser()
     }, [user, userStore])
 
-
     const checkUserType = () => {
         console.log(user)
         if (!user) {
