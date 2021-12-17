@@ -10,7 +10,6 @@ import LinearProgress from '@mui/material/LinearProgress';
 const UpdateUserType = () => {
 
     const { user, setUser } = useContext(UserContext)
-    const { id } = useParams()
     const [isTherapist, setIsTherapist] = useState(null)
     const [form, setForm] = useState({
         first_name: "",
@@ -84,10 +83,13 @@ const UpdateUserType = () => {
     const formData = new FormData()
 
     const patchDetails = () => {
+
         formData.append('user_id', userId)
         formData.append('first_name', form.first_name)
         formData.append('last_name', form.last_name)
         formData.append('avatar_img', form.avatar_img)
+
+        checkUserType()
 
         const url = isTherapist ?
             `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${urlId}/update` :

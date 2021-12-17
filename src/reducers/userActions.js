@@ -29,7 +29,6 @@ export const fetchUser = userInfo => async dispatch => {
     return false
   }
   const data = await response.json()
-  console.log(data)
   localStorage.setItem('token', data.jwt)
   dispatch(setUser(data.user))
 }
@@ -73,10 +72,8 @@ export const autoLogin = () => async dispatch => {
   })
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
-    console.log(message)
     localStorage.removeItem('token')
   }
   const data = await response.json()
-  console.log(data)
   dispatch(setUser(data.user))
 }
