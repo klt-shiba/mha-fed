@@ -47,7 +47,6 @@ const ProfilePage = () => {
     }, [user, userStore])
 
     const checkUserType = () => {
-        console.log(user)
         if (!user) {
             setUserAttributes(null)
             setIsTherapist(null)
@@ -77,15 +76,10 @@ const ProfilePage = () => {
 
         const staticId = id
         if (!user) {
-            console.log("false")
             return false
         } else if (staticId != user.id) {
-            console.log(id)
-            console.log(user.id)
             history.push(`/users/${user.id}/profile`)
         } else {
-            console.log(id)
-            console.log(user.id)
             return false
         }
     }
