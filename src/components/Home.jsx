@@ -82,25 +82,10 @@ const Home = () => {
       <ActionStrip
         hasBackgroundColour="##E7E4F9"
         hasHeading="Sign up today"
-        hasSubHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists Australia wide."
+        hasSubHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists New Zealand wide."
         hasOnClick={onClick}
         hasButton
         hasButtonLabel="Sign up today!" />
-      <Section
-        hasPaddingTop
-        hasPaddingBottom
-        backgroundColour="#fafafa">
-        <PrimaryBanner
-          hasDirection={false}
-          hasBackgroundColour="#fafafa"
-          heading="Find help for issues"
-          subHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists New Zealand wide."
-          hasImg="https://images.unsplash.com/photo-1509909756405-be0199881695?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80" />
-      </Section>
-      <ActionStrip
-        hasHeading="Honest experiences"
-        hasSubHeading="Reviews are open to anyone. Select your therapist, share your experience and help others." />
-      {console.log(user)}
       <Section
         hasPaddingTop
         hasPaddingBottom
@@ -112,6 +97,20 @@ const Home = () => {
           hasBackgroundColour="#fafafa"
           hasImg="https://images.unsplash.com/photo-1624887009213-040347b804c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=4387&q=80"
         />
+      </Section>
+      <ActionStrip
+        hasHeading="Honest experiences"
+        hasSubHeading="Reviews are open to anyone. Select your therapist, share your experience and help others." />
+      <Section
+        hasPaddingTop
+        hasPaddingBottom
+        backgroundColour="#fafafa">
+        <PrimaryBanner
+          hasDirection={false}
+          hasBackgroundColour="#fafafa"
+          heading="Find help for issues"
+          subHeading="Find the right therapist for you by searching hundreds of qualified and registered therapists New Zealand wide."
+          hasImg="https://images.unsplash.com/photo-1509909756405-be0199881695?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80" />
       </Section>
       <Footer />
     </>
