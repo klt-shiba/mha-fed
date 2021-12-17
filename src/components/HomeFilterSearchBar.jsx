@@ -106,7 +106,6 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
     };
     const onClick = (e) => {
         if (searchBy === "Profession" || searchBy === "City") {
-            console.log("No Therapists")
             history.push({
                 path: `/therapists`,
                 search: `?${searchBy}=${queries}`,
@@ -199,7 +198,6 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
     }
 
     const handleChipChange = (e) => {
-        console.log(multipleQueries)
         setMultipleQueries(e.target.text)
     }
 
@@ -209,7 +207,6 @@ const HomeFilterSearchBar = ({ issuesArray, therapistsArray, clearSearch }) => {
     const checkIfTherapistExists = (array) => {
 
         if (!array) {
-            console.log("Therapists don't exist")
             return false
         } else {
             setTherapists(array)

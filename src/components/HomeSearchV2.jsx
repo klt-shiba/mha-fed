@@ -97,7 +97,6 @@ const HomeSearchV2 = (issuesArray) => {
 
     const handleSecondChange = (event) => {
         setQueries(event.target.value);
-        console.log(queries)
     };
 
     const fetchTherapists = (query) => {
@@ -138,7 +137,6 @@ const HomeSearchV2 = (issuesArray) => {
             })
             fetchTherapists(cleanIssues.toString())
         } else {
-            console.log("All Therapist Selected")
             setQueries("")
             fetchTherapists()
         }
@@ -210,7 +208,6 @@ const HomeSearchV2 = (issuesArray) => {
         }
     }
     const handleInputChange = (e) => {
-        console.log(e)
     }
 
     return (

@@ -63,7 +63,6 @@ const EditIssues = ({ nextStep, prevStep }) => {
   const handleChange = (e) => {
     const rawValue = e.target.value
     const idValue = rawValue.split("_")
-    console.log(idValue[0]);
     updateTherapistIssueArray(idValue[0])
   };
 
@@ -79,7 +78,6 @@ const EditIssues = ({ nextStep, prevStep }) => {
     } else {
       therapistIssues.push(value)
     }
-    console.log(therapistIssues)
   }
 
   const renderIssuesCheckboxes = () => {
@@ -132,7 +130,6 @@ const EditIssues = ({ nextStep, prevStep }) => {
       return false
     } else {
       if (therapistStore.hasIssues) {
-        console.log(therapistStore)
         setIsLoading(false)
         nextStep()
       } else {

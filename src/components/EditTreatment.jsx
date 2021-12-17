@@ -35,7 +35,6 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                 throw new Error("Network response was not ok.");
             })
             .then((r) => {
-                console.log(r);
                 setTreatments(r);
             })
             .catch((error) => {
@@ -57,7 +56,6 @@ const EditTreatment = ({ nextStep, prevStep }) => {
 
     useEffect(() => {
         redirectWhenUserReturned()
-        console.log(therapistStore)
     }, [therapistStore]);
 
     const redirectWhenUserReturned = () => {
@@ -66,7 +64,6 @@ const EditTreatment = ({ nextStep, prevStep }) => {
             return false
         } else {
             if (therapistStore.hasTreatment) {
-                console.log(therapistStore)
                 setIsLoading(false)
                 nextStep()
             } else {
@@ -84,7 +81,6 @@ const EditTreatment = ({ nextStep, prevStep }) => {
     const handleChange = (e) => {
         const rawValue = e.target.value
         const idValue = rawValue.split("_")
-        console.log(idValue[0]);
         updateTherapistIssueArray(idValue[0])
     };
 
@@ -100,7 +96,6 @@ const EditTreatment = ({ nextStep, prevStep }) => {
         } else {
             therapistTreatments.push(value)
         }
-        console.log(therapistTreatments)
     }
 
     const renderTreatmentsCheckboxes = () => {

@@ -96,7 +96,6 @@ const EditUserType = ({ nextStep }) => {
       if (!therapistStore.isTherapist && !clientStore.isClient) {
         return false
       } else if (therapistStore.isTherapist) {
-        console.log(therapistStore)
         setIsLoading(false)
         nextStep()
       } else if (clientStore.isClient) {
@@ -300,7 +299,8 @@ const EditUserType = ({ nextStep }) => {
                       <Button
                         type="submit"
                         appearance="primary"
-                        size="large" >
+                        size="large"
+                        fontSize="17px">
                         Create profile
                       </Button>
                     </ButtonWrapper>

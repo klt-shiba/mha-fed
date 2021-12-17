@@ -47,10 +47,6 @@ const UpdateUserType = () => {
     const token = localStorage.getItem('token')
     const history = useHistory()
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(form)
-    }
 
     const routeToProfile = () => {
         history.push(`/users/${user.id}/profile`)
@@ -107,7 +103,6 @@ const UpdateUserType = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data)
                 setIsLoading(false)
                 handleSuccessOrFailure("Success")
             })
@@ -131,7 +126,6 @@ const UpdateUserType = () => {
                 backgroundColour="#fafafa"
                 hasPaddingTop
                 hasPaddingBottom>
-                {console.log(user)}
                 <Container fluid="xl">
                     <Pane
                         display="flex"
