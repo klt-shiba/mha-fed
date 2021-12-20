@@ -16,6 +16,7 @@ const EditUserType = ({ nextStep }) => {
 
   const history = useHistory();
   const dispatch = useDispatch()
+  const userStore = useSelector(state => state.userReducer.user)
   const therapistStore = useSelector(state => state.therapistReducer)
   const clientStore = useSelector(state => state.clientReducer)
   // SET and GET Therapist/Client state
@@ -59,19 +60,6 @@ const EditUserType = ({ nextStep }) => {
     { name: "Social worker" },
     { name: "Psychologist" }
   ]
-
-  const tempUserObj = {
-    profile: {
-      first_name: preferredName,
-      last_name: lastName,
-      short_summary: short_summary,
-      long_summary: short_summary,
-      state: state,
-      profession: profession,
-      user_id: parseInt(id),
-      avatar_img: image
-    }
-  }
 
   useEffect(() => {
     setIfUserIsTherapist()
@@ -120,8 +108,9 @@ const EditUserType = ({ nextStep }) => {
   }
 
   const therapistOrClient = () => {
+
     if (isTherapist) {
-      formData.append('user_id', parseInt(id))
+      formData.append('user_id', parseInt(userStore?.data.id))
       formData.append('first_name', preferredName)
       formData.append('last_name', lastName)
       formData.append('short_summary', short_summary)
@@ -131,7 +120,7 @@ const EditUserType = ({ nextStep }) => {
       formData.append('avatar_img', image)
       dispatch(createTherapist(formData))
     } else {
-      formData.append('user_id', parseInt(id))
+      formData.append('user_id', parseInt(userStore?.data.id))
       formData.append('first_name', preferredName)
       formData.append('last_name', lastName)
       formData.append('avatar_img', image)
@@ -196,6 +185,7 @@ const EditUserType = ({ nextStep }) => {
         summary="Tell us about yourself and why you are here"
         hasBackgroundColour="#bba4dc"
       />
+      {console.log(userStore)}
       {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
       <Section
         backgroundColour="#fafafa"

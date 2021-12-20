@@ -10,7 +10,7 @@ export const createTherapist = (userInfo) => (dispatch) => {
   console.log("accessing setTherapist correctly");
 
   const token = localStorage.getItem("token");
-  fetch(`https://damp-journey-90616.herokuapp.com/api/v1/therapists`, {
+  fetch(`http://localhost:3001/api/v1/therapists`, {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -20,8 +20,8 @@ export const createTherapist = (userInfo) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       dispatch(setTherapist(data.data))
+      console.log(data);
       return true
     })
     .catch(error => console.log(error));
