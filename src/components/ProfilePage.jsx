@@ -145,7 +145,7 @@ const ProfilePage = () => {
                         <b>Profession:</b> {`${userAttributes.profession}`}
                     </div>
                     <div>
-                        <b>Based in:</b> {`${userAttributes.state}`}
+                        <b>Based in:</b> {`${userAttributes.city}`}
                     </div>
                     <div>
                         <b>About me:</b> {`${userAttributes.long_summary}`}

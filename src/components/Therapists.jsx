@@ -158,7 +158,7 @@ const Therapists = props => {
   }
 
   const fetchTherapists = () => {
-    const url = "https://damp-journey-90616.herokuapp.com/api/v1/therapists";
+    const url = "http://localhost:3001/api/v1/therapists";
     fetch(url)
       .then((response) => {
         if (response.ok) {
@@ -349,7 +349,7 @@ const Therapists = props => {
                 imgSrc={therapist.attributes.avatar_img_url}
                 hasLocation={therapist.attributes.city}
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
-                href={`/therapists/${therapist.id}`}
+                href={`/therapists/${therapist.attributes.slug}`}
                 id={therapist.id}
                 body={renderSubheading(therapist)}
                 rating={updateRatings(getRatings(therapist))}
@@ -368,7 +368,7 @@ const Therapists = props => {
                 imgSrc={therapist.attributes.avatar_img_url}
                 hasLocation={therapist.attributes.city}
                 title={`${therapist.attributes.first_name}` + ` ${therapist.attributes.last_name}`}
-                href={`/therapists/${therapist.id}`}
+                href={`/therapists/${therapist.attributes.slug}`}
                 id={therapist.id}
                 body={renderSubheading(therapist)}
                 rating={updateRatings(getRatings(therapist))}
