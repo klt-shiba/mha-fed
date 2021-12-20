@@ -1,4 +1,5 @@
 const defaultState = {
+    id: "",
     isTherapist: false,
     therapist: {},
     hasIssues: false,
@@ -13,7 +14,8 @@ const therapistReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 isTherapist: true,
-                therapist: { ...action.payload }
+                therapist: { ...action.payload.attributes },
+                id: parseInt(action.payload.id)
             }
         case "SET_THERAPIST_ISSUES":
             return {

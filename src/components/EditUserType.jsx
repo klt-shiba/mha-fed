@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { createTherapist } from '../reducers/therapistActions'
 import { createClient } from '../reducers/clientActions'
@@ -15,7 +15,7 @@ import ButtonWrapper from "./ButtonWrapper";
 const EditUserType = ({ nextStep }) => {
 
   const history = useHistory();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const userStore = useSelector(state => state.userReducer.user)
   const therapistStore = useSelector(state => state.therapistReducer)
   const clientStore = useSelector(state => state.clientReducer)
@@ -33,7 +33,6 @@ const EditUserType = ({ nextStep }) => {
     { label: 'Im a Client', value: 'Client' }
   ])
   const [value, setValue] = useState('Therapist')
-  const { id } = useParams()
   const [isLoading, setIsLoading] = useState(false)
 
   const stateObject = [
@@ -78,22 +77,22 @@ const EditUserType = ({ nextStep }) => {
   }, [therapistStore, clientStore])
 
   const redirectWhenUserReturned = () => {
-    if (!user) {
+
+    if (!therapistStore.isTherapist && !clientStore.isClient) {
+      console.log("Hmmmmmm")
       return false
+    } else if (therapistStore.isTherapist) {
+      console.log("Is a therapist")
+      setIsLoading(false)
+      nextStep()
+    } else if (clientStore.isClient) {
+      setIsLoading(false)
+      history.push('/therapists')
     } else {
-      if (!therapistStore.isTherapist && !clientStore.isClient) {
-        return false
-      } else if (therapistStore.isTherapist) {
-        setIsLoading(false)
-        nextStep()
-      } else if (clientStore.isClient) {
-        setIsLoading(false)
-        history.push('/therapists')
-      } else {
-        setIsLoading(false)
-        return false
-      }
+      setIsLoading(false)
+      return false
     }
+
   }
 
   const handleRadio = (e) => {
@@ -140,9 +139,9 @@ const EditUserType = ({ nextStep }) => {
           height={40}
           width="100%"
           onChange={e => setState(e.target.value)}>
-          {stateObject.map((el) => {
+          {stateObject.map((el, index) => {
             return (
-              <option value={el.name}>
+              <option key={index} value={el.name}>
                 {el.name}
               </option>
             )
@@ -152,6 +151,8 @@ const EditUserType = ({ nextStep }) => {
       </Pane>
     )
   }
+
+
   const renderSelectProfession = () => {
     return (
       <Pane
@@ -165,9 +166,9 @@ const EditUserType = ({ nextStep }) => {
           width="100%"
           fontSize="20px"
           onChange={e => setProfession(e.target.value)}>
-          {professionObj.map((el) => {
+          {professionObj.map((el, index) => {
             return (
-              <option value={el.name}>
+              <option key={index} value={el.name}>
                 {el.name}
               </option>
             )
