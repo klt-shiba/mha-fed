@@ -1,6 +1,25 @@
+
+
+const url = () => {
+
+  const isProduction = false
+  let string = ""
+
+  if (isProduction) {
+    string = "https://damp-journey-90616.herokuapp.com/api/v1/"
+  } else {
+    string = "http://localhost:3001/api/v1/"
+  }
+  return string
+}
+
+
+
 // Action Creators
 const setUser = payload => ({ type: 'SET_USER', payload })
 const setUserError = payload => ({ type: 'SET_USER_ERROR', payload })
+
+
 
 export const logUserOut = () => (
   {
@@ -12,7 +31,7 @@ export const logUserOut = () => (
 
 export const fetchUser = userInfo => async dispatch => {
 
-  const response = await fetch(`https://damp-journey-90616.herokuapp.com/api/v1/auth`, {
+  const response = await fetch(`${url}auth`, {
 
     method: 'POST',
     headers: {
@@ -27,14 +46,14 @@ export const fetchUser = userInfo => async dispatch => {
     return false
   }
   const data = await response.json()
-  localStorage.setItem('token', data.jwt)
   dispatch(setUser(data.user))
+  localStorage.setItem('token', data.jwt)
 }
 
 //   // Function to POST Register details details
 export const signUserUp = userInfo => async dispatch => {
 
-  const response = await fetch(`https://damp-journey-90616.herokuapp.com/api/v1/users`, {
+  const response = await fetch(`http://localhost:3001/api/v1/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -48,17 +67,15 @@ export const signUserUp = userInfo => async dispatch => {
     return false
   }
   const data = await response.json()
-  localStorage.setItem('token', data.jwt)
+  console.log(data)
   dispatch(setUser(data.user))
+  localStorage.setItem('token', data.jwt)
 }
 
 export const autoLogin = () => async dispatch => {
 
 
-  const url = `https://damp-journey-90616.herokuapp.com/api/v1/auto-auth`
-  // const url = `http://localhost:3001/api/v1/auto-auth`
-
-  const response = await fetch(url, {
+  const response = await fetch(`http://localhost:3001/api/v1/auto-auth`, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -66,7 +83,7 @@ export const autoLogin = () => async dispatch => {
     }
   })
   if (!response.ok) {
-    const message = `An error has occured: ${response.status}`;
+    dispatch(setUserError(response))
     localStorage.removeItem('token')
   }
   const data = await response.json()

@@ -38,7 +38,6 @@ const UpdateUserType = () => {
         }
     }
 
-
     useEffect(() => {
         checkUserType()
     }, [user])
