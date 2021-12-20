@@ -79,10 +79,8 @@ const EditUserType = ({ nextStep }) => {
   const redirectWhenUserReturned = () => {
 
     if (!therapistStore.isTherapist && !clientStore.isClient) {
-      console.log("Hmmmmmm")
       return false
     } else if (therapistStore.isTherapist) {
-      console.log("Is a therapist")
       setIsLoading(false)
       nextStep()
     } else if (clientStore.isClient) {
@@ -186,7 +184,6 @@ const EditUserType = ({ nextStep }) => {
         summary="Tell us about yourself and why you are here"
         hasBackgroundColour="#bba4dc"
       />
-      {console.log(userStore)}
       {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
       <Section
         backgroundColour="#fafafa"

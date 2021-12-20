@@ -68,7 +68,6 @@ const Register = () => {
   }
 
   const redirectUserAfterUserCreated = () => {
-    console.log(databaseObj)
     if (!userStore.loggedIn) {
       return false
     } else {

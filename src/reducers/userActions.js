@@ -31,7 +31,7 @@ export const logUserOut = () => (
 
 export const fetchUser = userInfo => async dispatch => {
 
-  const response = await fetch(`${url}auth`, {
+  const response = await fetch(`https://damp-journey-90616.herokuapp.com/api/v1/auth`, {
 
     method: 'POST',
     headers: {
@@ -53,7 +53,7 @@ export const fetchUser = userInfo => async dispatch => {
 //   // Function to POST Register details details
 export const signUserUp = userInfo => async dispatch => {
 
-  const response = await fetch(`http://localhost:3001/api/v1/users`, {
+  const response = await fetch(`https://damp-journey-90616.herokuapp.com/api/v1/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export const signUserUp = userInfo => async dispatch => {
 export const autoLogin = () => async dispatch => {
 
 
-  const response = await fetch(`http://localhost:3001/api/v1/auto-auth`, {
+  const response = await fetch(`https://damp-journey-90616.herokuapp.com/api/v1/auto-auth`, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',

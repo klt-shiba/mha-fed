@@ -158,7 +158,7 @@ const Therapists = props => {
   }
 
   const fetchTherapists = () => {
-    const url = "http://localhost:3001/api/v1/therapists";
+    const url = "https://damp-journey-90616.herokuapp.com/api/v1/therapists";
     fetch(url)
       .then((response) => {
         if (response.ok) {
