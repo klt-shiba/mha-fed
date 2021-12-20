@@ -9,7 +9,8 @@ const NavBar = ({ hasToken }) => {
     const [userAttributes, setUserAttributes] = useState(null)
 
     const renderAvatar = () => {
-        const id = user.id
+        console.log(user)
+        const id = user.attributes.slug
         if (!user) {
             return false
         } else {

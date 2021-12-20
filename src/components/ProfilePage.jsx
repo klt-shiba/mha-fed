@@ -73,12 +73,11 @@ const ProfilePage = () => {
     }
 
     const redirectToCorrectPage = () => {
-
         const staticId = id
         if (!user) {
             return false
-        } else if (staticId != user.id) {
-            history.push(`/users/${user.id}/profile`)
+        } else if (staticId != user.attributes.slug) {
+            history.push(`/users/${user.attributes.slug}/profile`)
         } else {
             return false
         }
