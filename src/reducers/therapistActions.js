@@ -1,3 +1,5 @@
+import { url } from "../environment"
+
 const setTherapist = (payload) => ({ type: "SET_THERAPIST", payload });
 const setTherapistIssues = (payload) => ({ type: "SET_THERAPIST_ISSUES", payload });
 const setTherapistTreatment = (payload) => ({ type: "SET_THERAPIST_TREATMENT", payload });
@@ -10,7 +12,7 @@ export const createTherapist = (userInfo) => (dispatch) => {
   console.log("accessing setTherapist correctly");
 
   const token = localStorage.getItem("token");
-  fetch(`https://damp-journey-90616.herokuapp.com/api/v1/therapists`, {
+  fetch(`${url}therapists`, {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -32,7 +34,7 @@ export const postIssues = (issues, id) => (dispatch) => {
 
   console.log("accessing postIssues correctly");
 
-  const url = `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${id}/add-issues`
+  const url = `${url}therapists/${id}/add-issues`
 
   const token = localStorage.getItem("token");
   fetch(url, {

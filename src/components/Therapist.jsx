@@ -12,12 +12,13 @@ import TherapistRatingCard from "./TherapistRatingsCard";
 import { UserContext } from "../UserContext";
 import LinearProgress from '@mui/material/LinearProgress';
 import Footer from './Footer'
+import { url } from "../environment"
+
 
 const Therapist = () => {
 
   const { user, setUser } = useContext(UserContext)
   const [therapist, setTherapist] = useState(null);
-  const [therapistUser, setTherapistUser] = useState("");
   const [reviews, setReviews] = useState([]);
   const [issues, setIssues] = useState([]);
   const [treatments, setTreatments] = useState([])
@@ -28,9 +29,8 @@ const Therapist = () => {
 
 
   const fetchTherapist = () => {
-    const url = `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${id}`
-    // const url = `http://127.0.0.1:3001/api/v1/therapists/${id}`;
-    fetch(url)
+
+    fetch(`${url}therapists/${id}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -40,7 +40,6 @@ const Therapist = () => {
       .then((response) => {
         const data = response.data
         setTherapist(data.attributes);
-        setTherapistUser(data);
         setReviews(data.attributes.reviews)
         setIssues(data.attributes.issues)
         setTreatments(data.attributes.treatments)

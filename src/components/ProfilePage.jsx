@@ -10,6 +10,7 @@ import Section from "./Section";
 import InfoBlock from "./InfoBlock";
 import PageTitle from "./PageTitle";
 import ButtonWrapper from "./ButtonWrapper";
+import { url } from "../environment";
 
 
 const ProfilePage = () => {

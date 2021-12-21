@@ -1,5 +1,6 @@
-const setClient = (payload) => ({ type: "SET_CLIENT", payload });
+import { url } from "../environment"
 
+const setClient = (payload) => ({ type: "SET_CLIENT", payload });
 
 export const createClient = (userInfo) => (dispatch) => {
 
@@ -7,7 +8,7 @@ export const createClient = (userInfo) => (dispatch) => {
 
   console.log("accessing createClient correctly");
 
-  fetch(`https://damp-journey-90616.herokuapp.com/api/v1/clients`, {
+  fetch(`${url}clients`, {
     method: "POST",
     headers: {
       "Accept": "application/json",

@@ -11,12 +11,13 @@ import ResultsBar from './ResultsBar'
 import HomeFilterSearchBar from './HomeFilterSearchBar'
 import LinearProgress from '@mui/material/LinearProgress';
 import Footer from './Footer'
+import { url } from "../environment"
+
 
 const Therapists = props => {
 
   const history = useHistory();
   const location = useLocation();
-
 
   const [therapists, setTherapists] = useState([]);
   const [filteredTherapist, setFilteredTherapist] = useState([]);
@@ -158,8 +159,7 @@ const Therapists = props => {
   }
 
   const fetchTherapists = () => {
-    const url = "https://damp-journey-90616.herokuapp.com/api/v1/therapists";
-    fetch(url)
+    fetch(`${url}therapists`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -179,7 +179,7 @@ const Therapists = props => {
 
   const fetchIssues = async () => {
     try {
-      const url = "https://damp-journey-90616.herokuapp.com/api/v1/issues"
+      const url = `${url}issues`
       const res = await fetch(url);
       const data = await res.json();
 

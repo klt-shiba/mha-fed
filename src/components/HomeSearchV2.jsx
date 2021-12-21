@@ -242,7 +242,7 @@ const HomeSearchV2 = (issuesArray) => {
                                 }}
                                 onInputChange={handleInputChange}
                                 renderInput={(params) => (
-                                    <TextField {...params} label={`Search by ${searchBy}`} inputValue={"value"} placeholder={searchBy[0].name} />
+                                    <TextField {...params} label={`Search by ${searchBy}`} inputvalue={"value"} placeholder={searchBy[0].name} />
                                 )}
                             /> :
                             <FormControl fullWidth>

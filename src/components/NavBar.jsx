@@ -95,8 +95,7 @@ const NavBar = ({ hasToken }) => {
                         <Link
                             to="/"
                             style={{ textDecoration: 'none', color: "#6d23b6", fontSize: "20px", fontWeight: "800" }}
-                            activeStyle={{ backgroundColour: "#6d23b6", color: "black" }}
-                            activeClassName="active">
+                        >
                             <Pane
                                 display="flex"
                                 flexDirection="row"
