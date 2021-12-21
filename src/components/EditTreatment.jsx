@@ -35,7 +35,11 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                 throw new Error("Network response was not ok.");
             })
             .then((r) => {
-                setTreatments(r);
+                setTreatments(r.sort(function (a, b) {
+                    if (a.name < b.name) { return -1; }
+                    if (a.name > b.name) { return 1; }
+                    return 0;
+                }))
             })
             .catch((error) => {
                 console.log(error);

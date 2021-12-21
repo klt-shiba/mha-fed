@@ -34,7 +34,6 @@ const App = () => {
   }, [token])
 
   const fastLogin = () => {
-    console.log(databaseObj)
     if (!token) {
       setUser(null)
       return false

@@ -47,7 +47,6 @@ const ProfilePage = () => {
     }, [user, userStore])
 
     const checkUserType = () => {
-        console.log(userStore)
         if (!user && !userStore.loggedIn) {
             setUserAttributes(null)
             setIsTherapist(null)
@@ -75,7 +74,6 @@ const ProfilePage = () => {
 
     const redirectToCorrectPage = () => {
         const staticId = id
-        console.log(user)
         if (!userStore.loggedIn) {
             return false
         } else if (staticId != id) {
