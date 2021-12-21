@@ -177,7 +177,6 @@ const EditIssues = ({ nextStep, prevStep }) => {
                 </div>
                 <Pane display="flex">
                   <Pane flex={1} alignItems="center" display="flex">
-
                   </Pane>
                   <Pane>
                     <Button onClick={previous} name="back_button" marginRight={16} size="large">

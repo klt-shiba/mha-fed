@@ -59,8 +59,8 @@ const App = () => {
             <Route path="/register" exact component={Register} />
             <Route path="/users/:id/getting-started" exact component={GettingStarted} />
             <Route path="/users/:id/create" exact component={EditUserType} />
-            <Route path="/therapists/:id/edit-issues" exact component={EditIssues} />
-            <Route path="/therapists/:id/edit-treatment" exact component={EditTreatment} />
+            <Route path="/users/:id/edit-issues" exact component={EditIssues} />
+            <Route path="/users/:id/edit-treatment" exact component={EditTreatment} />
             <Route path="/therapists/:id/review" exact component={CreateReview} />
             <Route path="/users/:id/profile" exact component={ProfilePage} />
             <Route path="/users/:id/update-profile" exact component={UpdateUserType} />

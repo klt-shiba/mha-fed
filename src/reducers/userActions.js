@@ -87,5 +87,5 @@ export const autoLogin = () => async dispatch => {
     localStorage.removeItem('token')
   }
   const data = await response.json()
-  dispatch(setUser(data.user.data))
+  dispatch(setUser(data?.user?.data))
 }
