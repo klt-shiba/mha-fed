@@ -6,9 +6,11 @@ import Section from './Section'
 import PageTitle from "./PageTitle";
 import { Container } from "reactstrap";
 import LinearProgress from '@mui/material/LinearProgress';
+import { useDispatch, useSelector } from "react-redux";
+
 
 const UpdateUserType = () => {
-
+    const userStore = useSelector(state => state.userReducer)
     const { user, setUser } = useContext(UserContext)
     const [isTherapist, setIsTherapist] = useState(null)
     const [form, setForm] = useState({
@@ -22,14 +24,13 @@ const UpdateUserType = () => {
     let urlId = ""
 
     const checkUserType = () => {
-
         if (!user) {
             setIsTherapist(null)
             return false
-        } else if (user.attributes.client === null) {
+        } else if (user?.attributes?.client === null) {
             setIsTherapist(true)
             urlId = user.attributes.therapist.id
-        } else if (user.attributes.therapist === null) {
+        } else if (user?.attributes?.therapist === null) {
             setIsTherapist(false)
             urlId = user.attributes.client.id
         } else {

@@ -15,11 +15,6 @@ import { UserContext } from "../UserContext";
 
 const Home = () => {
   const [issues, setIssues] = useState(null)
-  const {
-    isAuthenticated,
-    loginWithRedirect,
-    logout,
-  } = useAuth0();
   const history = useHistory()
   const { user, setUser } = useContext(UserContext)
 

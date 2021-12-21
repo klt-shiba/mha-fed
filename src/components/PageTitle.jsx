@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import React from 'react';
 import { Container } from 'reactstrap';
 import { up } from 'styled-breakpoints'
@@ -93,7 +93,7 @@ const PageTitle = (props) => {
     return (
         <>
             <HomeBannerContainer isSmall={props.isSmall} hasBackgroundColour={props.hasBackgroundColour || "#bba4dc"}>
-                <img src={props.src}></img>
+                <img src={props.src} alt={props.alt || "Nice image of a sunset"}></img>
                 <Container fluid="xl" >
                     <div className="content_aligner">
                         <Heading>{props.title || "Welcome"}</Heading>

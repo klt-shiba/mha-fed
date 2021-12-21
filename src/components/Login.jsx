@@ -14,7 +14,6 @@ import LinearProgress from '@mui/material/LinearProgress';
 const Login = () => {
 
   const history = useHistory();
-  const databaseObj = useSelector(state => state.userReducer.user)
   const userStore = useSelector(state => state.userReducer)
   const [isLoading, setIsLoading] = useState(false)
   // Set and Get login form values

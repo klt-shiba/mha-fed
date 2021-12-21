@@ -9,7 +9,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { postTreatments } from '../reducers/therapistActions'
 import LinearProgress from '@mui/material/LinearProgress';
 import PageTitle from './PageTitle'
-
+import { Container } from "reactstrap";
+import Section
+    from "./Section";
 // Edit Profile component
 const EditTreatment = ({ nextStep, prevStep }) => {
     const therapistStore = useSelector(state => state.therapistReducer)
@@ -148,27 +150,19 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                 hasBackgroundColour="#bba4dc"
             />
             {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
-            <Pane
-                display="flex"
-                flexDirection="column"
-                className="vbox">
-                <Pane
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    marginY={majorScale(4)}>
-
+            <Section
+                hasPaddingTop
+                hasPaddingBottom
+                backgroundColour="#fafafa">
+                <Container fluid="xl">
                     <Pane
-                        max-width="480px"
-                        display="block"
-                        textAlign="center">
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        textAlign="left">
                         <Pane
-                            display="block"
-                            alignItems="center"
-                            justifyContent="center"
-                            textAlign="left"
-                            marginY={majorScale(3)}
-                        >
+                            width="100%"
+                            maxWidth='720px'>
                             <form onSubmit={e => handleSubmit(e)}>
                                 <div className="form-group" onChange={handleChange}>
                                     {renderTreatmentsCheckboxes()}
@@ -188,8 +182,8 @@ const EditTreatment = ({ nextStep, prevStep }) => {
                             </form>
                         </Pane>
                     </Pane>
-                </Pane>
-            </Pane>
+                </Container>
+            </Section>
         </>
     );
 };

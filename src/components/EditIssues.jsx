@@ -8,6 +8,8 @@ import { UserContext } from "../UserContext";
 import { useDispatch, useSelector } from 'react-redux'
 import { postIssues } from '../reducers/therapistActions'
 import PageTitle from './PageTitle'
+import Section from "./Section";
+import { Container } from "reactstrap";
 import LinearProgress from '@mui/material/LinearProgress';
 
 
@@ -152,28 +154,19 @@ const EditIssues = ({ nextStep, prevStep }) => {
         hasBackgroundColour="#bba4dc"
       />
       {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
-      <Pane
-        display="flex"
-        flexDirection="column"
-        className="vbox">
-        <Pane
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          marginY={majorScale(4)}>
-
+      <Section
+        hasPaddingTop
+        hasPaddingBottom
+        backgroundColour="#fafafa">
+        <Container fluid="xl">
           <Pane
-            max-width="480px"
-            display="block"
-            textAlign="center">
-
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            textAlign="left">
             <Pane
-              display="block"
-              alignItems="center"
-              justifyContent="center"
-              textAlign="left"
-              marginY={majorScale(3)}
-            >
+              width="100%"
+              maxWidth='720px'>
               <form onSubmit={handleSubmit}>
                 <div className="form-group" onChange={handleChange}>
                   {renderIssuesCheckboxes()}
@@ -183,17 +176,17 @@ const EditIssues = ({ nextStep, prevStep }) => {
                   <Pane flex={1} alignItems="center" display="flex">
                   </Pane>
                   <Pane>
-                    <Button onClick={previous} name="back_button" marginRight={16} size="large">
+                    <Button onClick={previous} name="back_button" marginRight={16} size="large" height={48} fontSize="17px">
                       Back
                     </Button>
-                    <Button appearance="primary" type="submit" size="large">Next</Button>
+                    <Button appearance="primary" type="submit" size="large" height={48} fontSize="17px">Next</Button>
                   </Pane>
                 </Pane>
               </form>
             </Pane>
           </Pane>
-        </Pane >
-      </Pane >
+        </Container >
+      </Section >
     </>
   );
 };

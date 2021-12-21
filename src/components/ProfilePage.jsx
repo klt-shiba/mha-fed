@@ -15,6 +15,7 @@ import { url } from "../environment";
 
 const ProfilePage = () => {
 
+
     const userStore = useSelector(state => state.userReducer)
     const { user, setUser } = useContext(UserContext)
     const dispatch = useDispatch()
@@ -167,8 +168,10 @@ const ProfilePage = () => {
                 hasBackgroundColour="#bba4dc"
                 summary="Review and update your details"
             />
+            {console.log(userStore)}
+            {console.log(user)}
             <Section
-                backgroundColour="#fafafa"
+                backgroundColour="#fff"
                 hasPaddingTop
                 hasPaddingBottom>
                 <Container fluid="xl">

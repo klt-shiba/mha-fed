@@ -71,6 +71,7 @@ export const autoLogin = () => async dispatch => {
     dispatch(setUserError(response))
     localStorage.removeItem('token')
   }
+  console.log("auto-log")
   const data = await response.json()
   dispatch(setUser(data?.user?.data))
 }
