@@ -5,7 +5,6 @@ const setUser = payload => ({ type: 'SET_USER', payload })
 const setUserError = payload => ({ type: 'SET_USER_ERROR', payload })
 
 
-
 export const logUserOut = () => (
   {
     type: 'LOG_OUT'
@@ -58,8 +57,6 @@ export const signUserUp = userInfo => async dispatch => {
 }
 
 export const autoLogin = () => async dispatch => {
-
-
   const response = await fetch(`${url}auto-auth`, {
     headers: {
       'Content-Type': 'application/json',
@@ -74,4 +71,21 @@ export const autoLogin = () => async dispatch => {
   console.log("auto-log")
   const data = await response.json()
   dispatch(setUser(data?.user?.data))
+}
+
+export const deleteUser = userInfo => async dispatch => {
+  const response = await fetch(`${url}users/${userInfo}/delete`, {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+  })
+  if (!response.ok) {
+    dispatch(setUserError(response))
+  }
+  const data = await response.json()
+  console.log(data)
+  dispatch(logUserOut())
 }

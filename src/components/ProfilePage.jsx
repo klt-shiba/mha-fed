@@ -3,15 +3,14 @@ import { Pane, Button } from "evergreen-ui";
 import { UserContext } from "../UserContext";
 import { logUserOut } from "../reducers/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import Section from "./Section";
 import InfoBlock from "./InfoBlock";
 import PageTitle from "./PageTitle";
 import ButtonWrapper from "./ButtonWrapper";
-import { url } from "../environment";
-
+import { deleteUser } from "../reducers/userActions";
 
 const ProfilePage = () => {
 
@@ -20,7 +19,6 @@ const ProfilePage = () => {
     const { user, setUser } = useContext(UserContext)
     const dispatch = useDispatch()
     const history = useHistory()
-    const location = useLocation()
     const { id } = useParams();
     const [userAttributes, setUserAttributes] = useState(null)
     const [isTherapist, setIsTherapist] = useState(null)
@@ -28,12 +26,16 @@ const ProfilePage = () => {
     const handleClick = (e) => {
         e.preventDefault()
         dispatch(logUserOut())
-        if (user) {
+        if (userStore) {
             history.push('')
         } else {
             console.log("error")
         }
     }
+
+    useEffect(() => {
+        setUser(userStore.user)
+    }, [userStore])
 
     useEffect(() => {
         checkUserType()
@@ -86,9 +88,17 @@ const ProfilePage = () => {
         }
     }
 
+    const deleteUserButton = (e) => {
+        e.preventDefault()
+        console.log("Clicked")
+        dispatch(deleteUser(id))
+    }
+
 
     const redirectIfNoUser = () => {
         if (!user && !userStore.loggedIn) {
+            history.push(`/`)
+        } else if (!userStore.loggedIn) {
             history.push(`/`)
         } else {
             return false
@@ -130,8 +140,8 @@ const ProfilePage = () => {
                         <b>Password:</b> ************
                     </div>
                     <div>
-                        {userAttributes ?
-                            <><b>Account created:</b> {formatDate(userAttributes.created_at)}</> : false}
+                        {user ?
+                            <><b>Account created:</b> {formatDate(user?.attributes?.created_at)}</> : undefined}
                     </div>
                 </>
             )
@@ -226,6 +236,15 @@ const ProfilePage = () => {
                                         fontSize="17px"
                                         onClick={handleClick}>
                                         Log Out
+                                    </Button>
+                                    <Button
+                                        type="submit"
+                                        appearance="default"
+                                        size="large"
+                                        height={48}
+                                        fontSize="17px"
+                                        onClick={deleteUserButton}>
+                                        Delete
                                     </Button>
                                 </ButtonWrapper>
                             </Pane>
