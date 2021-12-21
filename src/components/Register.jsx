@@ -71,7 +71,7 @@ const Register = () => {
     if (!userStore.loggedIn) {
       return false
     } else {
-      const id = userStore.loggedIn ? databaseObj?.data?.attributes?.slug : undefined
+      const id = userStore.loggedIn ? databaseObj?.attributes?.slug : undefined
       setIsLoading(false)
       history.push(`/users/${id}/getting-started`)
     }

@@ -56,7 +56,7 @@ const EditIssues = ({ nextStep, prevStep }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setIsLoading(true)
-    let id = therapistStore.therapist.id
+    let id = therapistStore.id
     dispatch(postIssues(issuesObj, id))
   };
 

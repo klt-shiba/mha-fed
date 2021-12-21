@@ -217,11 +217,11 @@ const Therapist = () => {
           🤩 Review Therapist
         </Button>
       )
-    } else if (user.attributes.client || user) {
+    } else if (user?.attributes?.client || user) {
       return (
         <>
           {
-            user.attributes.client ?
+            user?.attributes?.client ?
               <Button
                 appearance="primary"
                 width="100%"

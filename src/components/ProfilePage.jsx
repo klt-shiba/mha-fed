@@ -14,7 +14,7 @@ import ButtonWrapper from "./ButtonWrapper";
 
 const ProfilePage = () => {
 
-    const userStore = useSelector(state => state.userReducer.user)
+    const userStore = useSelector(state => state.userReducer)
     const { user, setUser } = useContext(UserContext)
     const dispatch = useDispatch()
     const history = useHistory()
@@ -47,18 +47,19 @@ const ProfilePage = () => {
     }, [user, userStore])
 
     const checkUserType = () => {
-        if (!user) {
+        console.log(userStore)
+        if (!user && !userStore.loggedIn) {
             setUserAttributes(null)
             setIsTherapist(null)
             return false
-        } else if (user.attributes.therapist === null && user.attributes.client === null) {
+        } else if (userStore.user.attributes.therapist === null && userStore.user.attributes.client === null) {
             setUserAttributes(null)
             setIsTherapist(null)
-        } else if (user.attributes.client === null) {
-            setUserAttributes(user.attributes.therapist)
+        } else if (userStore.user.attributes.client === null) {
+            setUserAttributes(userStore.user.attributes.therapist)
             setIsTherapist(true)
-        } else if (user.attributes.therapist === null) {
-            setUserAttributes(user.attributes.client)
+        } else if (userStore.user.attributes.therapist === null) {
+            setUserAttributes(userStore.user.attributes.client)
             setIsTherapist(false)
         } else {
             setUserAttributes(null)
@@ -74,10 +75,12 @@ const ProfilePage = () => {
 
     const redirectToCorrectPage = () => {
         const staticId = id
-        if (!user) {
+        console.log(user)
+        if (!userStore.loggedIn) {
             return false
-        } else if (staticId != user.attributes.slug) {
-            history.push(`/users/${user.attributes.slug}/profile`)
+        } else if (staticId != id) {
+            let id = userStore.user.attributes.slug
+            history.push(`/users/${id}/profile`)
         } else {
             return false
         }
@@ -121,7 +124,7 @@ const ProfilePage = () => {
             return (
                 <>
                     <div style={{ marginBottom: "12px" }}>
-                        <b>Email:</b> {`${user.attributes.email}`}
+                        <b>Email:</b> {`${userStore.user.attributes.email}`}
                     </div>
                     <div style={{ marginBottom: "12px" }}>
                         <b>Password:</b> ************
@@ -195,7 +198,7 @@ const ProfilePage = () => {
                                         content={renderTherapistInformation()}
                                         hasUpdateLink
                                         links={
-                                            <Link to={!userAttributes ? `/therapists` : `/therapists/${userAttributes.id}`}>
+                                            <Link to={!userAttributes ? `/therapists` : `/therapists/${userAttributes.slug}`}>
                                                 Check out my profile
                                             </Link>}>
                                     </InfoBlock> :

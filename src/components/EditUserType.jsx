@@ -107,7 +107,7 @@ const EditUserType = ({ nextStep }) => {
   const therapistOrClient = () => {
 
     if (isTherapist) {
-      formData.append('user_id', parseInt(userStore?.data.id))
+      formData.append('user_id', parseInt(userStore?.id))
       formData.append('first_name', preferredName)
       formData.append('last_name', lastName)
       formData.append('short_summary', short_summary)
@@ -117,7 +117,7 @@ const EditUserType = ({ nextStep }) => {
       formData.append('avatar_img', image)
       dispatch(createTherapist(formData))
     } else {
-      formData.append('user_id', parseInt(userStore?.data.id))
+      formData.append('user_id', parseInt(userStore?.id))
       formData.append('first_name', preferredName)
       formData.append('last_name', lastName)
       formData.append('avatar_img', image)

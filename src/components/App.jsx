@@ -34,12 +34,13 @@ const App = () => {
   }, [token])
 
   const fastLogin = () => {
+    console.log(databaseObj)
     if (!token) {
       setUser(null)
       return false
     } else {
       dispatch(autoLogin())
-      setUser(databaseObj.data)
+      setUser(databaseObj)
     }
   }
 

@@ -46,7 +46,7 @@ export const fetchUser = userInfo => async dispatch => {
     return false
   }
   const data = await response.json()
-  dispatch(setUser(data.user))
+  dispatch(setUser(data.user.data))
   localStorage.setItem('token', data.jwt)
 }
 
@@ -68,7 +68,7 @@ export const signUserUp = userInfo => async dispatch => {
   }
   const data = await response.json()
   console.log(data)
-  dispatch(setUser(data.user))
+  dispatch(setUser(data.user.data))
   localStorage.setItem('token', data.jwt)
 }
 
@@ -87,5 +87,5 @@ export const autoLogin = () => async dispatch => {
     localStorage.removeItem('token')
   }
   const data = await response.json()
-  dispatch(setUser(data.user))
+  dispatch(setUser(data.user.data))
 }

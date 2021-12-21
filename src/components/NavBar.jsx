@@ -1,25 +1,26 @@
-import { Heading, Pane, Avatar, Button, HeartIcon, HomeIcon } from "evergreen-ui";
-import React, { useContext, useEffect, useState } from "react";
+import { Pane, Avatar, Button } from "evergreen-ui";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import { useSelector } from "react-redux";
 
 const NavBar = ({ hasToken }) => {
 
     const { user, setUser } = useContext(UserContext)
-    const [userAttributes, setUserAttributes] = useState(null)
+    const userStore = useSelector(state => state.userReducer)
 
     const renderAvatar = () => {
-        console.log(user)
-        const id = user.attributes.slug
-        if (!user) {
+        if (!userStore.loggedIn) {
             return false
         } else {
+            const id = userStore.user.attributes.slug
+            const email = userStore.user.attributes.email
             return (
                 <Link
                     to={`/users/${id}/profile`}>
                     <Avatar
                         src=""
-                        name={user.attributes.email}
+                        name={email}
                         size={40}
                     />
                 </Link>
@@ -58,8 +59,7 @@ const NavBar = ({ hasToken }) => {
     }
 
     const renderMenuItems = () => {
-
-        if (!user) {
+        if (!userStore.loggedIn && !user) {
             hasToken()
             return (
                 <div>{renderLoginRegisterButtons()}</div>
@@ -74,7 +74,7 @@ const NavBar = ({ hasToken }) => {
 
     useEffect(() => {
         renderMenuItems()
-    }, [user])
+    }, [user, userStore])
 
     return (
         <><Pane
