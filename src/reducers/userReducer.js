@@ -3,7 +3,8 @@ const defaultState = {
     user: {},
     hasError: false,
     error: {},
-    type: {}
+    type: {},
+    exists: false
 }
 
 const userReducer = (state = defaultState, action) => {

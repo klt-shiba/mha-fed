@@ -92,6 +92,7 @@ const ProfilePage = () => {
         e.preventDefault()
         console.log("Clicked")
         dispatch(deleteUser(id))
+        setUser(null)
     }
 
 
