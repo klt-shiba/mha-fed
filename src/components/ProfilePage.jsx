@@ -92,7 +92,7 @@ const ProfilePage = () => {
         e.preventDefault()
         console.log("Clicked")
         dispatch(deleteUser(id))
-        setUser(null)
+        setUser(undefined)
     }
 
 
@@ -130,12 +130,12 @@ const ProfilePage = () => {
 
     const renderAccountInformation = () => {
         if (!user && !userAttributes) {
-            return null
+            return false
         } else {
             return (
                 <>
                     <div style={{ marginBottom: "12px" }}>
-                        <b>Email:</b> {`${userStore.user.attributes.email}`}
+                        <b>Email:</b> {`${userStore?.user?.attributes?.email}`}
                     </div>
                     <div style={{ marginBottom: "12px" }}>
                         <b>Password:</b> ************
@@ -179,7 +179,6 @@ const ProfilePage = () => {
                 hasBackgroundColour="#bba4dc"
                 summary="Review and update your details"
             />
-            {console.log(userStore)}
             {console.log(user)}
             <Section
                 backgroundColour="#fff"

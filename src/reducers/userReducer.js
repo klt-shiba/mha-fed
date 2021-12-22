@@ -3,8 +3,8 @@ const defaultState = {
     user: {},
     hasError: false,
     error: {},
-    type: {},
-    exists: false
+    setupComplete: false,
+    setupStepNumber: ""
 }
 
 const userReducer = (state = defaultState, action) => {
@@ -24,9 +24,11 @@ const userReducer = (state = defaultState, action) => {
                 hasError: true,
                 error: { ...action.payload }
             }
-        case "SET_USER_TYPE":
+        case "SET_USER_SETUP_PROGRESS":
             return {
-                type: { ...action.payload }
+                ...state,
+                setupComplete: false,
+                setupStepNumber: Number(action.payload)
             }
         case "LOG_OUT":
             console.log("logging-out")
