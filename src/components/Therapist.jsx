@@ -13,11 +13,13 @@ import { UserContext } from "../UserContext";
 import LinearProgress from '@mui/material/LinearProgress';
 import Footer from './Footer'
 import { url } from "../environment"
-
+import CardContainer from "./CardContainer";
+import CardV2 from "./CardV2";
 
 const Therapist = () => {
 
   const { user, setUser } = useContext(UserContext)
+  const [therapistObj, setTherapistObj] = useState(null);
   const [therapist, setTherapist] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [issues, setIssues] = useState([]);
@@ -26,7 +28,8 @@ const Therapist = () => {
   const history = useHistory();
   const [therapistRating, setTherapistRating] = useState(null)
   const [isLoading, setIsLoading] = useState((true))
-
+  const [relatedTherapists, setRelatedTherapists] = useState()
+  let city = therapist?.city;
 
   const fetchTherapist = () => {
 
@@ -39,6 +42,7 @@ const Therapist = () => {
       })
       .then((response) => {
         const data = response.data
+        setTherapistObj(data)
         setTherapist(data.attributes);
         setReviews(data.attributes.reviews)
         setIssues(data.attributes.issues)
@@ -51,6 +55,27 @@ const Therapist = () => {
         history.push("/");
       });
   };
+
+
+  const fetchRelatedTherapists = async (key, q) => {
+    const response = await fetch(`${url}therapists/search/${key}/${q}`)
+    if (!response.ok) {
+      console.log(response)
+      return false
+    }
+    const data = await response.json()
+    console.log(data)
+    handleRelatedTherapistsArray(data.data)
+  }
+
+  const handleRelatedTherapistsArray = (array) => {
+    if (!array) {
+      return undefined
+    } else {
+      let pos = array.find(el => el.id === therapistObj.id)
+      setRelatedTherapists(array.splice(pos, 1))
+    }
+  }
 
   const getRatings = (object) => {
 
@@ -75,12 +100,48 @@ const Therapist = () => {
 
   const average = (ratingsAverage) => ratingsAverage.reduce((a, b) => a + b) / ratingsAverage.length;
 
-
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetchTherapist();
   }, []);
+
+  useEffect(() => {
+    console.log(therapist)
+    fetchRelatedTherapists("City", `${city}`)
+  }, [therapist])
+
+  useEffect(() => {
+    renderSameCityTherapists()
+  }, [relatedTherapists]);
+
+
+  const renderSameCityTherapists = () => {
+    console.log("running")
+    if (!relatedTherapists) {
+      return null
+    } else {
+      console.log(relatedTherapists)
+      return (
+        <Infoblock
+          heading={`Therapists from ${city}`}
+          content={
+            <CardContainer isCard>
+              {relatedTherapists.map((el, index) => (
+                <CardV2
+                  imgSrc={el.attributes.avatar_img_url}
+                  hasLocation={el.attributes.city}
+                  title={`${el.attributes.first_name}` + ` ${el.attributes.last_name}`}
+                  href={`/therapists/${el.attributes.slug}`}
+                  id={el.id}
+                  isLoading={false} />
+              ))}
+
+            </CardContainer>}
+        />
+      )
+    }
+  }
 
   const ShowReviews = () => {
 
@@ -162,7 +223,6 @@ const Therapist = () => {
     }
   };
 
-
   const renderImgBanner = () => {
     if (!therapist) {
       return false
@@ -176,7 +236,6 @@ const Therapist = () => {
       )
     }
   }
-
 
   const renderSubheading = (object) => {
     const specialization = object ? object.profession : null
@@ -200,7 +259,6 @@ const Therapist = () => {
     return results.slice(0, 3).join(', ')
 
   }
-
 
   const renderReviewButton = () => {
     if (!user) {
@@ -271,48 +329,54 @@ const Therapist = () => {
           isRating={therapistRating} />
       </Section>
       <Section
-        backgroundColour="#fff">
+        backgroundColour="#fff"
+        hasPaddingBottom
+        hasPaddingTop>
         <Container>
           <Pane
             display="flex"
             flexDirection="column"
             className="vbox">
-            <Section>
-              <Container>
-                <Pane marginY={majorScale(3)}>
-                  <Row>
-                    <Col xs="12" lg="8">
-                      <Pane>
-                        <Infoblock
-                          heading="About me"
-                          content={therapist ? therapist.long_summary : false} />
-                      </Pane>
-                      <Pane marginY={majorScale(3)}>
-                        <Infoblock
-                          heading="What I can help with"
-                          content={ShowIssues()} />
-                      </Pane>
-                      <Pane marginY={majorScale(3)}>
-                        <Infoblock
-                          heading="Approaches I take"
-                          content={ShowTreatments()} />
-                      </Pane>
-                    </Col>
-                    <Col xs="12" lg="4">
-                      <Pane>
-                        <Infoblock
-                          heading="My reviews"
-                          content={ShowReviews()} />
-                      </Pane>
-                      <Pane>
-                        {renderReviewButton()}
-                      </Pane>
-                    </Col>
-                  </Row>
-                </Pane>
-              </Container>
-            </Section>
+            <Pane marginY={majorScale(3)}>
+              <Row>
+                <Col xs="12" lg="8">
+                  <Pane>
+                    <Infoblock
+                      heading="About me"
+                      content={therapist ? therapist.long_summary : false} />
+                  </Pane>
+                  <Pane marginY={majorScale(3)}>
+                    <Infoblock
+                      heading="What I can help with"
+                      content={ShowIssues()} />
+                  </Pane>
+                  <Pane marginY={majorScale(3)}>
+                    <Infoblock
+                      heading="Approaches I take"
+                      content={ShowTreatments()} />
+                  </Pane>
+                </Col>
+                <Col xs="12" lg="4">
+                  <Pane>
+                    <Infoblock
+                      heading="My reviews"
+                      content={ShowReviews()} />
+                  </Pane>
+                  <Pane>
+                    {renderReviewButton()}
+                  </Pane>
+                </Col>
+              </Row>
+            </Pane>
           </Pane >
+        </Container>
+      </Section>
+      <Section
+        backgroundColour="#fafafa"
+        hasPaddingTop
+        hasPaddingBottom>
+        <Container>
+          {renderSameCityTherapists()}
         </Container>
       </Section>
       <Footer />
