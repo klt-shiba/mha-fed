@@ -129,6 +129,7 @@ const Therapist = () => {
             <CardContainer isCard>
               {relatedTherapists.map((el, index) => (
                 <CardV2
+                  key={index}
                   imgSrc={el.attributes.avatar_img_url}
                   hasLocation={el.attributes.city}
                   title={`${el.attributes.first_name}` + ` ${el.attributes.last_name}`}
@@ -278,8 +279,8 @@ const Therapist = () => {
       return (
         <>
           {
-            user?.attributes?.client ?
-              <Button
+            user?.attributes?.client
+              ? <Button
                 appearance="primary"
                 width="100%"
                 height={48}
@@ -315,7 +316,7 @@ const Therapist = () => {
 
   return (
     <>
-      {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
+      {isLoading && <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} />}
       <Section
         backgroundColour="#fafafa">
         <PrimaryBanner
@@ -343,7 +344,7 @@ const Therapist = () => {
                   <Pane>
                     <Infoblock
                       heading="About me"
-                      content={therapist ? therapist.long_summary : false} />
+                      content={therapist && therapist.long_summary} />
                   </Pane>
                   <Pane marginY={majorScale(3)}>
                     <Infoblock

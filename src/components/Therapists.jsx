@@ -52,10 +52,6 @@ const Therapists = props => {
 
   }, [homepageSearch, location.search]);
 
-  useEffect(() => {
-    prepareIssues()
-  }, [issues]);
-
   const checkSearchParameter = (searchParameter) => {
     if (!searchParameter) {
       return false
@@ -98,7 +94,6 @@ const Therapists = props => {
   const filterTherapistsByKeyAndValue = (key, value) => {
 
     let results = []
-
 
     if (!homepageSearch) {
       return false
@@ -178,9 +173,10 @@ const Therapists = props => {
   };
 
   const fetchIssues = async () => {
+
     try {
-      const url = `${url}issues`
-      const res = await fetch(url);
+      const newUrl = `${url}issues`
+      const res = await fetch(newUrl);
       const data = await res.json();
 
       setIssues(data.sort(function (a, b) {
@@ -194,76 +190,6 @@ const Therapists = props => {
     }
   }
 
-  const prepareIssues = () => {
-    if (!issues) {
-      return false
-    } else {
-      const results = collectIssueNames(issues)
-      setDropdownIssues(results)
-    }
-  }
-
-  const collectIssueNames = (issues) => {
-    let results = []
-    issues.map((issue, index) => {
-      let item = {
-        "label": issue.name,
-        "id": index + 1
-      }
-      results.push(item)
-    })
-    results.sort((a, b) => a.label.localeCompare(b.label))
-    return results
-  }
-
-  const handleChange = (e) => {
-    setDropdownValues(e.target.text)
-  }
-  const handleInputChange = (e) => {
-  }
-
-  const renderSearch = () => {
-    return (
-      <Autocomplete
-        sx={{
-          bgcolor: "white",
-          borderRadius: 2,
-          border: 0,
-          '& .Mui-Focused': {
-            borderColor: "white",
-            border: 0,
-          },
-        }}
-        multiple
-        limitTags={4}
-        id="autocomplete"
-        options={dropdownIssues ? dropdownIssues : "Not working"}
-        getOptionLabel={(issue) => issue.label}
-        onInputChange={handleInputChange}
-        onChange={(event, newValue) => {
-          setDropdownValues(newValue)
-        }}
-        value={dropdownValue}
-        renderInput={(params) => (
-          <TextField
-            sx={{
-              bgcolor: "white",
-              borderRadius: 2,
-              border: 0,
-
-              '& .Mui-Focused .MuiOutlinedInput-notchedOutline': {
-                borderColor: "white",
-                border: 0,
-              },
-              '& .MuiOutlinedInput-notchedOutline': {
-                bgcolor: 'none',
-                border: 0,
-              },
-            }}{...params} inputValue={"value"} onChange={handleChange} placeholder="I need help with..." />
-        )}
-      />
-    )
-  }
 
   useEffect(() => {
     allTherapists();
@@ -345,6 +271,7 @@ const Therapists = props => {
           {
             filteredTherapist.map((therapist, index) => (
               <CardV2
+                key={index}
                 isPopular={(getRatings(therapist) >= 5) ? true : false}
                 imgSrc={therapist.attributes.avatar_img_url}
                 hasLocation={therapist.attributes.city}
@@ -364,6 +291,7 @@ const Therapists = props => {
           {
             therapists.map((therapist, index) => (
               <CardV2
+                key={index}
                 isPopular={(getRatings(therapist) >= 5) ? true : false}
                 imgSrc={therapist.attributes.avatar_img_url}
                 hasLocation={therapist.attributes.city}
@@ -448,11 +376,10 @@ const Therapists = props => {
           searchResult={homepageSearch ? searchValue : "Everything"}
           numberOfResults={filteredTherapist ? filteredTherapist.length : therapists.length}
           totalTherapists={therapists ? therapists.length : "18"}
-          hasClick={clearResults}></ResultsBar>
+          hasClick={clearResults} />
       </>
     )
   }
-
 
   useEffect(() => {
     renderResultsBar()
