@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { Pane, Button, Paragraph, majorScale } from "evergreen-ui";
-import { Rating } from "@mui/material";
+import { Pane, Button, majorScale } from "evergreen-ui";
 import Section from "./Section";
 import { Container, Row, Col } from "reactstrap";
 import ImgBanner from "./ImgBanner";
@@ -70,7 +69,7 @@ const Therapist = () => {
 
   const handleRelatedTherapistsArray = (array) => {
     if (!array) {
-      return undefined
+      return null
     } else {
       let pos = array.find(el => el.id === therapistObj.id)
       setRelatedTherapists(array.splice(pos, 1))

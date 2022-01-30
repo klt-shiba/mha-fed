@@ -3,6 +3,10 @@ import { url } from "../environment"
 const setTherapist = (payload) => ({ type: "SET_THERAPIST", payload });
 const setTherapistIssues = (payload) => ({ type: "SET_THERAPIST_ISSUES", payload });
 const setTherapistTreatment = (payload) => ({ type: "SET_THERAPIST_TREATMENT", payload });
+const setTherapistUpdateError = (payload) => ({ type: "SET_THERAPIST_UPDATE_ERROR", payload });
+const updateTherapist = (payload) => ({ type: "UPDATE_THERAPIST", payload });
+
+
 
 export const clearTherapist = () => ({ type: "LOG_OUT" });
 
@@ -63,7 +67,7 @@ export const postTreatments = (treatments, id) => (dispatch) => {
 
   console.log("accessing postTreatments correctly");
 
-  const url = `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${id}/add-treatments`
+  const url = `${url}therapists/${id}/add-treatments`
   fetch(url, {
     method: 'POST',
     headers: {
@@ -84,4 +88,23 @@ export const postTreatments = (treatments, id) => (dispatch) => {
       console.log(error)
       return false
     })
+}
+
+
+export const updateTherapistUser = (userID, userInfo) => async dispatch => {
+
+  const response = await fetch(`${url}therapists/${userID}/update`, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    body: userInfo
+  })
+  if (!response.ok) {
+    dispatch(setTherapistUpdateError(response))
+  }
+  const data = await response.json()
+  console.log(data)
+  dispatch(updateTherapist(data))
 }

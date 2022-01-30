@@ -166,7 +166,7 @@ const CardV2 = (props) => {
             <div>
                 <ImgContainer
                     isLoading={props.isLoading}>
-                    {props.isPopular ? <div className="bullet_wrapper"><Bullet label={`${"👍"} Recommended`} hasColour hasSize="small" /></div> : false}
+                    {props.isPopular && <div className="bullet_wrapper"><Bullet label={`${"👍"} Recommended`} hasColour hasSize="small" /></div>}
                     <img loading="lazy"
                         src={props.imgSrc}
                         alt={props.altTag} />

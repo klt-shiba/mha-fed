@@ -1,16 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../UserContext";
 import { Pane, majorScale, TextInputField, FilePicker, Label, Button } from "evergreen-ui";
-import { useParams, useHistory } from "react-router";
+import { useHistory } from "react-router";
 import Section from './Section'
 import PageTitle from "./PageTitle";
 import { Container } from "reactstrap";
 import LinearProgress from '@mui/material/LinearProgress';
 import { useDispatch, useSelector } from "react-redux";
+import { updateTherapistUser } from "../reducers/therapistActions"
 
 
 const UpdateUserType = () => {
-    const userStore = useSelector(state => state.userReducer)
+    const therapistStore = useSelector(state => state.therapistReducer)
     const { user, setUser } = useContext(UserContext)
     const [isTherapist, setIsTherapist] = useState(null)
     const [form, setForm] = useState({
@@ -22,6 +23,8 @@ const UpdateUserType = () => {
     const [isLoading, setIsLoading] = useState(false)
     const userId = user ? user.id : null
     let urlId = ""
+
+    const dispatch = useDispatch()
 
     const checkUserType = () => {
         if (!user) {
@@ -43,7 +46,6 @@ const UpdateUserType = () => {
         checkUserType()
     }, [user])
 
-    const token = localStorage.getItem('token')
     const history = useHistory()
 
 
@@ -68,6 +70,9 @@ const UpdateUserType = () => {
 
 
     const handleSuccessOrFailure = (value) => {
+
+
+
         switch (value) {
             case "Fail":
                 console.log("Failure")
@@ -91,28 +96,8 @@ const UpdateUserType = () => {
 
         checkUserType()
 
-        const url = isTherapist ?
-            `https://damp-journey-90616.herokuapp.com/api/v1/therapists/${urlId}/update` :
-            `https://damp-journey-90616.herokuapp.com/api/v1/clients/${urlId}/update`
+        dispatch(updateTherapistUser(urlId, formData))
 
-        fetch(url, {
-            method: "PATCH",
-            headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: formData
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setIsLoading(false)
-                handleSuccessOrFailure("Success")
-            })
-            .catch((error) => {
-                console.log(error)
-                setIsLoading(false)
-                handleSuccessOrFailure("Fail")
-            });
     };
 
     return (
@@ -124,6 +109,7 @@ const UpdateUserType = () => {
                 summary="Review and update your personal details."
             />
             {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
+            {console.log(therapistStore)}
             <Section
                 backgroundColour="#fafafa"
                 hasPaddingTop

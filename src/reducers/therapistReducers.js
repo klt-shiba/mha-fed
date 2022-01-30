@@ -5,7 +5,9 @@ const defaultState = {
     hasIssues: false,
     issues: [],
     hasTreatment: false,
-    treatment: []
+    treatment: [],
+    hasError: false,
+    error: {}
 }
 
 const therapistReducer = (state = defaultState, action) => {
@@ -29,6 +31,20 @@ const therapistReducer = (state = defaultState, action) => {
                 ...state,
                 hasTreatment: true,
                 treatment: [...action.payload]
+            }
+        case "SET_THERAPIST_UPDATE_ERROR":
+            console.log("working")
+            return {
+                ...state,
+                hasError: true,
+                error: { ...action.payload }
+            }
+        case "UPDATE_THERAPIST":
+            return {
+                ...state,
+                isTherapist: true,
+                therapist: { ...action.payload.attributes },
+                id: parseInt(action.payload.id)
             }
         default: return state
     }

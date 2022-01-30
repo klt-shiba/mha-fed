@@ -18,7 +18,7 @@ import ProfilePage from "./ProfilePage";
 import UpdateUserType from "./UpdateUserType";
 import UpdateAccountInfo from "./UpdateAccountInfo";
 import ErrorPage from "./ErrorPage";
-import { useAuth0 } from "@auth0/auth0-react";
+
 
 const App = () => {
 

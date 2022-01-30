@@ -1,4 +1,5 @@
 const defaultState = {
+    pending: false,
     loggedIn: false,
     user: {},
     hasError: false,
