@@ -237,7 +237,7 @@ const ProfilePage = () => {
                                         onClick={handleClick}>
                                         Log Out
                                     </Button>
-                                    <Button
+                                    {/* <Button
                                         type="submit"
                                         appearance="default"
                                         size="large"
@@ -245,7 +245,7 @@ const ProfilePage = () => {
                                         fontSize="17px"
                                         onClick={deleteUserButton}>
                                         Delete
-                                    </Button>
+                                    </Button> */}
                                 </ButtonWrapper>
                             </Pane>
                         </Pane >

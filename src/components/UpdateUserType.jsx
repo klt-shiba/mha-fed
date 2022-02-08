@@ -23,7 +23,7 @@ const UpdateUserType = () => {
     const [isLoading, setIsLoading] = useState(false)
     const userId = user ? user.id : null
     let urlId = ""
-
+    const formData = new FormData()
     const dispatch = useDispatch()
 
     const checkUserType = () => {
@@ -45,6 +45,10 @@ const UpdateUserType = () => {
     useEffect(() => {
         checkUserType()
     }, [user])
+
+    useEffect(() => {
+        redirectUserAfterUserUpdated(therapistStore)
+    }, [therapistStore])
 
     const history = useHistory()
 
@@ -68,24 +72,14 @@ const UpdateUserType = () => {
         }
     }
 
-
-    const handleSuccessOrFailure = (value) => {
-
-
-
-        switch (value) {
-            case "Fail":
-                console.log("Failure")
-                break;
-            case "Success":
-                routeToProfile()
-                break;
-            default:
-                console.log("Not working")
+    const redirectUserAfterUserUpdated = (user) => {
+        if (user.hasError || user.hasError === undefined) {
+            return false
+        } else {
+            setIsLoading(false)
+            routeToProfile()
         }
     }
-
-    const formData = new FormData()
 
     const patchDetails = () => {
 
@@ -108,7 +102,7 @@ const UpdateUserType = () => {
                 hasBackgroundColour="#bba4dc"
                 summary="Review and update your personal details."
             />
-            {isLoading ? <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} /> : false}
+            {isLoading && <LinearProgress sx={{ height: '8px', bgcolor: 'white', color: 'purple' }} />}
             {console.log(therapistStore)}
             <Section
                 backgroundColour="#fafafa"

@@ -106,5 +106,5 @@ export const updateTherapistUser = (userID, userInfo) => async dispatch => {
   }
   const data = await response.json()
   console.log(data)
-  dispatch(updateTherapist(data))
+  dispatch(updateTherapist(data.data))
 }

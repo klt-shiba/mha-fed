@@ -6,7 +6,7 @@ const defaultState = {
     issues: [],
     hasTreatment: false,
     treatment: [],
-    hasError: false,
+    hasError: undefined,
     error: {}
 }
 
@@ -43,6 +43,7 @@ const therapistReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 isTherapist: true,
+                hasError: false,
                 therapist: { ...action.payload.attributes },
                 id: parseInt(action.payload.id)
             }
